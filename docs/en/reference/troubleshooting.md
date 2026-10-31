@@ -6,8 +6,8 @@ First look at the **communication log** at the bottom left of the GUI (`logs/gui
 
 | Symptom | Fix |
 | --- | --- |
-| Scope: cannot connect, or shows "Connected" but settings are not applied | Set the resource name to `VICP::192.168.0.2::INSTR`. On the scope, check the control method (TCPIP (VICP) or LXI (VXI11)) and IP under Utilities → Utilities Setup → Remote. If ping works, VICP should connect. On connect, the `*IDN?` response is verified; if there is no response, VICP ⇔ VXI-11 is tried automatically before reporting an error |
-| Stage: ping works but the connection times out | The TCP port number does not match the controller setting. The real hardware uses **9004**. Enter `192.168.0.3:<port>` in the address field. If a previous session is holding the connection, restart the controller. If it connects but does not respond, check the SHOT-compatible mode and the delimiter (CRLF) |
+| Scope: cannot connect, or shows "Connected" but settings are not applied | Set the resource name to `VICP::<scope IP>::INSTR` (IP: [Internal information](../internal.md#network)). On the scope, check the control method (TCPIP (VICP) or LXI (VXI11)) and IP under Utilities → Utilities Setup → Remote. If ping works, VICP should connect. On connect, the `*IDN?` response is verified; if there is no response, VICP ⇔ VXI-11 is tried automatically before reporting an error |
+| Stage: ping works but the connection times out | The TCP port number does not match the controller setting. Enter `<stage IP>:<port>` in the address field, using the values in [Internal information](../internal.md#network). If a previous session is holding the connection, restart the controller. If it connects but does not respond, check the SHOT-compatible mode and the delimiter (CRLF) |
 | Laser: cannot connect | Check the COM number in Device Manager (COM5 on the control PC). Check that the FTDI VCP driver is installed |
 | Camera: no image | Try a different [Device] number (default 0) |
 

@@ -25,6 +25,13 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt
+      # 内部情報ページを復号してパスワード付きページとして用意する（Secret が無ければ案内ページ）。
+      # PR のビルドには Secret を渡さない（PR の変更で漏えいさせないため。PR は案内ページでビルドする）
+      # Prepare the password-protected internal page (placeholder if the secret is not set).
+      # The secret is never passed to pull_request runs, so a PR cannot exfiltrate it.
+      - run: python scripts/internal.py prepare
+        env:
+          WIKI_INTERNAL_PASSWORD: ${{ github.event_name != 'pull_request' && secrets.WIKI_INTERNAL_PASSWORD || '' }}
       - run: mkdocs build --strict
       - if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3

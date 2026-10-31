@@ -7,7 +7,7 @@
 
 | 項目 | 内容 |
 | --- | --- |
-| ユーザー名 | `epic`（パスワードは問い合わせ先に聞く） |
+| ユーザー名・パスワード | [内部情報](../internal.md#accounts) を見る（パスワードは問い合わせ先に聞く） |
 | GUI フォルダ | `~/workspace/laser_gui_v4/`（日本語 UI 版）、`~/workspace/laser_gui_v4_en/`（英語 UI 版） |
 | コードの入手先 | 最新版は GitHub で公開する予定（未公開） |
 | Python | 最新版 |
@@ -57,15 +57,15 @@ pip install -r requirements.txt
 1. **PiLAS DX**：USB 接続には FTDI VCP ドライバが必要です（PiLAS Product Guide 3.3 節）。
    デバイスマネージャで COM 番号を確認します（制御 PC では **COM5**）。
 2. **LeCroy オシロスコープ**：オシロ本体の Utilities → Utilities Setup → Remote で制御方式を確認します。
-    - **TCPIP (VICP)**（既定）なら `VICP::192.168.0.2::INSTR`
-    - **LXI (VXI11)** なら `TCPIP0::192.168.0.2::inst0::INSTR`
+    - **TCPIP (VICP)**（既定）なら `VICP::<オシロの IP>::INSTR`
+    - **LXI (VXI11)** なら `TCPIP0::<オシロの IP>::inst0::INSTR`
 
-    どちらでも、接続時にもう一方へ自動フォールバックします。IP は 192.168.0.2 です。
+    どちらでも、接続時にもう一方へ自動フォールバックします。IP は [内部情報](../internal.md#network) にあります。
 3. **LeCroy の SSH サーバ**：データ回収はオシロ側 Windows の OpenSSH サーバ (sshd) に接続します。
    2026-09 時点で設定済みです。
-4. **SHRC-203**：本体メニューで Ethernet を有効化し、IP 192.168.0.3 を設定します。通信モードは SHOT 互換コマンド、
-   ポート番号は本体設定に合わせます（実機は **9004**）。
-5. **制御 PC**：IP アドレスを **192.168.0.1** に設定します。
+4. **SHRC-203**：本体メニューで Ethernet を有効化し、IP を設定します（[内部情報](../internal.md#network)）。通信モードは SHOT 互換コマンド、
+   ポート番号は本体設定に合わせます。
+5. **制御 PC**：機器側 LAN の IP アドレスを設定します（[内部情報](../internal.md#network)）。
 
 ## 環境ごとの設定 `config_local.json` { #config }
 
@@ -78,18 +78,18 @@ COM ポート番号やオシロ側の保存先など PC ごとに違う設定は
   "stage_um_per_pulse": [2.0, 2.0, 2.0],
   "stage_speed_pps": [1000, 10000, 200],
   "scope_save_dir": "C:\\Users\\LeCroyUser\\Desktop\\data",
-  "scope_smb_user": "lcrydmin",
+  "scope_smb_user": "<SSH ユーザー>",
   "transfer_dest_dir": "..\\data"
 }
 ```
 
 | キー | 既定値 | 内容 |
 | --- | --- | --- |
-| `scope_resource` | `VICP::192.168.0.2::INSTR` | オシロの接続先 |
+| `scope_resource` | `VICP::<オシロの IP>::INSTR` | オシロの接続先 |
 | `scope_save_dir` | `C:\Users\LeCroyUser\Desktop\data` | オシロ本体側の波形保存ベースフォルダ |
-| `scope_smb_user` | `lcrydmin` | データ回収の SSH ユーザー名 |
+| `scope_smb_user` | `<SSH ユーザー>` | データ回収の SSH ユーザー名 |
 | `transfer_dest_dir` | `..\data` | PC 側の回収先（GUI フォルダからの相対パス可） |
-| `stage_host` / `stage_port` | `192.168.0.3` / `9004` | ステージの接続先 |
+| `stage_host` / `stage_port` | `<ステージの IP>` / `<ポート>` | ステージの接続先 |
 | `stage_um_per_pulse` | `[2.0, 2.0, 2.0]` | 1 パルスあたりの移動量 [µm]（X, Y, Z）。実機確認済み |
 | `stage_speed_pps` | `[1000, 10000, 200]` | 起動速度 [pps]、最高速度 [pps]、加減速時間 [ms]。上げすぎると脱調の恐れ |
 | `laser_port` | `COM5` | レーザーの COM ポート |

@@ -15,6 +15,7 @@ from the initial setup to data taking with the control GUI (laser_gui).
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+python scripts/internal.py prepare
 mkdocs serve
 ```
 

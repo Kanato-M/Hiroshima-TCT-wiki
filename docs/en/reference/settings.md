@@ -83,9 +83,7 @@ Standard measurement conditions and GUI defaults. The values come from `config.p
 
 | Device | Address |
 | --- | --- |
-| Control PC | 192.168.0.1 |
-| Oscilloscope | 192.168.0.2 (VICP, SSH user `lcrydmin`) |
-| Stage SHRC-203 | 192.168.0.3:9004 |
+| Control PC, oscilloscope, stage, NAS | LAN. IP addresses and user names: [Internal information](../internal.md#network) (password protected) |
+| Oscilloscope | VICP |
 | Laser PiLAS DX | COM5 (19200 baud, 8N1, CR terminated) |
 | Camera | Device index 0 |
-| NAS (backup destination) | `quark-lab@10.28.57.235:/share/laser_data/<year>/` |

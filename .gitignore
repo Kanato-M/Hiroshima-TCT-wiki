@@ -3,3 +3,8 @@ site/
 venv/
 __pycache__/
 .DS_Store
+
+# 内部情報の平文は絶対にコミットしない / never commit the plaintext internal pages
+internal/src/
+docs/*/internal.md
+encryptcontent.cache

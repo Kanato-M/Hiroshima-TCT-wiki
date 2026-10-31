@@ -23,8 +23,8 @@ flowchart LR
     HV["HV −190 to −195 V<br/>Matsusada P4L650-0.1"] --> DUT
     LV["LV 6.0 V<br/>R&S NGP800"] --> DUT
     PC["Control PC (Windows)<br/>laser_gui"]
-    PC ---|"LAN 192.168.0.2"| OSC
-    PC ---|"LAN 192.168.0.3:9004"| STG
+    PC ---|LAN| OSC
+    PC ---|LAN| STG
     PC ---|"USB virtual COM (COM5)"| LAS
     PC ---|USB| CAM
 ```
@@ -56,7 +56,7 @@ flowchart LR
 | LV supply | Rohde & Schwarz NGP800 series | 6.0 V (manual operation) |
 | HV supply | Matsusada P4L650-0.1 | −190 to −195 V (manual operation, changed with temperature; limit −220 V) |
 | Focus camera | USB camera (manual-focus lens, no autofocus) | Read with OpenCV, device index 0 |
-| Control PC | Windows, Python 3.10 or later. GUI laid out for a 16:9 wide monitor (EX-LDHU431DB) | IP 192.168.0.1 |
+| Control PC | Windows, Python 3.10 or later. GUI laid out for a 16:9 wide monitor (EX-LDHU431DB) | Fixed IP on the instrument LAN |
 
 !!! note "Differences from the analysis note"
     The analysis note matome gives the cable length as "1 m (to be confirmed)" and the sensor temperature as "about 35 °C (not finalized)",
@@ -98,14 +98,14 @@ per-PC differences are overridden in `config_local.json` ([Control PC and softwa
 
 | Panel | Device | Connection | Default address |
 | --- | --- | --- | --- |
-| Oscilloscope | LeCroy WavePro | LAN. VICP (default) or VXI-11. On connect, the `*IDN?` response is checked; if it fails, the other protocol is tried automatically | `VICP::192.168.0.2::INSTR` |
-| Stage | SHRC-203 (3 axes) | LAN (TCP) or RS-232C. SHOT-compatible commands, CRLF delimiter | `192.168.0.3:9004` |
+| Oscilloscope | LeCroy WavePro | LAN. VICP (default) or VXI-11. On connect, the `*IDN?` response is checked; if it fails, the other protocol is tried automatically | `VICP::<scope IP>::INSTR` |
+| Stage | SHRC-203 (3 axes) | LAN (TCP) or RS-232C. SHOT-compatible commands, CRLF delimiter | `<stage IP>:<port>` |
 | Laser | PiLAS DX (EGI-D2-40) | USB virtual COM port (19200 baud, 8N1, CR terminated). Requires the FTDI VCP driver | `COM5` |
 | Camera | Focus camera | USB. OpenCV (DirectShow preferred on Windows) | Device index `0` |
 
-- Set the IP address of the control PC to **192.168.0.1**.
+- The IP addresses, ports and user names of the devices are in [Internal information](../internal.md#network) (password protected).
 - The oscilloscope is synchronized by feeding the laser TRIG OUT into its external trigger (EXT).
-- Scope data are retrieved to the PC over SSH/SFTP (user name `lcrydmin`; ask the administrator for the password).
+- Scope data are retrieved to the PC over SSH/SFTP (user name: [Internal information](../internal.md#accounts); ask the contact person for the password).
 
 ### Readout channel map (standard sensor) { #readout-map }
 

@@ -19,7 +19,7 @@
 - If anything seems wrong, press **[■ STOP ALL]** at the right end of the toolbar (aborts the task → laser OFF → stops the stage → scope STOP).
 
 - The green safety goggles are kept near the dark room on the central workbench.
-- Laser safety officers: Yano and Matsutani
+- Laser safety officers: see [Internal information](../internal.md#contacts) (password protected)
 
 ## Stage (collision with the objective)
 
