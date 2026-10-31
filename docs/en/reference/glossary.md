@@ -44,3 +44,53 @@ CFD
 
 Bias tee
 :   A component that separates or combines DC bias and RF signals.
+
+## Terms specific to the Hiroshima setup and GUI
+
+AC-LGAD
+:   AC-coupled LGAD. A structure with a continuous n+ resistive layer and AC-coupled electrodes on top of the LGAD gain layer. The signal spreads through the resistive layer and is shared among several electrodes, giving a position resolution finer than the electrode pitch.
+
+ePIC / bTOF
+:   The ePIC experiment at the EIC (Electron-Ion Collider) and its barrel time-of-flight detector. It uses AC-LGAD strips.
+
+laser_gui
+:   The control GUI of the Hiroshima TCT setup (AC-LGAD Laser Scan Control GUI). Operates the scope, stage, laser and camera from a single window.
+
+TUNE
+:   The PiLAS laser setting [%] that sets the pulse intensity. 0 % is strongest, 100 % weakest. The optimal value changes with the repetition rate.
+
+TRIG OUT
+:   Trigger output of the laser controller. Fed into the external trigger (EXT) of the scope and used as the time reference.
+
+Logical coordinates / logical origin
+:   Sensor-based coordinates [µm] used by the GUI. The origin is X = frame (GND) edge, Y = electrode center of the reference CH, Z = focus.
+
+Machine coordinates / mechanical origin
+:   Coordinates measured from the mechanical origin (H:W) of the stage controller. The GUI tracks them across R:W.
+
+H:W / R:W / M:W / L:W
+:   SHRC-203 commands. H:W is mechanical homing, R:W resets the logical origin (sets the current position to 0), M:W is a relative move, L:W is stop.
+
+M-ORG
+:   Mechanical homing from the joystick JS-301. It breaks the GUI's machine coordinate tracking, so use H:W from the GUI instead.
+
+Origin finding
+:   Procedure that uses the laser signal as a ruler to find the focus, electrode center and frame edge automatically and set the logical origin.
+
+Full calibration
+:   Origin finding plus measurement of the sensor tilt coefficients dY/dX, dZ/dX and dZ/dY.
+
+Sequence mode / segment
+:   Scope mode that acquires many waveforms, one per trigger (segments), in one batch. 2000 segments per point is standard.
+
+PAVA / PKPK
+:   LeCroy waveform parameters. The GUI uses them to read amplitudes (PKPK is peak-to-peak).
+
+TRIGTIME
+:   The trigger time of each segment in a LeCroy sequence waveform. Used as the origin of arrival times.
+
+VICP
+:   LeCroy's own LAN control protocol (port 1861).
+
+MIP-equivalent
+:   State in which the laser pulse height is matched to the MIP signal measured in a beam test (e.g. 64 mV for the adjacent 2-ch sum at the strip midpoint in the DESY beam test).

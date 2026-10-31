@@ -52,7 +52,7 @@ The charge generation point can therefore be placed in three dimensions by movin
 ## Beam spot and focus
 
 - The position resolution is set by the beam focus size (typically a few µm to a little over 10 µm).
-- The focus position is found with a [focus scan](../measurement/scans.md#focus-scan).
+- The focus position is found with a [focus scan](scan-types.md#focus-scan).
 - If the laser intensity is too high, the large amount of charge screens the electric field (plasma effect) and distorts the waveform.
   Check that the waveform shape does not change when you vary the intensity.
 

@@ -1,5 +1,14 @@
 # 波形解析
 
+!!! info "広島の装置のデータ"
+    広島の装置の波形は LeCroy のシーケンス形式 `.trc`（1 点・1 CH ごとに 2000 セグメント）で保存されます。
+    取得直後の確認は GUI の [解析] タブで行えます（[データ回収と簡易解析](../measurement/data.md#analysis)）。
+    自分で読むときは GUI 付属の `analysis/trc_reader.py`、または [ROOT 変換も行う] で作った ROOT ファイルを使ってください。
+    到達時刻の原点には各セグメントのトリガー時刻（TRIGTIME。ROOT では `trig_offset`）を使い、
+    ヘッダーの `horiz_offset` は使いません（[時間の基準](../setup/hardware.md#time-reference)）。
+
+このページは一般的な波形解析の考え方とサンプルコードです。
+
 ## 基本的な流れ
 
 ```mermaid

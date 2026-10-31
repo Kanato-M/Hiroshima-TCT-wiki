@@ -1,7 +1,10 @@
 # Hiroshima TCT Wiki
 
-TCT (Transient Current Technique) scan の測定・解析に関する日本語・英語の Wiki です。
-A bilingual (Japanese / English) wiki for TCT (Transient Current Technique) scan measurements and analysis.
+広島大学のレーザー TCT (Transient Current Technique) スキャン装置（AC-LGAD 評価用）の使い方をまとめた日本語・英語の Wiki です。
+初期セットアップから制御 GUI（laser_gui）でのデータ取得までを、この Wiki だけで行えることを目標にしています。
+
+A bilingual (Japanese / English) wiki on how to operate the laser TCT (Transient Current Technique) scan setup for AC-LGAD sensors at Hiroshima University,
+from the initial setup to data taking with the control GUI (laser_gui).
 
 - Site: <https://kanato-m.github.io/Hiroshima-TCT-wiki/>
 - English: <https://kanato-m.github.io/Hiroshima-TCT-wiki/en/>

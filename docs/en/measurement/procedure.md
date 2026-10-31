@@ -1,62 +1,92 @@
-# Procedure
+# Measurement Workflow
 
-Below is a typical TCT measurement flow. Add any procedures specific to our setup.
+This page shows the flow from power-on to data taking and shutdown. Detailed operations for each step are on the linked pages.
+The checkboxes are meant to be printed and used.
 
 !!! danger
     Read [Safety](../introduction/safety.md) before you start.
 
-## 1. Preparation
+```mermaid
+flowchart TD
+    A["0. Preparation / power-on"] --> B["1. Start GUI / connect devices<br/>Mechanical Home (H:W)"]
+    B --> C["Select sensor"]
+    C --> D["Coarse positioning<br/>Go to Start"]
+    D --> E["Laser ON<br/>Scope standard settings"]
+    E --> F["2. Find Origin<br/>(Full Calibration after remounting)"]
+    F --> G["3. TUNE optimization"]
+    G --> H["4. Auto scan"]
+    H --> I["5. Data retrieval / quick analysis"]
+    I --> J["Shutdown"]
+```
 
-- [ ] Record the sensor ID, type and irradiation history (fluence, annealing)
-- [ ] Mount the sensor on the board and check the signal, bias and ground connections
-- [ ] Inspect the sensor surface under a microscope for scratches or dirt
-- [ ] Write the date, purpose and operator in the measurement log
+## 0. Preparation and power-on { #power-on }
 
-## 2. Environment
+- [ ] Write the date, purpose, operator and sensor ID in the measurement log (e.g. electronic logbook)
+- [ ] Check that the readout board is fixed on the stage, the C1–C4 signal cables go to scope inputs C1–C4, and TRIG OUT goes to the scope EXT input
+- [ ] Turn on the devices (for the order, see "To be confirmed" below)
+- [ ] Turn on LV 6.0 V (readout board)
+- [ ] Turn on HV −185 V (sensor bias)
 
-- [ ] Fix the sensor on the stage in the dark box and close the box
-- [ ] Start flushing with dry air (or nitrogen)
-- [ ] If cooling, start **only after the dew point is low enough**
-- [ ] Wait until temperature and humidity are stable
+!!! question "To be confirmed"
+    - The order in which to turn on the devices, and where each power switch is (PiLAS controller EGI-D2-40, SHRC-203, oscilloscope, control PC, LV supply, HV supply)
+    - How to operate the HV and LV supplies (current limit setting, ramp-up procedure)
+    - How to check the dark room door, lighting and interlock
+    - The procedure for remounting the readout board (sensor), and whether beginners may do it
 
-## 3. IV check (laser OFF)
+## 1. Startup and device connection → [Details](connect.md)
 
-- [ ] Set the compliance of the HV power supply
-- [ ] With the laser OFF, ramp up the bias slowly and check the leakage current
-- [ ] Make sure there is no unexpectedly large leakage current or sudden increase (breakdown)
+- [ ] Start the GUI on the control PC (`python main.py`)
+- [ ] Press [Connect] on the oscilloscope, stage and laser, and [Start] on the camera; check that all show "Connected"
+- [ ] In the stage panel [Move] tab, press **[Mechanical Home (H:W)]** (all axes move a lot — watch for collisions)
+- [ ] Select the DUT to measure with [Sensor] in the toolbar
+- [ ] Do the coarse positioning with **[Go to Start]** in the [Positions] tab (the first time and after remounting, jog while watching the camera)
+- [ ] In the laser panel, set the trigger source, repetition rate and TUNE, then press **[Emission ON (ld=1)]**
+- [ ] In the oscilloscope panel, press [Start Mirror], then **[★ Apply Standard Settings ★]** in the [Trigger/Sweep] tab
+- [ ] Check that a signal is visible on the scope screen
 
-## 4. Laser
+## 2. Alignment → [Details](alignment.md)
 
-- [ ] Check that the interlock is active and enable the laser
-- [ ] Start with a low intensity and look at the signal on the oscilloscope
-- [ ] Set the oscilloscope trigger to the laser trigger output
+- [ ] In the stage panel [Alignment] tab, press **[Find Origin (Z→Y→X→R:W)]** (about 7–12 min with fine finishing ON)
+- [ ] If you remounted the sensor or changed the jig, run **[Full Calibration (origin+tilt)]** instead
+- [ ] Check the residuals and fit errors in the completion dialog and record them in the measurement log
 
-## 5. Alignment
+## 3. Laser intensity adjustment → [Details](tune.md)
 
-- [ ] Find the sensor (electrode edges, optical windows) with a coarse XY scan
-- [ ] Determine the focus position \(z\) with a [focus scan](scans.md#focus-scan)
-- [ ] Move the beam to the position you want to measure
+- [ ] Match the target amplitude with **TUNE optimization** in the laser panel
+- [ ] Always redo it after changing the repetition rate
 
-## 6. Measurement
+## 4. Auto scan → [Details](scans.md)
 
-- [ ] Run the scan for your purpose (see [Scan types](scans.md))
-- [ ] Re-measure a reference point from time to time to check for laser intensity drift
-- [ ] Look at the waveforms for saturation, ringing and noise
+- [ ] In the auto scan panel, set the mode, range, step, number of sequence segments and tilt correction
+- [ ] Press [Start Scan] → check the contents of the confirmation dialog (number of points, range, Z travel, Y shift, save directory) and run
+- [ ] On the first line, check that "the signal is almost 0 directly above the electrode and rises sharply at the electrode edge"
 
-## 7. Shutdown
+## 5. Data retrieval and quick analysis → [Details](data.md)
 
-- [ ] Stop the laser
-- [ ] Ramp the bias down to 0 V in steps and turn the output OFF
-- [ ] If cooled, **wait until it is back at room temperature** before opening the dark box
-- [ ] Back up the data and complete the measurement log
+- [ ] In the auto scan panel [Data Retrieval] tab, specify the date and press [Start Transfer]
+- [ ] In the [Analysis] tab, select the scan, press [Run analysis], and check data quality in the figures
 
-## What to record
+## Shutdown
+
+- [ ] Press **[Emission OFF (ld=0)]** in the laser panel (closing the GUI does not stop the laser)
+- [ ] Finish data retrieval if needed
+- [ ] [Disconnect] each panel and close the GUI
+- [ ] Ramp HV down to 0 V and turn its output OFF, then turn LV OFF
+- [ ] Turn off the devices (order to be confirmed)
+- [ ] Complete the measurement log
+
+!!! question "To be confirmed"
+    The order for powering off at the end, and which devices to turn off every time and which to leave on.
+
+## What to record in the measurement log
 
 | Item | Example |
 | --- | --- |
-| Sensor | ID, type, thickness, fluence |
-| Environment | Temperature, humidity (dew point) |
-| Bias | Voltage, leakage current |
-| Laser | Wavelength, intensity setting, repetition rate, illuminated side |
-| Readout | Amplifier, cables, oscilloscope settings (range, number of averages) |
-| Scan | Type, range, step |
+| Sensor | Sensor name in the GUI, sensor ID |
+| Bias | HV, LV, leakage current |
+| Laser | Repetition rate, TUNE (method, target amplitude, result), camera light ON/OFF |
+| Alignment | Find Origin / Full Calibration results (residuals, tilt coefficients) |
+| Scan | Scan name (`scan_<datetime>_<tag>`), mode, range, step, number of sequence segments, Z tracking method |
+| Other | Observations, errors, whether the run was aborted |
+
+Scan conditions are also saved automatically in the header of the PC-side scan log (`logs/scan_<datetime>.csv`) (see [Output files](../reference/files.md#scan-log)).
