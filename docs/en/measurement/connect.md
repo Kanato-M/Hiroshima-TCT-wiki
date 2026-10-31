@@ -97,6 +97,9 @@ Set the following in the laser panel and press the corresponding **[Apply]** to 
 | Rep. rate | See "To be confirmed" below |
 | TUNE | Adjusted later with [TUNE optimization](tune.md). For now, any value where a signal is visible |
 
+!!! danger "Before firing the laser"
+    Make sure the dark room (dark box) is closed and nobody is inside. The 1064 nm light is invisible ([Safety](../introduction/safety.md)).
+
 Then press **[Emission ON (ld=1)]**, check the interlock and optics in the confirmation dialog, and press [Yes].
 The status display shows "Emission: ON" with a red band.
 

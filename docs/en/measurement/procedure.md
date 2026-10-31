@@ -24,8 +24,9 @@ flowchart TD
 - [ ] Write the date, purpose, operator and sensor ID in the measurement log (e.g. electronic logbook)
 - [ ] Check that the readout board is fixed on the stage, the C1–C4 signal cables go to scope inputs C1–C4, and TRIG OUT goes to the scope EXT input
 - [ ] Turn on the devices (for the order, see "To be confirmed" below)
+- [ ] Set the current limit (compliance) of the HV and LV supplies (values: see "To be confirmed" below; until documented, do this with an experienced person)
 - [ ] Turn on LV 6.0 V (readout board)
-- [ ] Turn on HV −185 V (sensor bias)
+- [ ] Ramp HV in steps to −185 V (sensor bias) ([Safety](../introduction/safety.md#bias))
 
 !!! question "To be confirmed"
     - The order in which to turn on the devices, and where each power switch is (PiLAS controller EGI-D2-40, SHRC-203, oscilloscope, control PC, LV supply, HV supply)
