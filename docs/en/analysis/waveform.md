@@ -1,5 +1,14 @@
 # Waveform analysis
 
+!!! info "Data from the Hiroshima setup"
+    Waveforms from the Hiroshima setup are saved in LeCroy sequence format `.trc` (2000 segments per point per CH).
+    For a check right after acquisition, use the [Analysis] tab of the GUI ([Data retrieval and quick analysis](../measurement/data.md#analysis)).
+    To read them yourself, use `analysis/trc_reader.py` that comes with the GUI, or the ROOT file created with [Convert to ROOT].
+    Use the trigger time of each segment (TRIGTIME; `trig_offset` in ROOT) as the origin of arrival times,
+    not `horiz_offset` in the header ([Time reference](../setup/hardware.md#time-reference)).
+
+This page covers general waveform analysis concepts and sample code.
+
 ## Basic flow
 
 ```mermaid

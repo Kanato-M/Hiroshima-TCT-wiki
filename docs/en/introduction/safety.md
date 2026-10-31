@@ -1,41 +1,76 @@
 # Safety
 
 !!! danger "Read this before you start measuring"
-    TCT measurements involve **lasers**, **high voltage** and **low temperature (condensation)** at the same time.
+    This setup involves an **infrared laser**, **sensor bias voltage** and a **motorized stage** at the same time.
     If you are using the setup for the first time, always work with an experienced person present.
 
 ## Laser
 
-- Pulsed lasers used for TCT include invisible (infrared) wavelengths. **The beam may be on even if you cannot see it.**
-- Confirm that the dark box and interlock work correctly before enabling the laser.
-- Always stop the laser output (or close the shutter) before opening the dark box.
-- Never enable the laser with the fiber or collimator disconnected.
-- When aligning optics, wear safety goggles rated for the wavelength in use.
+- The light source is an NKT Photonics PiLAS DX (wavelength 1064 nm, pulse width 50 ps) and is **Class 1**. **1064 nm is invisible.**
+  The beam may be on even if you cannot see it.
+- The dark room is the **whole room**, and it has an interlock.
+- **Wearing the green safety goggles is mandatory when you enter the dark room while the laser is emitting.**
+- The light is guided through a polarization-maintaining fiber to the objective in the dark room. Never fire the laser with the fiber or objective removed.
+- Pressing [Emission ON (ld=1)] in the GUI opens a confirmation dialog asking whether the interlock and optics setup have been checked.
+  Check them, then press [Yes].
+- If your work in the dark room does not need the laser, press [Emission OFF (ld=0)] before entering and check that the status display shows "Emission: OFF".
+  If you enter with the laser emitting, wear the green goggles as stated above.
+- **Closing the GUI does not stop the laser.** Always press [Emission OFF (ld=0)] before quitting the GUI.
+- If anything seems wrong, press **[■ STOP ALL]** at the right end of the toolbar (aborts the task → laser OFF → stops the stage → scope STOP).
 
-!!! note "Lab-specific information (to be filled in)"
-    - Laser class, wavelength and maximum power: **TODO**
-    - Location of safety goggles and their rated wavelengths: **TODO**
-    - Laser safety officer: **TODO**
+!!! question "To be confirmed"
+    - Name of the laser safety officer
+    - Where the green safety goggles are stored
 
-## High voltage
+## Stage (collision with the objective)
 
-- Sensors may be biased at several hundred volts up to about 1 kV.
-- Always set the power supply **compliance (current limit)** before raising the voltage.
-- Before changing cables or swapping sensors, **ramp the voltage down to 0 V and turn the output OFF**.
-- Ramp the voltage slowly, for example about 10 V per step, following the sensor specification.
+- The 3-axis stage SHRC-203 needs a **Mechanical Home (H:W)** right after startup. **All axes move a long way** during this.
+  First make sure the sample (readout board) and the objective cannot collide.
+- The travel per pulse is 2 µm/pulse for X and Y (confirmed on the hardware). **2 µm/pulse for Z is not yet confirmed on the hardware.**
+  On first use, jog in small steps and check the actual travel. Moving a long way with a wrong setting risks hitting the objective.
+- At scan start, a warning appears if the Z of the first point is 30 µm or more away from the current Z. Always check that this is intended.
+- [Stop (L:W)] and [EMERGENCY STOP] on the stage panel can be pressed even while a task is running.
 
-## Cooling and condensation
+!!! question "To be confirmed"
+    Whether the µm/pulse of the Z axis has been confirmed on the hardware.
 
-- Irradiated sensors are often measured cold, for example at −20 °C, to suppress the leakage current.
-- While cooling, flush the dark box with dry air or nitrogen and make sure the **dew point is well below the measurement temperature**.
-- After measuring, **warm up to room temperature before** opening the dark box. Opening it cold causes condensation that can destroy sensors and electronics.
+## Sensor bias voltage { #bias }
+
+- The AC-LGAD gets HV (sensor bias), and the readout board gets LV 6.0 V (amplifier supply).
+  **These are not controlled from the GUI; operate the power supplies by hand.**
+
+    | Supply | Model | Setting |
+    | --- | --- | --- |
+    | LV (readout board) | Rohde & Schwarz NGP800 series | 6.0 V |
+    | HV (sensor bias) | Matsusada P4L650-0.1 (Regulated DC Power Supply) | Depends on temperature. 190–195 V is optimal at a sensor temperature of 33 °C |
+
+- **Bias the sensor last, after all other equipment is powered on.** The order is **LV 6.0 V → HV**.
+- The GUI status bar shows reference values (`HV -185 V / LV 6 V`, the values in `config.py`), but set the actual HV according to the table above.
+- Set the supply's **current limit (compliance)** before applying voltage.
+- **Ramp the voltage in steps**; never change it in one jump.
+- Until the current limit value, step and speed are documented in this wiki, **apply HV and LV only together with an experienced person**.
+- Before changing cables or swapping the sensor (readout board), **ramp the voltage down to 0 V and turn the output OFF**.
+
+!!! question "To be confirmed"
+    - Current limit (compliance) settings of the HV and LV supplies
+    - Ramp-up and ramp-down step and speed
 
 ## Electrostatic discharge (ESD)
 
-- Wear a wrist strap when handling sensors and amplifiers.
-- Check the bias-tee connection so that high voltage never reaches the amplifier input directly.
+- The readout board (FNAL 16-channel board, amplifier Mini-Circuits GALI-S66) and the sensor are sensitive to static electricity.
+  Wear a wrist strap when handling them.
 
-## Irradiated samples
+!!! question "To be confirmed"
+    The lab's ESD rules (where the wrist straps are, etc.).
 
-- Irradiated samples may be activated. Handle them according to your institute's regulations.
-- Mind the storage temperature of irradiated samples to avoid unwanted annealing.
+## General notes for other TCT setups
+
+The Hiroshima setup measures unirradiated sensors without cooling (sensor temperature about 33 °C). Setups that use cooling or irradiated samples need the following additional precautions.
+
+??? note "Cooling and condensation"
+    - While cooling, flush with dry air or nitrogen and make sure the **dew point is well below the measurement temperature**.
+    - After measuring, **warm up to room temperature before** opening the dark box. Opening it cold causes condensation that can destroy sensors and electronics.
+
+??? note "Irradiated samples"
+    - Irradiated samples may be activated. Handle them according to your institute's regulations.
+    - Mind the storage temperature to avoid unwanted annealing.

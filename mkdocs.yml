@@ -1,8 +1,11 @@
 site_name: Hiroshima TCT Wiki
-site_description: TCT (Transient Current Technique) scan の測定・解析 Wiki
+site_description: 広島大学のレーザー TCT スキャン装置（AC-LGAD）の使い方 Wiki
 site_url: https://kanato-m.github.io/Hiroshima-TCT-wiki/
 repo_url: https://github.com/Kanato-M/Hiroshima-TCT-wiki
 repo_name: Kanato-M/Hiroshima-TCT-wiki
+
+validation:
+  anchors: warn
 edit_uri: edit/main/docs/
 
 theme:
@@ -52,7 +55,7 @@ plugins:
         - locale: en
           name: English
           build: true
-          site_description: Wiki for TCT (Transient Current Technique) scan measurements and analysis
+          site_description: How to use the laser TCT scan setup (AC-LGAD) at Hiroshima University
           nav_translations:
             ホーム: Home
             はじめに: Introduction
@@ -61,20 +64,28 @@ plugins:
             原理: Principles
             信号形成: Signal formation
             レーザーと照射方式: Lasers and illumination
+            スキャンの種類（一般論）: Scan types (general)
             セットアップ: Setup
-            ハードウェア: Hardware
-            ソフトウェア: Software
+            システム構成: System overview
+            センサーと座標系: Sensor and coordinates
+            制御 PC とソフトウェア: Control PC and software
             測定: Measurement
-            測定手順: Procedure
-            スキャンの種類: Scan types
+            測定の全体の流れ: Measurement workflow
+            GUI の画面構成: GUI layout
+            1. 起動と機器の接続: 1. Start-up and connection
+            2. 位置合わせ: 2. Alignment
+            3. TUNE 最適化: 3. TUNE optimization
+            4. 自動スキャン: 4. Automatic scans
+            5. データ回収と簡易解析: 5. Data transfer and quick analysis
             解析: Analysis
             波形解析: Waveform analysis
             リファレンス: Reference
             トラブルシューティング: Troubleshooting
+            標準設定値一覧: Standard settings
+            出力ファイル一覧: Output files
             用語集: Glossary
             参考文献: Bibliography
             Wiki の編集方法: Contributing
-
 nav:
   - ホーム: index.md
   - はじめに:
@@ -83,20 +94,28 @@ nav:
   - 原理:
       - 信号形成: principle/signal-formation.md
       - レーザーと照射方式: principle/lasers.md
+      - スキャンの種類（一般論）: principle/scan-types.md
   - セットアップ:
-      - ハードウェア: setup/hardware.md
-      - ソフトウェア: setup/software.md
+      - システム構成: setup/hardware.md
+      - センサーと座標系: setup/sensor.md
+      - 制御 PC とソフトウェア: setup/software.md
   - 測定:
-      - 測定手順: measurement/procedure.md
-      - スキャンの種類: measurement/scans.md
+      - 測定の全体の流れ: measurement/procedure.md
+      - GUI の画面構成: measurement/gui-overview.md
+      - 1. 起動と機器の接続: measurement/connect.md
+      - 2. 位置合わせ: measurement/alignment.md
+      - 3. TUNE 最適化: measurement/tune.md
+      - 4. 自動スキャン: measurement/scans.md
+      - 5. データ回収と簡易解析: measurement/data.md
   - 解析:
       - 波形解析: analysis/waveform.md
   - リファレンス:
       - トラブルシューティング: reference/troubleshooting.md
+      - 標準設定値一覧: reference/settings.md
+      - 出力ファイル一覧: reference/files.md
       - 用語集: reference/glossary.md
       - 参考文献: reference/bibliography.md
       - Wiki の編集方法: reference/contributing.md
-
 markdown_extensions:
   - admonition
   - attr_list
