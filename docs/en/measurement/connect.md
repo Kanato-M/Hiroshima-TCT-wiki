@@ -4,15 +4,17 @@ This page covers starting the GUI, connecting the devices, and getting the laser
 Once this is done, go on to [Alignment](alignment.md).
 
 !!! note "Prerequisites"
-    The devices are powered on and LV 6.0 V and HV (190–195 V at 33 °C) are applied ([Measurement workflow](procedure.md#power-on)).
+    The devices are powered on and LV 6.0 V and HV (−190 to −195 V at 33 °C) are applied ([Measurement workflow](procedure.md#power-on)).
 
 ## 1-1. Start the GUI
 
 Start it in the GUI folder ([Control PC and software](../setup/software.md)).
 
-```bat
-cd %USERPROFILE%\workspace\laser_gui_v4_en
-python main.py
+Open a terminal on the control PC and run:
+
+```bash
+cd workspace/laser_gui_v4_en
+python ./main.py
 ```
 
 Use the English UI version (`laser_gui_v4_en`) if you do not read Japanese.

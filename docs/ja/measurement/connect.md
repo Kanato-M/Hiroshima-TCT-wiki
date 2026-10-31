@@ -4,15 +4,17 @@ GUI を起動し、機器を接続して、レーザー信号がオシロに見�
 ここまで終われば、次の [位置合わせ](alignment.md) に進めます。
 
 !!! note "前提"
-    機器の電源が入り、LV 6.0 V と HV（33 °C で 190–195 V）がかかっていること（[測定の全体の流れ](procedure.md#power-on)）。
+    機器の電源が入り、LV 6.0 V と HV（33 °C で −190〜−195 V）がかかっていること（[測定の全体の流れ](procedure.md#power-on)）。
 
 ## 1-1. GUI を起動する
 
 GUI のフォルダで起動します（[制御 PC とソフトウェア](../setup/software.md)）。
 
-```bat
-cd %USERPROFILE%\workspace\laser_gui_v4
-python main.py
+制御 PC でターミナルを開いて、次を実行します。
+
+```bash
+cd workspace/laser_gui_v4
+python ./main.py
 ```
 
 日本語が読めない人は英語 UI 版（`laser_gui_v4_en`）を使います。

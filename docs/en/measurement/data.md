@@ -39,12 +39,15 @@ Back up the data retrieved to the control PC to the NAS. Run the following in a 
 scp -r "<folder of the retrieved data>" quark-lab@10.28.57.235:/share/laser_data/2026/
 ```
 
-- Example: `scp -r "%USERPROFILE%\workspace\data\2026\20261008" quark-lab@10.28.57.235:/share/laser_data/2026/`
+- Example: `scp -r "workspace/data/2026/20261008" quark-lab@10.28.57.235:/share/laser_data/2026/`
 - When the year changes, adjust the year folder of the destination (`/share/laser_data/<year>/`).
 - Ask the contact person (Matsutani) for the password (there is a note on the control PC).
 
-!!! question "To be confirmed"
-    When the data on the scope may be deleted (after the NAS backup?).
+!!! tip "When the data on the scope may be deleted"
+    Delete the data on the scope when its disk is running low, or once the move to the NAS is complete
+    (use [Delete on scope after transfer] or delete it on the scope itself).
+    **Delete only data that has already been retrieved to the PC.** Even when the disk is low, retrieve any scans not yet transferred with [Start Transfer] first
+    ([Delete on scope after transfer] deletes only when every file passed the size check, so it is safe).
 
 ## Quick analysis ([Analysis] tab) { #analysis }
 

@@ -89,9 +89,9 @@ Three profiles are registered from the start:
 | 4col (1000 µm pitch) | **Template with unconfirmed dimensions except the pitch.** Correct them to measured values before use |
 | Variable pitch (500 µm section) | Same as above |
 
-!!! question "To be confirmed"
-    As of 2026-10, `sensors.json` on the control PC also has a 4th profile, "標準ストリップ 2x2 測定 (500 µm ピッチ, 10 mm)"
-    (standard strip 2x2 measurement, ID `2x2_500_m_10_mm`). Which sensor and measurement is this profile for?
+`sensors.json` on the control PC also has a 4th profile, "標準ストリップ 2x2 測定 (500 µm ピッチ, 10 mm)" (standard strip 2x2 measurement, ID `2x2_500_m_10_mm`).
+This is the profile used for the scan across 2 columns (the segment boundary) in the central region of the 2×2 segmented sensor
+(SEG scan `scan_20261008_151544_2dYX` in the analysis note matome, 5 µm rows).
 
 ### Registering a new DUT { #new-sensor }
 
