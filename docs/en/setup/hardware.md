@@ -68,15 +68,17 @@ The devices can be powered on in any order. However, **bias the sensor last, in 
 
 | Device | Location | Operation |
 | --- | --- | --- |
-| Laser (PiLAS controller EGI-D2-40) | — | **Turn the key to the right to switch ON.** **The red button fires the laser** |
+| Laser (PiLAS controller EGI-D2-40) | Back left | **Turn the key to the right to switch ON.** Normally control emission from the GUI with [Emission ON (ld=1)] / [Emission OFF (ld=0)]. When working inside the dark room, use the **red button** on the unit |
 | Stage controller SHRC-203 | Under the workbench | Switch at the bottom right of the unit |
 | Visible light for the camera (illumination) | Upper right side | Switch at the bottom right of the unit. **Always OFF during measurement** |
 | Oscilloscope | Left side of the dark room | Power button at the bottom left |
-| LV supply (R&S NGP800) | Left side of the shelf below the oscilloscope | Button at the bottom left to switch ON → select CH1 → **OUTPUT button to turn the output ON (lights blue)**. Fixed at 6 V |
-| HV supply (Matsusada P4L650-0.1) | Right side of the shelf below the oscilloscope | Switch for power ON/OFF → black button at the top to SET the HV → **red button to turn the bias ON**. The supply ramps up automatically. Limit −220 V |
+| LV supply (R&S NGP800) | Left side of the shelf below the oscilloscope | Button at the bottom left to switch ON → select CH1 → **OUTPUT button to turn the output ON (lights blue)**. Fixed at 6 V, current limit 1.0 A |
+| HV supply (Matsusada P4L650-0.1) | Right side of the shelf below the oscilloscope | Switch for power ON/OFF → black button at the top to SET the HV → **red button to turn the bias ON**. The supply ramps up automatically. Limit −220 V, current limit 1.0 mA |
 
-!!! question "To be confirmed"
-    Where the laser controller is, and when to use the red button on the unit versus [Emission ON (ld=1)] in the GUI.
+**Typical currents**: the current limits are set to 1.0 mA (HV) and 1.0 A (LV). In normal operation the HV current is about 0.4–5 µA (depends on the bias voltage; the supply displays 0.0 mA)
+and the LV current is about 0.450 A. If the readings are far from these, turn the bias OFF and find the cause.
+
+**At the end**, turn off everything except the control PC (all devices in the dark room). Leave the control PC on for remote control.
 
 ## Swapping the readout board { #board-swap }
 

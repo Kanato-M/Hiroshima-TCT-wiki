@@ -28,9 +28,10 @@ flowchart TD
     - [ ] Stage controller: under the workbench, switch at the bottom right of the unit
     - [ ] Oscilloscope: power button at the bottom left
     - [ ] Control PC
-- [ ] Bias the sensor **last**: in the order **LV → HV**
+- [ ] Bias the sensor **last**: in the order **LV → HV**. First check that the current limits are HV 1.0 mA and LV 1.0 A
     - [ ] LV: button at the bottom left to switch ON → CH1 → OUTPUT button to turn the output ON (lights blue). 6 V
     - [ ] HV: switch ON → black button to SET (−190 to −195 V at 33 °C; **do not exceed −220 V**) → red button to turn the bias ON (ramp-up is automatic)
+    - [ ] Check that the currents are normal (HV about 0.4–5 µA, LV about 0.450 A)
 - [ ] Before leaving the dark room, turn **the camera light OFF** (switch at the bottom right of the unit; always OFF during measurement)
 
 ## 1. Startup and device connection → [Details](connect.md)
@@ -71,13 +72,10 @@ flowchart TD
 - [ ] Press **[Emission OFF (ld=0)]** in the laser panel (closing the GUI does not stop the laser)
 - [ ] Finish data retrieval if needed
 - [ ] [Disconnect] each panel and close the GUI
-- [ ] Turn the HV bias OFF and the LV OUTPUT OFF
-- [ ] Turn off the devices (order to be confirmed)
+- [ ] Turn the HV bias OFF, and once the HV display reads 0 V, turn the LV OUTPUT OFF
+- [ ] Turn off everything **except the control PC** (all devices in the dark room: laser, stage, camera light, oscilloscope, HV and LV supplies). Leave the control PC on for remote control
 - [ ] Back up the retrieved data to the NAS ([Details](data.md#backup))
 - [ ] Complete the measurement log
-
-!!! question "To be confirmed"
-    Which devices to turn off at the end every time and which to leave on (laser key, stage, oscilloscope, HV and LV supply units).
 
 ## What to record in the measurement log
 

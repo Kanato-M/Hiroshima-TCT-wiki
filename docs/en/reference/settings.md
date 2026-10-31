@@ -8,6 +8,7 @@ Standard measurement conditions and GUI defaults. The values come from `config.p
 | --- | --- | --- |
 | HV (sensor bias) | −190 to −195 V (at a sensor temperature of 33 °C). Changed with temperature. **Limit −220 V** | Matsusada P4L650-0.1, manual. The reference value in the GUI status bar is −185 V |
 | LV (readout board) | 6.0 V (fixed) | Rohde & Schwarz NGP800 series, manual. CH1 |
+| Current limits | HV 1.0 mA, LV 1.0 A | Normal currents: HV about 0.4–5 µA (display 0.0 mA), LV about 0.450 A |
 | Power-on order | After the other equipment, LV → HV | The other equipment can be powered on in any order |
 | Readout | C1=J8, C2=J7, C3=J6, C4=J5 | Standard sensor |
 

@@ -19,7 +19,7 @@
 - If anything seems wrong, press **[■ STOP ALL]** at the right end of the toolbar (aborts the task → laser OFF → stops the stage → scope STOP).
 
 - The green safety goggles are kept near the dark room on the central workbench.
-- Laser safety officers: 八野 and Matsutani
+- Laser safety officers: Yano and Matsutani
 
 ## Stage (collision with the objective)
 
@@ -46,8 +46,8 @@
 - The supply ramps HV up and down in steps automatically. For how to operate it, see [Power and switches](../setup/hardware.md#power).
 - Before changing cables or swapping the sensor (readout board), **ramp the voltage down to 0 V and turn the output OFF**.
 
-!!! question "To be confirmed"
-    Current limit (compliance) settings of the HV and LV supplies (and whether one is set at all).
+- The current limits (compliance) are set to 1.0 mA (HV) and 1.0 A (LV). Check these settings before biasing.
+  Normal currents are about 0.4–5 µA (HV) and about 0.450 A (LV) ([Power and switches](../setup/hardware.md#power)).
 
 ## Electrostatic discharge (ESD)
 
