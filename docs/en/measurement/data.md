@@ -46,6 +46,8 @@ scp -r "<folder of the retrieved data>" quark-lab@10.28.57.235:/share/laser_data
 !!! tip "When the data on the scope may be deleted"
     Delete the data on the scope when its disk is running low, or once the move to the NAS is complete
     (use [Delete on scope after transfer] or delete it on the scope itself).
+    **Delete only data that has already been retrieved to the PC.** Even when the disk is low, retrieve any scans not yet transferred with [Start Transfer] first
+    ([Delete on scope after transfer] deletes only when every file passed the size check, so it is safe).
 
 ## Quick analysis ([Analysis] tab) { #analysis }
 

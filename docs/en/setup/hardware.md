@@ -82,7 +82,7 @@ The devices can be powered on in any order. However, **bias the sensor last, in 
 
 The readout board is mounted by inserting it into a fixing jig. For the first time we recommend having an experienced person mount it, but it is not a particularly dangerous task.
 
-1. Set the laser to [Emission OFF (ld=0)], turn the HV bias OFF and the LV OUTPUT OFF.
+1. Set the laser to [Emission OFF (ld=0)] and turn the HV bias OFF. The supply ramps down automatically, so **wait until the HV display reads 0 V** before turning the LV OUTPUT OFF.
 2. Disconnect the MCX–BNC cables.
 3. The red fixing rod is hard to remove by hand, so **pull it out with thin pliers**. **Take care not to damage the sensor or the objective.**
 4. Pull the board out of the fixing jig and insert the new board. Tape or the like stuck on the board makes it hard to insert, so peel it off.
