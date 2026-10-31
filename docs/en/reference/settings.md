@@ -6,8 +6,8 @@ Standard measurement conditions and GUI defaults. The values come from `config.p
 
 | Item | Value | Notes |
 | --- | --- | --- |
-| HV (sensor bias) | 190–195 V (at a sensor temperature of 33 °C). Changed with temperature | Matsusada P4L650-0.1, manual. The reference value in the GUI status bar is −185 V |
-| LV (readout board) | 6.0 V | Rohde & Schwarz NGP800 series, manual |
+| HV (sensor bias) | −190 to −195 V (at a sensor temperature of 33 °C). Changed with temperature. **Limit −220 V** | Matsusada P4L650-0.1, manual. The reference value in the GUI status bar is −185 V |
+| LV (readout board) | 6.0 V (fixed) | Rohde & Schwarz NGP800 series, manual. CH1 |
 | Power-on order | After the other equipment, LV → HV | The other equipment can be powered on in any order |
 | Readout | C1=J8, C2=J7, C3=J6, C4=J5 | Standard sensor |
 
@@ -39,7 +39,7 @@ Standard measurement conditions and GUI defaults. The values come from `config.p
 
 | Item | Value |
 | --- | --- |
-| Travel | 2 µm/pulse (X and Y confirmed, Z unconfirmed) |
+| Travel | 2 µm/pulse (X, Y and Z, confirmed) |
 | Speed | Start 1000 pps, max 10000 pps (= 20 mm/s), acceleration 200 ms |
 | Jog steps | 2, 4, 10, 20, 50, 100, 500, 1000, 5000 µm |
 

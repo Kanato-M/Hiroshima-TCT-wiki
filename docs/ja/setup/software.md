@@ -10,9 +10,7 @@
 | ユーザー名 | `epic`（パスワードは問い合わせ先に聞く） |
 | GUI フォルダ | `~/workspace/laser_gui_v4/`（日本語 UI 版）、`~/workspace/laser_gui_v4_en/`（英語 UI 版） |
 | コードの入手先 | 最新版は GitHub で公開する予定（未公開） |
-
-!!! question "要確認"
-    使っている Python 環境（Anaconda / venv など）と、普段の起動方法（コマンドプロンプト、ショートカットなど）。
+| Python | 最新版 |
 
 ## GUI の版
 
@@ -23,7 +21,7 @@
 
 !!! warning "英語 UI 版は TUNE 最適化が旧仕様"
     2026-10 時点の手元のコードでは、英語 UI 版の TUNE 最適化には [方式]（単一 CH / 隣接 2ch 合計）・許容誤差・精密掃引がなく、
-    単一 CH の粗掃引だけです（[TUNE 最適化](../measurement/tune.md)）。隣接 2ch 合計（MIP 相当）で合わせるときは日本語 UI 版を使ってください。
+    単一 CH の粗掃引だけです（[TUNE 最適化](../measurement/tune.md)）。GUI 側で直す予定です。それまで、隣接 2ch 合計（MIP 相当）で合わせるときは日本語 UI 版を使ってください。
 
 この Wiki の画面写真は、解析ノート matome 作成時（2026-10 改修版）にシミュレーションモードで撮影したものです。
 現行版とは一部の表示（TUNE 最適化の [方式] 欄など）が違います。現行版の画面写真は後日差し替える予定です。
@@ -92,7 +90,7 @@ COM ポート番号やオシロ側の保存先など PC ごとに違う設定は
 | `scope_smb_user` | `lcrydmin` | データ回収の SSH ユーザー名 |
 | `transfer_dest_dir` | `..\data` | PC 側の回収先（GUI フォルダからの相対パス可） |
 | `stage_host` / `stage_port` | `192.168.0.3` / `9004` | ステージの接続先 |
-| `stage_um_per_pulse` | `[2.0, 2.0, 2.0]` | 1 パルスあたりの移動量 [µm]（X, Y, Z）。**Z は未確認** |
+| `stage_um_per_pulse` | `[2.0, 2.0, 2.0]` | 1 パルスあたりの移動量 [µm]（X, Y, Z）。実機確認済み |
 | `stage_speed_pps` | `[1000, 10000, 200]` | 起動速度 [pps]、最高速度 [pps]、加減速時間 [ms]。上げすぎると脱調の恐れ |
 | `laser_port` | `COM5` | レーザーの COM ポート |
 | `camera_index` | `0` | カメラのデバイス番号 |
@@ -106,10 +104,12 @@ COM ポート番号やオシロ側の保存先など PC ごとに違う設定は
 
 ログと状態ファイルの保存先 `logs/` は **起動したディレクトリからの相対パス** なので、必ず GUI のフォルダで起動します。
 
-```bat
-cd %USERPROFILE%\workspace\laser_gui_v4
-python main.py              :: 実機モード
-python main.py --simulate   :: 全機器をシミュレーション
+制御 PC ではターミナルを開いて、次のように起動します（英語 UI 版は `laser_gui_v4_en`）。
+
+```bash
+cd workspace/laser_gui_v4
+python ./main.py              # 実機モード
+python ./main.py --simulate   # 全機器をシミュレーション
 ```
 
 起動すると、モニターの利用可能領域に収まるようにウィンドウが開きます。画面構成は [GUI の画面構成](../measurement/gui-overview.md) を見てください。

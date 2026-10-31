@@ -20,7 +20,7 @@ flowchart LR
     STG -.- DUT
     DUT -->|"C1–C4 (GALI-S66 ×2 stages)"| OSC["LeCroy WavePro 804HD<br/>DC 50 Ω"]
     LAS -->|TRIG OUT → EXT| OSC
-    HV["HV 190–195 V<br/>Matsusada P4L650-0.1"] --> DUT
+    HV["HV −190 to −195 V<br/>Matsusada P4L650-0.1"] --> DUT
     LV["LV 6.0 V<br/>R&S NGP800"] --> DUT
     PC["Control PC (Windows)<br/>laser_gui"]
     PC ---|"LAN 192.168.0.2"| OSC
@@ -48,19 +48,46 @@ flowchart LR
 | Laser | NKT Photonics PiLAS DX (head NPIL1-106-40FC, controller EGI-D2-40). Wavelength 1064 nm (1063.4 nm in the test report), pulse width 50 ps, repetition rate adjustable up to 40 MHz, trigger jitter < 3 ps rms | Intensity set with TUNE [%] (0 % strongest, 100 % weakest) |
 | Fiber | Polarization-maintaining single mode (PANDA type), FC/APC | — |
 | Objective | OptoSigma PAL-50-NIR-L: 50×, NA 0.45, working distance 15.1 mm, focal length 4 mm (a 10× PAL-10-NIR-A also exists, but it is not swapped in for use) | Spot σ ≲ 1.2 µm (in focus) |
-| Stage | OptoSigma SHRC-203 (3 axes, 5-phase stepper motors), joystick JS-301 | 2 µm/pulse (X and Y confirmed on the hardware, Z unconfirmed) |
+| Stage | OptoSigma SHRC-203 (3 axes, 5-phase stepper motors), joystick JS-301 | 2 µm/pulse (X, Y and Z, confirmed on the hardware) |
 | Oscilloscope | Teledyne LeCroy WavePro 804HD (8 GHz, 12 bit) | 10 GS/s, sequence mode 2000 segments/point, 50 mV/div, DC 50 Ω |
-| Sensor | HPK strip AC-LGAD: pitch 500 µm, metal electrode width 50 µm, exposed length 9318 µm, thickness 50 µm, n+ sheet resistance 1600 Ω/□, coupling capacitance 600 pF/mm². C1–C4 of the 6 strips (C0–C5) are read out | HV 190–195 V (at a sensor temperature of 33 °C). No cooling |
+| Sensor | HPK strip AC-LGAD: pitch 500 µm, metal electrode width 50 µm, exposed length 9318 µm, thickness 50 µm, n+ sheet resistance 1600 Ω/□, coupling capacitance 600 pF/mm². C1–C4 of the 6 strips (C0–C5) are read out | HV −190 to −195 V (at a sensor temperature of 33 °C). No cooling |
 | Readout board | FNAL 16-channel board. Two stages of Mini-Circuits GALI-S66 per strip. Mounted by inserting it into a fixing jig | LV 6.0 V |
 | Signal cables | MCX–BNC, 75 cm long | Change the connection on the board side to the channels you want to see |
 | LV supply | Rohde & Schwarz NGP800 series | 6.0 V (manual operation) |
-| HV supply | Matsusada P4L650-0.1 | 190–195 V (manual operation, changed with temperature) |
+| HV supply | Matsusada P4L650-0.1 | −190 to −195 V (manual operation, changed with temperature; limit −220 V) |
 | Focus camera | USB camera (manual-focus lens, no autofocus) | Read with OpenCV, device index 0 |
 | Control PC | Windows, Python 3.10 or later. GUI laid out for a 16:9 wide monitor (EX-LDHU431DB) | IP 192.168.0.1 |
 
 !!! note "Differences from the analysis note"
     The analysis note matome gives the cable length as "1 m (to be confirmed)" and the sensor temperature as "about 35 °C (not finalized)",
     but the actual values are a cable length of 75 cm and a sensor temperature of 33 °C.
+
+## Power and switches { #power }
+
+The devices can be powered on in any order. However, **bias the sensor last, in the order LV → HV**.
+
+| Device | Location | Operation |
+| --- | --- | --- |
+| Laser (PiLAS controller EGI-D2-40) | — | **Turn the key to the right to switch ON.** **The red button fires the laser** |
+| Stage controller SHRC-203 | Under the workbench | Switch at the bottom right of the unit |
+| Visible light for the camera (illumination) | Upper right side | Switch at the bottom right of the unit. **Always OFF during measurement** |
+| Oscilloscope | Left side of the dark room | Power button at the bottom left |
+| LV supply (R&S NGP800) | Left side of the shelf below the oscilloscope | Button at the bottom left to switch ON → select CH1 → **OUTPUT button to turn the output ON (lights blue)**. Fixed at 6 V |
+| HV supply (Matsusada P4L650-0.1) | Right side of the shelf below the oscilloscope | Switch for power ON/OFF → black button at the top to SET the HV → **red button to turn the bias ON**. The supply ramps up automatically. Limit −220 V |
+
+!!! question "To be confirmed"
+    Where the laser controller is, and when to use the red button on the unit versus [Emission ON (ld=1)] in the GUI.
+
+## Swapping the readout board { #board-swap }
+
+The readout board is mounted by inserting it into a fixing jig. For the first time we recommend having an experienced person mount it, but it is not a particularly dangerous task.
+
+1. Set the laser to [Emission OFF (ld=0)], turn the HV bias OFF and the LV OUTPUT OFF.
+2. Disconnect the MCX–BNC cables.
+3. The red fixing rod is hard to remove by hand, so **pull it out with thin pliers**. **Take care not to damage the sensor or the objective.**
+4. Pull the board out of the fixing jig and insert the new board. Tape or the like stuck on the board makes it hard to insert, so peel it off.
+5. Connect the MCX–BNC cables to the channels you want to see.
+6. Select that sensor in the GUI ([register](sensor.md#new-sensor) it if it is new). The position changes after a swap, so run a [Full Calibration](../measurement/alignment.md#full-calibration).
 
 ## Connections and addresses
 

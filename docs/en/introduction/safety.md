@@ -18,21 +18,17 @@
 - **Closing the GUI does not stop the laser.** Always press [Emission OFF (ld=0)] before quitting the GUI.
 - If anything seems wrong, press **[■ STOP ALL]** at the right end of the toolbar (aborts the task → laser OFF → stops the stage → scope STOP).
 
-!!! question "To be confirmed"
-    - Name of the laser safety officer
-    - Where the green safety goggles are stored
+- The green safety goggles are kept near the dark room on the central workbench.
+- Laser safety officers: 八野 and Matsutani
 
 ## Stage (collision with the objective)
 
 - The 3-axis stage SHRC-203 needs a **Mechanical Home (H:W)** right after startup. **All axes move a long way** during this.
   First make sure the sample (readout board) and the objective cannot collide.
-- The travel per pulse is 2 µm/pulse for X and Y (confirmed on the hardware). **2 µm/pulse for Z is not yet confirmed on the hardware.**
-  On first use, jog in small steps and check the actual travel. Moving a long way with a wrong setting risks hitting the objective.
+- The travel per pulse is 2 µm/pulse for X, Y and Z (confirmed on the hardware). If you change `stage_um_per_pulse` in `config_local.json`,
+  jog in small steps and check the actual travel. Moving a long way with a wrong setting risks hitting the objective.
 - At scan start, a warning appears if the Z of the first point is 30 µm or more away from the current Z. Always check that this is intended.
 - [Stop (L:W)] and [EMERGENCY STOP] on the stage panel can be pressed even while a task is running.
-
-!!! question "To be confirmed"
-    Whether the µm/pulse of the Z axis has been confirmed on the hardware.
 
 ## Sensor bias voltage { #bias }
 
@@ -42,26 +38,21 @@
     | Supply | Model | Setting |
     | --- | --- | --- |
     | LV (readout board) | Rohde & Schwarz NGP800 series | 6.0 V |
-    | HV (sensor bias) | Matsusada P4L650-0.1 (Regulated DC Power Supply) | Depends on temperature. 190–195 V is optimal at a sensor temperature of 33 °C |
+    | HV (sensor bias) | Matsusada P4L650-0.1 (Regulated DC Power Supply) | Depends on temperature. −190 to −195 V is optimal at a sensor temperature of 33 °C. **Do not exceed −220 V** |
 
 - **Bias the sensor last, after all other equipment is powered on.** The order is **LV 6.0 V → HV**.
 - The GUI status bar shows reference values (`HV -185 V / LV 6 V`, the values in `config.py`), but set the actual HV according to the table above.
-- Set the supply's **current limit (compliance)** before applying voltage.
-- **Ramp the voltage in steps**; never change it in one jump.
-- Until the current limit value, step and speed are documented in this wiki, **apply HV and LV only together with an experienced person**.
+- **HV goes up to −220 V.** Never set a value beyond that. LV is fixed at 6 V.
+- The supply ramps HV up and down in steps automatically. For how to operate it, see [Power and switches](../setup/hardware.md#power).
 - Before changing cables or swapping the sensor (readout board), **ramp the voltage down to 0 V and turn the output OFF**.
 
 !!! question "To be confirmed"
-    - Current limit (compliance) settings of the HV and LV supplies
-    - Ramp-up and ramp-down step and speed
+    Current limit (compliance) settings of the HV and LV supplies (and whether one is set at all).
 
 ## Electrostatic discharge (ESD)
 
 - The readout board (FNAL 16-channel board, amplifier Mini-Circuits GALI-S66) and the sensor are sensitive to static electricity.
-  Wear a wrist strap when handling them.
-
-!!! question "To be confirmed"
-    The lab's ESD rules (where the wrist straps are, etc.).
+  Do not touch the terminals or components directly. The swap procedure is in [Swapping the readout board](../setup/hardware.md#board-swap).
 
 ## General notes for other TCT setups
 

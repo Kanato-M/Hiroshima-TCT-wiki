@@ -17,7 +17,7 @@ First look at the **communication log** at the bottom left of the GUI (`logs/gui
 | --- | --- | --- |
 | No signal at all | The laser is not emitting | Check that the laser panel status shows the red "Emission: ON" bar |
 | | The beam is on an electrode (metal) | Jog Y by a few tens of µm to put the beam on silicon |
-| | No bias applied | Check LV 6.0 V and HV (190–195 V at 33 °C) |
+| | No bias applied | LV 6.0 V and HV (−190 to −195 V at 33 °C). Check that the LV OUTPUT lights blue and that the HV bias is ON (red button) |
 | | Wrong horizontal offset | Set it to −53 ns with [★ Apply Standard Settings ★] |
 | Waveforms update but are flat | After a rep-rate change, TUNE fell below the lasing threshold (TRIG OUT keeps coming) | Redo [TUNE optimization](../measurement/tune.md). For a quick check, set TUNE to auto |
 | Amplitude differs from expectation | The camera light is still ON, the rep rate is not 1 MHz, or the alignment is off | Turn the light OFF and check 1 MHz and TUNE 50 %. If it still differs, match it with TUNE optimization |

@@ -10,9 +10,7 @@ This page explains how to install the GUI, the initial settings on the device si
 | User name | `epic` (ask the contact person for the password) |
 | GUI folders | `~/workspace/laser_gui_v4/` (Japanese UI version), `~/workspace/laser_gui_v4_en/` (English UI version) |
 | Where to get the code | The latest version will be published on GitHub (not yet public) |
-
-!!! question "To be confirmed"
-    The Python environment in use (Anaconda / venv, etc.) and the usual way to start the GUI (command prompt, shortcut, etc.).
+| Python | Latest version |
 
 ## GUI versions
 
@@ -23,7 +21,7 @@ This page explains how to install the GUI, the initial settings on the device si
 
 !!! warning "TUNE optimization in the English UI version is the older spec"
     In the code at hand as of 2026-10, TUNE optimization in the English UI version lacks the "method" selector ("Single CH" / "Adjacent 2-ch sum"), the tolerance and the fine sweep;
-    it only does a coarse sweep on a single CH ([TUNE optimization](../measurement/tune.md)). To match the adjacent 2-ch sum (MIP-equivalent), use the Japanese UI version.
+    it only does a coarse sweep on a single CH ([TUNE optimization](../measurement/tune.md)). This will be fixed on the GUI side. Until then, to match the adjacent 2-ch sum (MIP-equivalent), use the Japanese UI version.
 
 The screenshots in this wiki were taken in simulation mode when the analysis note matome was written (2026-10 revision).
 Some parts of the display (such as the "method" field of TUNE optimization) differ from the current version. Screenshots of the current version will be added later.
@@ -92,7 +90,7 @@ Settings that differ per PC, such as the COM port number or the save folder on t
 | `scope_smb_user` | `lcrydmin` | SSH user name for data retrieval |
 | `transfer_dest_dir` | `..\data` | Destination on the PC (may be relative to the GUI folder) |
 | `stage_host` / `stage_port` | `192.168.0.3` / `9004` | Stage address |
-| `stage_um_per_pulse` | `[2.0, 2.0, 2.0]` | Travel per pulse [µm] (X, Y, Z). **Z unconfirmed** |
+| `stage_um_per_pulse` | `[2.0, 2.0, 2.0]` | Travel per pulse [µm] (X, Y, Z). Confirmed on the hardware |
 | `stage_speed_pps` | `[1000, 10000, 200]` | Start speed [pps], max speed [pps], acceleration time [ms]. Setting them too high risks losing steps |
 | `laser_port` | `COM5` | Laser COM port |
 | `camera_index` | `0` | Camera device index |
@@ -106,10 +104,12 @@ Settings that differ per PC, such as the COM port number or the save folder on t
 
 The folder `logs/` for logs and state files is **relative to the directory you start from**, so always start in the GUI folder.
 
-```bat
-cd %USERPROFILE%\workspace\laser_gui_v4_en
-python main.py              :: real hardware mode
-python main.py --simulate   :: simulate all devices
+On the control PC, open a terminal and start it as follows (the Japanese UI version is `laser_gui_v4`).
+
+```bash
+cd workspace/laser_gui_v4_en
+python ./main.py              # real hardware mode
+python ./main.py --simulate   # simulate all devices
 ```
 
 On startup, the window opens sized to fit the usable area of the monitor. For the screen layout, see [GUI overview](../measurement/gui-overview.md).

@@ -26,7 +26,7 @@ Use the "TUNE optimization (match target amplitude)" group in the laser panel.
 !!! note "Differences from the English UI version"
     The following describes the Japanese UI version (`laser_gui_v4`). As of 2026-10, the English UI version (`laser_gui_v4_en`) has the old behavior:
     it has no "Method" field, tolerance, fine sweep or automatic move to the middle Y. It lowers TUNE from 100 % by [step] while measuring the amplitude of a single CH,
-    sets TUNE to the value where the target was reached, and stops.
+    sets TUNE to the value where the target was reached, and stops. The English UI version will also be fixed on the GUI side.
 
 ### Prerequisites
 
