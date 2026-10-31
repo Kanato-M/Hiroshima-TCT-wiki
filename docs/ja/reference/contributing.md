@@ -28,6 +28,7 @@
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+python scripts/internal.py prepare   # 内部情報ページを用意（パスワードが無ければ案内ページ）
 mkdocs serve
 ```
 
@@ -47,6 +48,34 @@ mkdocs serve
 
 !!! note "初回のみの設定"
     リポジトリの **Settings → Pages → Build and deployment → Source** を **GitHub Actions** に設定してください。
+
+## 公開しない情報と内部情報ページ { #internal }
+
+このサイトは誰でも見られます。**IP アドレス、NAS のアドレス、ユーザー名、パスワード、メールアドレス、個人名などは、公開ページに書かないでください。**
+これらは [内部情報](../internal.md) ページにまとめ、公開ページからはそこへリンクします。
+
+内部情報ページの仕組み：
+
+- 平文の Markdown はリポジトリに入れず、パスワードで暗号化した `internal/ja.md.enc`・`internal/en.md.enc` だけをコミットします。
+- GitHub Actions がビルド時に Secret `WIKI_INTERNAL_PASSWORD` で復号し、[mkdocs-encryptcontent-plugin](https://github.com/unverbuggt/mkdocs-encryptcontent-plugin) で
+  同じパスワードを入力したときだけブラウザ上で表示されるページとして公開します（検索にも出ません）。
+- Secret が設定されていないビルド（手元のプレビューなど）では、案内だけのページになります。
+
+内部情報を編集するとき（パスワードを知っている人のみ）：
+
+```bash
+python scripts/internal.py decrypt   # internal/src/ja.md, en.md に平文を出す（.gitignore 済み）
+# internal/src/*.md を編集する（日英両方）
+python scripts/internal.py encrypt   # 暗号化して internal/*.md.enc を更新
+git add internal/*.md.enc            # コミットするのは .enc だけ
+```
+
+パスワードを変えるときは `python scripts/internal.py rekey` を実行し、リポジトリの **Settings → Secrets and variables → Actions** の
+`WIKI_INTERNAL_PASSWORD` も新しいパスワードに更新します。
+
+!!! warning "注意"
+    - `internal/src/` と `docs/*/internal.md` は平文なので、絶対にコミットしないでください（`.gitignore` で除外しています）。
+    - ブラウザ側で復号する仕組みなので、強度はパスワードの強さで決まります。長いランダムなパスワードを使い、研究室外に教えないでください。
 
 ## 書き方のヒント
 

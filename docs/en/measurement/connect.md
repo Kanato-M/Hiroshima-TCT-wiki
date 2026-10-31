@@ -23,8 +23,8 @@ Use the English UI version (`laser_gui_v4_en`) if you do not read Japanese.
 
 | Panel | Action | What to check |
 | --- | --- | --- |
-| Oscilloscope | Check that the VISA field is `VICP::192.168.0.2::INSTR` and press [Connect] | "Connected" is shown |
-| 3-Axis Stage | Check that the address is `192.168.0.3:9004` and press [Connect] | "Connected" is shown and coordinates appear |
+| Oscilloscope | Check that the VISA field has the default (`VICP::<scope IP>::INSTR`; value in [Internal information](../internal.md#config)) and press [Connect] | "Connected" is shown |
+| 3-Axis Stage | Check that the address has the default (`<stage IP>:<port>`; value in [Internal information](../internal.md#config)) and press [Connect] | "Connected" is shown and coordinates appear |
 | Laser | Check that the port is `COM5` and press [Connect] | "Connected" is shown and the status display (Interlock, Trig, Freq, Tune, Head) appears |
 | Focus Camera | [Start] | The image appears |
 

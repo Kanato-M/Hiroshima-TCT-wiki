@@ -12,7 +12,7 @@ Scan waveforms are first saved on the oscilloscope's disk. To move them to the P
 2. Check [PC destination] (default is `data` next to the GUI folder).
 3. If needed, check [Delete on scope after transfer] (default **OFF**; see below).
 4. Press **[Start Transfer]**.
-5. Enter the SSH password when asked (user name `lcrydmin`; ask the administrator for the password).
+5. Enter the SSH password when asked (user name: [Internal information](../internal.md#accounts); ask the contact person for the password).
    The password is not stored and must be entered for each transfer (within the same session the previous value is filled in).
 
 The whole scope-side folder `<scope_save_dir>\<year>\<YYYYMMDD>` is copied over SSH/SFTP to `<transfer_dest_dir>\<year>\<YYYYMMDD>` on the PC.
@@ -29,19 +29,19 @@ The whole scope-side folder `<scope_save_dir>\<year>\<YYYYMMDD>` is copied over 
 - **Transfer is not possible while a scan is running** (exclusive in the GUI). Also avoid transferring while the scope autosave is active.
 
 !!! tip "Retrieving from a terminal"
-    GUI retrieval uses the same SSH/SFTP protocol as running `scp -r lcrydmin@192.168.0.2:C:\...\<YYYYMMDD> .` in a terminal.
+    GUI retrieval uses the same SSH/SFTP protocol as copying from the scope with `scp -r` in a terminal (command: [Internal information](../internal.md#scope-scp)).
 
 ## Backup to the NAS { #backup }
 
-Back up the data retrieved to the control PC to the NAS. Run the following in a terminal on the control PC.
+Back up the data retrieved to the control PC to the NAS. Copy it with `scp -r` in a terminal on the control PC.
 
-```bat
-scp -r "<folder of the retrieved data>" quark-lab@10.28.57.235:/share/laser_data/2026/
+```bash
+scp -r "<folder of the retrieved data>" <NAS user>@<NAS address>:<NAS destination>/<year>/
 ```
 
-- Example: `scp -r "workspace/data/2026/20261008" quark-lab@10.28.57.235:/share/laser_data/2026/`
-- When the year changes, adjust the year folder of the destination (`/share/laser_data/<year>/`).
-- Ask the contact person (Matsutani) for the password (there is a note on the control PC).
+- The NAS address, user name and destination, and the actual command example, are in [Internal information](../internal.md#nas) (password protected).
+- When the year changes, adjust the year folder of the destination.
+- Ask the contact person for the password (there is a note on the control PC).
 
 !!! tip "When the data on the scope may be deleted"
     Delete the data on the scope when its disk is running low, or once the move to the NAS is complete

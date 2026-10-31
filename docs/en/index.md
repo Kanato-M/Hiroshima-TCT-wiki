@@ -81,8 +81,8 @@ flowchart LR
 
 ## Contact
 
-For questions about the setup or this wiki, and for the control PC and NAS passwords, ask Matsutani (matsutani@quark.hiroshima-u.ac.jp).
-The laser safety officers are Yano and Matsutani.
+The contact person and the laser safety officers are listed on the lab-internal [Internal information](internal.md#contacts) page (password protected).
+Ask a lab member for the password.
 
 !!! note "Sources"
     The setup-specific content of this wiki is based on the README and source code of the control GUI `laser_gui_v4`,

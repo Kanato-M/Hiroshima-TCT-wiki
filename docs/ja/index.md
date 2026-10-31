@@ -81,8 +81,8 @@ flowchart LR
 
 ## 問い合わせ先
 
-装置・この Wiki についての質問、制御 PC や NAS のパスワードは、松谷（matsutani@quark.hiroshima-u.ac.jp）に聞いてください。
-レーザーの管理責任者は八野・松谷です。
+問い合わせ先とレーザー管理責任者は、研究室内部向けの [内部情報](internal.md#contacts) ページ（パスワード付き）に載せています。
+パスワードは研究室のメンバーに聞いてください。
 
 !!! note "情報の出典"
     この Wiki の装置固有の記述は、制御 GUI `laser_gui_v4` の README とソースコード、および解析ノート

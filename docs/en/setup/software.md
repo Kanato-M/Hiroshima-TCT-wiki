@@ -7,7 +7,7 @@ This page explains how to install the GUI, the initial settings on the device si
 
 | Item | Details |
 | --- | --- |
-| User name | `epic` (ask the contact person for the password) |
+| User name and password | See [Internal information](../internal.md#accounts) (ask the contact person for the password) |
 | GUI folders | `~/workspace/laser_gui_v4/` (Japanese UI version), `~/workspace/laser_gui_v4_en/` (English UI version) |
 | Where to get the code | The latest version will be published on GitHub (not yet public) |
 | Python | Latest version |
@@ -57,15 +57,15 @@ These settings are needed only when the setup is newly assembled or a device is 
 1. **PiLAS DX**: the USB connection requires the FTDI VCP driver (PiLAS Product Guide section 3.3).
    Check the COM number in Device Manager (**COM5** on the control PC).
 2. **LeCroy oscilloscope**: check the control method under Utilities → Utilities Setup → Remote on the scope.
-    - **TCPIP (VICP)** (default): `VICP::192.168.0.2::INSTR`
-    - **LXI (VXI11)**: `TCPIP0::192.168.0.2::inst0::INSTR`
+    - **TCPIP (VICP)** (default): `VICP::<scope IP>::INSTR`
+    - **LXI (VXI11)**: `TCPIP0::<scope IP>::inst0::INSTR`
 
-    Either way, the GUI falls back to the other one automatically on connect. The IP is 192.168.0.2.
+    Either way, the GUI falls back to the other one automatically on connect. The IP is in [Internal information](../internal.md#network).
 3. **LeCroy SSH server**: data retrieval connects to the OpenSSH server (sshd) on the scope's Windows.
    Already set up as of 2026-09.
-4. **SHRC-203**: enable Ethernet in the controller menu and set the IP to 192.168.0.3. Use the SHOT-compatible command mode,
-   and match the port number to the controller setting (**9004** on the real hardware).
-5. **Control PC**: set the IP address to **192.168.0.1**.
+4. **SHRC-203**: enable Ethernet in the controller menu and set the IP ([Internal information](../internal.md#network)). Use the SHOT-compatible command mode,
+   and match the port number to the controller setting.
+5. **Control PC**: set the IP address on the instrument LAN ([Internal information](../internal.md#network)).
 
 ## Per-PC settings `config_local.json` { #config }
 
@@ -78,18 +78,18 @@ Settings that differ per PC, such as the COM port number or the save folder on t
   "stage_um_per_pulse": [2.0, 2.0, 2.0],
   "stage_speed_pps": [1000, 10000, 200],
   "scope_save_dir": "C:\\Users\\LeCroyUser\\Desktop\\data",
-  "scope_smb_user": "lcrydmin",
+  "scope_smb_user": "<SSH user>",
   "transfer_dest_dir": "..\\data"
 }
 ```
 
 | Key | Default | Content |
 | --- | --- | --- |
-| `scope_resource` | `VICP::192.168.0.2::INSTR` | Scope address |
+| `scope_resource` | `VICP::<scope IP>::INSTR` | Scope address |
 | `scope_save_dir` | `C:\Users\LeCroyUser\Desktop\data` | Base folder for waveforms on the scope |
-| `scope_smb_user` | `lcrydmin` | SSH user name for data retrieval |
+| `scope_smb_user` | `<SSH user>` | SSH user name for data retrieval |
 | `transfer_dest_dir` | `..\data` | Destination on the PC (may be relative to the GUI folder) |
-| `stage_host` / `stage_port` | `192.168.0.3` / `9004` | Stage address |
+| `stage_host` / `stage_port` | `<stage IP>` / `<port>` | Stage address |
 | `stage_um_per_pulse` | `[2.0, 2.0, 2.0]` | Travel per pulse [µm] (X, Y, Z). Confirmed on the hardware |
 | `stage_speed_pps` | `[1000, 10000, 200]` | Start speed [pps], max speed [pps], acceleration time [ms]. Setting them too high risks losing steps |
 | `laser_port` | `COM5` | Laser COM port |

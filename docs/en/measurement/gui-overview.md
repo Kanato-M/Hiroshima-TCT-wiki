@@ -38,7 +38,7 @@ The window is designed for a wide 16:9 monitor. From top to bottom it has the **
 
 ### Oscilloscope panel
 
-- **VISA** field: address (default `VICP::192.168.0.2::INSTR`). Press [Connect]; on success it shows "Connected" and the button changes to [Disconnect].
+- **VISA** field: address (default `VICP::<scope IP>::INSTR`). Press [Connect]; on success it shows "Connected" and the button changes to [Disconnect].
 - **[Start Mirror]**: shows the scope screen in the GUI. Select the refresh rate with [Interval].
   The mirror keeps running during a scan and pauses automatically only while each point is being acquired.
 - **[Trigger/Sweep] tab**: trigger mode (AUTO / NORM / SINGLE / STOP), source, level, slope, coupling, timebase, horizontal offset,

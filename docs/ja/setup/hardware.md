@@ -23,8 +23,8 @@ flowchart LR
     HV["HV −190〜−195 V<br/>Matsusada P4L650-0.1"] --> DUT
     LV["LV 6.0 V<br/>R&S NGP800"] --> DUT
     PC["制御 PC (Windows)<br/>laser_gui"]
-    PC ---|"LAN 192.168.0.2"| OSC
-    PC ---|"LAN 192.168.0.3:9004"| STG
+    PC ---|LAN| OSC
+    PC ---|LAN| STG
     PC ---|"USB 仮想 COM (COM5)"| LAS
     PC ---|USB| CAM
 ```
@@ -56,7 +56,7 @@ flowchart LR
 | LV 電源 | Rohde & Schwarz NGP800 シリーズ | 6.0 V（手動操作） |
 | HV 電源 | Matsusada P4L650-0.1 | −190〜−195 V（手動操作、温度によって変える。上限 −220 V） |
 | フォーカスカメラ | USB カメラ（手動フォーカスレンズ、オートフォーカス非対応） | OpenCV で取得、デバイス番号 0 |
-| 制御 PC | Windows、Python 3.10 以上。16:9 横長モニター（EX-LDHU431DB）向けに GUI を配置 | IP 192.168.0.1 |
+| 制御 PC | Windows、Python 3.10 以上。16:9 横長モニター（EX-LDHU431DB）向けに GUI を配置 | 機器との LAN は固定 IP |
 
 !!! note "解析ノートとの違い"
     解析ノート matome ではケーブル長を「1 m（要確認）」、センサー温度を「約 35 °C（未確定）」としていますが、
@@ -98,14 +98,14 @@ PC ごとの違いは `config_local.json` で上書きします（[制御 PC と
 
 | パネル | 機器 | 接続方式 | 既定アドレス |
 | --- | --- | --- | --- |
-| オシロスコープ | LeCroy WavePro | LAN。VICP（既定）または VXI-11。接続時に `*IDN?` の応答を確かめ、失敗したらもう一方を自動で試す | `VICP::192.168.0.2::INSTR` |
-| ステージ | SHRC-203（3 軸） | LAN (TCP) または RS-232C。SHOT 互換コマンド、デリミタ CRLF | `192.168.0.3:9004` |
+| オシロスコープ | LeCroy WavePro | LAN。VICP（既定）または VXI-11。接続時に `*IDN?` の応答を確かめ、失敗したらもう一方を自動で試す | `VICP::<オシロの IP>::INSTR` |
+| ステージ | SHRC-203（3 軸） | LAN (TCP) または RS-232C。SHOT 互換コマンド、デリミタ CRLF | `<ステージの IP>:<ポート>` |
 | レーザー | PiLAS DX（EGI-D2-40） | USB 仮想 COM ポート（19200 baud、8N1、CR 終端）。FTDI VCP ドライバが必要 | `COM5` |
 | カメラ | フォーカスカメラ | USB。OpenCV（Windows では DirectShow を優先） | デバイス番号 `0` |
 
-- 制御 PC の IP アドレスは **192.168.0.1** に設定します。
+- 各機器の IP アドレス・ポート・ユーザー名は [内部情報](../internal.md#network)（パスワード付き）にあります。
 - オシロスコープは、レーザーの TRIG OUT を外部トリガー (EXT) に入れて同期させます。
-- オシロのデータは SSH/SFTP で PC に回収します（ユーザー名 `lcrydmin`。パスワードは管理者に聞いてください）。
+- オシロのデータは SSH/SFTP で PC に回収します（ユーザー名は [内部情報](../internal.md#accounts)。パスワードは問い合わせ先に聞いてください）。
 
 ### 読み出しチャンネルの対応（標準センサー） { #readout-map }
 

@@ -86,6 +86,20 @@ plugins:
             用語集: Glossary
             参考文献: Bibliography
             Wiki の編集方法: Contributing
+            内部情報（パスワード）: Internal information (password)
+  # 内部情報ページ（docs/*/internal.md）をパスワードで暗号化する。search より後に置くこと
+  # Encrypts the internal page (docs/*/internal.md). Must come after search.
+  - encryptcontent:
+      title_prefix: '🔒 '
+      summary: 'このページは研究室内部向けです / Lab members only'
+      placeholder: 'パスワード / Password'
+      password_button: true
+      password_button_text: '表示 / Show'
+      decryption_failure_message: 'パスワードが違います / Wrong password'
+      encryption_info_message: 'このページを見るには研究室のパスワードが必要です / A lab password is required to view this page'
+      search_index: encrypted
+      remember_password: false
+
 nav:
   - ホーム: index.md
   - はじめに:
@@ -116,6 +130,7 @@ nav:
       - 用語集: reference/glossary.md
       - 参考文献: reference/bibliography.md
       - Wiki の編集方法: reference/contributing.md
+      - 内部情報（パスワード）: internal.md
 markdown_extensions:
   - admonition
   - attr_list
