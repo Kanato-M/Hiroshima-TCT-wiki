@@ -4,15 +4,18 @@ This page covers starting the GUI, connecting the devices, and getting the laser
 Once this is done, go on to [Alignment](alignment.md).
 
 !!! note "Prerequisites"
-    The devices are powered on and LV 6.0 V and HV −185 V are applied ([Measurement workflow](procedure.md#power-on)).
+    The devices are powered on and LV 6.0 V and HV (190–195 V at 33 °C) are applied ([Measurement workflow](procedure.md#power-on)).
 
 ## 1-1. Start the GUI
 
 Start it in the GUI folder ([Control PC and software](../setup/software.md)).
 
 ```bat
+cd %USERPROFILE%\workspace\laser_gui_v4_en
 python main.py
 ```
+
+Use the English UI version (`laser_gui_v4_en`) if you do not read Japanese.
 
 ## 1-2. Connect the devices
 
@@ -75,8 +78,9 @@ Using the camera **crosshair** as a guide, jog to the same position in the [Move
 !!! tip "Jog direction"
     The arrows show the **direction of motion in the camera image**. The button text shows the actual axis and sign sent; ▲ is Y−.
 
-!!! question "To be confirmed"
-    How to turn the camera light ON/OFF, and whether it should be OFF during measurement (the relation between TUNE and signal amplitude changes with the light ON/OFF).
+!!! warning "Always keep the camera light OFF during measurement"
+    The camera light is switched ON/OFF by hand inside the dark room. Turn it ON only while aligning with the camera, and **always turn it OFF before Find Origin, TUNE optimization and measurement**.
+    The relation between TUNE and signal amplitude changes with the light ON/OFF.
 
 ### Other functions of the [Positions] tab
 
@@ -94,8 +98,8 @@ Set the following in the laser panel and press the corresponding **[Apply]** to 
 | Item | Setting |
 | --- | --- |
 | Trigger source | internal (ts=0) (the laser is the reference clock) |
-| Rep. rate | See "To be confirmed" below |
-| TUNE | Adjusted later with [TUNE optimization](tune.md). For now, any value where a signal is visible |
+| Rep. rate | **1 MHz** (standard; can be changed) |
+| TUNE | manual, **50 %** (already adjusted to MIP-equivalent at 1 MHz; normally left unchanged) |
 
 !!! danger "Before firing the laser"
     Make sure the dark room (dark box) is closed and nobody is inside. The 1064 nm light is invisible ([Safety](../introduction/safety.md)).
@@ -103,8 +107,9 @@ Set the following in the laser panel and press the corresponding **[Apply]** to 
 Then press **[Emission ON (ld=1)]**, check the interlock and optics in the confirmation dialog, and press [Yes].
 The status display shows "Emission: ON" with a red band.
 
-!!! question "To be confirmed"
-    The standard repetition rate. The main scans in the analysis notes (matome) use 40 MHz (some 1 MHz); the GUI default is 1.25 MHz (TCT rec.).
+!!! note "Difference from the GUI default"
+    The GUI default repetition rate is 1.25 MHz (TCT rec.), and the main scans in the analysis note (matome) use 40 MHz, but the current standard is 1 MHz.
+    On connecting, the input fields are synchronized to the current values of the device, so check that it is set to 1 MHz.
 
 !!! warning "Re-adjust TUNE after changing the rate"
     The optimal TUNE depends on the repetition rate. If you change the rate while keeping a manual TUNE tuned for another rate, the laser can drop below

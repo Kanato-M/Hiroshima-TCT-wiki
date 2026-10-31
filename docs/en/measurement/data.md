@@ -31,8 +31,20 @@ The whole scope-side folder `<scope_save_dir>\<year>\<YYYYMMDD>` is copied over 
 !!! tip "Retrieving from a terminal"
     GUI retrieval uses the same SSH/SFTP protocol as running `scp -r lcrydmin@192.168.0.2:C:\...\<YYYYMMDD> .` in a terminal.
 
+## Backup to the NAS { #backup }
+
+Back up the data retrieved to the control PC to the NAS. Run the following in a terminal on the control PC.
+
+```bat
+scp -r "<folder of the retrieved data>" quark-lab@10.28.57.235:/share/laser_data/2026/
+```
+
+- Example: `scp -r "%USERPROFILE%\workspace\data\2026\20261008" quark-lab@10.28.57.235:/share/laser_data/2026/`
+- When the year changes, adjust the year folder of the destination (`/share/laser_data/<year>/`).
+- Ask the contact person (Matsutani) for the password (there is a note on the control PC).
+
 !!! question "To be confirmed"
-    The final storage location of retrieved data (backup to a NAS, etc.), and when the data on the scope may be deleted.
+    When the data on the scope may be deleted (after the NAS backup?).
 
 ## Quick analysis ([Analysis] tab) { #analysis }
 

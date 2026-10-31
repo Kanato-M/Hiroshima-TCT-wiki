@@ -79,7 +79,11 @@ flowchart LR
 - ファイルがどこに保存されたか知りたい → [出力ファイル一覧](reference/files.md)
 - Wiki に追記したい → [Wiki の編集方法](reference/contributing.md)
 
+## 問い合わせ先
+
+装置・この Wiki についての質問、制御 PC や NAS のパスワードは、松谷（matsutani@quark.hiroshima-u.ac.jp）に聞いてください。
+
 !!! note "情報の出典"
     この Wiki の装置固有の記述は、制御 GUI `laser_gui_v4` の README とソースコード、および解析ノート
-    「500 µm ピッチ Strip AC-LGAD のレーザー TCT スキャン」（matome）の §3–4 に基づいています。
-    まだ確認できていない項目は「要確認」の囲みで示しています。
+    「500 µm ピッチ Strip AC-LGAD のレーザー TCT スキャン」（matome）の §3–4、
+    および装置担当者への確認（2026-11）に基づいています。まだ確認できていない項目は「要確認」の囲みで示しています。

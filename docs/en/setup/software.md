@@ -3,25 +3,30 @@
 All measurements are done with the GUI **laser_gui** (AC-LGAD Laser Scan Control GUI) on the control PC.
 This page explains how to install the GUI, the initial settings on the device side, and how to start it.
 
+## Control PC
+
+| Item | Details |
+| --- | --- |
+| User name | `epic` (ask the contact person for the password) |
+| GUI folders | `~/workspace/laser_gui_v4/` (Japanese UI version), `~/workspace/laser_gui_v4_en/` (English UI version) |
+| Where to get the code | The latest version will be published on GitHub (not yet public) |
+
 !!! question "To be confirmed"
-    - How to log in to the control PC
-    - Location of the GUI folder (e.g. `C:\Users\...\laser_gui_v4`) and where to get the code (GitHub, etc.)
-    - The Python environment in use (Anaconda / venv, etc.) and the usual way to start the GUI (command prompt, shortcut, etc.)
-    - When to use the Japanese UI version (`laser_gui_v4`) and when the English UI version (`laser_gui_v4_en`)
+    The Python environment in use (Anaconda / venv, etc.) and the usual way to start the GUI (command prompt, shortcut, etc.).
 
 ## GUI versions
 
 | Folder | Content |
 | --- | --- |
 | `laser_gui_v4` | Japanese UI version |
-| `laser_gui_v4_en` | English UI version. Same basic functions and numbers; the on-screen text is in English |
+| `laser_gui_v4_en` | English UI version. Same basic functions and numbers; the on-screen text is in English. **Use this version if you do not read Japanese** |
 
 !!! warning "TUNE optimization in the English UI version is the older spec"
     In the code at hand as of 2026-10, TUNE optimization in the English UI version lacks the "method" selector ("Single CH" / "Adjacent 2-ch sum"), the tolerance and the fine sweep;
     it only does a coarse sweep on a single CH ([TUNE optimization](../measurement/tune.md)). To match the adjacent 2-ch sum (MIP-equivalent), use the Japanese UI version.
 
 The screenshots in this wiki were taken in simulation mode when the analysis note matome was written (2026-10 revision).
-Some parts of the display (such as the "method" field of TUNE optimization) differ from the current version.
+Some parts of the display (such as the "method" field of TUNE optimization) differ from the current version. Screenshots of the current version will be added later.
 
 ## Required software
 
@@ -102,7 +107,7 @@ Settings that differ per PC, such as the COM port number or the save folder on t
 The folder `logs/` for logs and state files is **relative to the directory you start from**, so always start in the GUI folder.
 
 ```bat
-cd <GUI folder>
+cd %USERPROFILE%\workspace\laser_gui_v4_en
 python main.py              :: real hardware mode
 python main.py --simulate   :: simulate all devices
 ```
@@ -152,8 +157,7 @@ laser_gui_v4/
 The retrieved data (`..\data`) and analysis results (`..\results`) on the PC are placed **outside** (next to) the GUI folder,
 so that the Japanese and English GUIs can share the data. For details, see [Output files](../reference/files.md).
 
-!!! question "To be confirmed"
-    Final storage location of the retrieved data (backup to a NAS, etc.) and the naming convention.
+Retrieved data are backed up to the NAS ([Data retrieval and quick analysis](../measurement/data.md#backup)).
 
 ## Measurement log
 

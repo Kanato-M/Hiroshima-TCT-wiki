@@ -79,7 +79,11 @@ flowchart LR
 - Find where a file was saved → [Output files](reference/files.md)
 - Add to this wiki → [Contributing](reference/contributing.md)
 
+## Contact
+
+For questions about the setup or this wiki, and for the control PC and NAS passwords, ask Matsutani (matsutani@quark.hiroshima-u.ac.jp).
+
 !!! note "Sources"
-    The setup-specific content of this wiki is based on the README and source code of the control GUI `laser_gui_v4`, and on
-    §3–4 of the analysis note "Laser TCT scan of a 500 µm pitch strip AC-LGAD" (matome).
-    Items not yet confirmed are marked with "To be confirmed" boxes.
+    The setup-specific content of this wiki is based on the README and source code of the control GUI `laser_gui_v4`,
+    §3–4 of the analysis note "Laser TCT scan of a 500 µm pitch strip AC-LGAD" (matome),
+    and answers from the people in charge of the setup (2026-11). Items not yet confirmed are marked with "To be confirmed" boxes.

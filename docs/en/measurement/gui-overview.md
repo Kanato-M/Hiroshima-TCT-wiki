@@ -77,7 +77,7 @@ The **logical coordinates** (X, Y, Z, green digits) and **machine coordinates** 
 
 - **Status display**: emission ON/OFF (red band when ON), Interlock, Trig, Freq, Tune, Head (head temperature). Updated every 2 s with `mState?`.
 - **[Trigger source]**: internal (ts=0) (normally this) / ext. TTL (ts=2) / ext. Adj (ts=1).
-- **[Rep. rate]**: presets from 1 kHz to 40 MHz (1.25 MHz is "TCT rec."). Any value in Hz can also be entered.
+- **[Rep. rate]**: presets from 1 kHz to 40 MHz (1.25 MHz is labeled "TCT rec.", but **the standard for this setup is 1 MHz**). Any value in Hz can also be entered.
 - **[TUNE]**: auto / manual and value [%]. **0 % is the strongest and 100 % the weakest.**
 - **TUNE optimization**: automatically adjusts TUNE to a target amplitude ([Laser intensity adjustment](tune.md)).
 - **[Emission ON (ld=1)]** / **[Emission OFF (ld=0)]**.
@@ -91,7 +91,7 @@ It has the [Scan] tab and the [Data Retrieval] tab ([Auto scan](scans.md), [Data
 
 ## Status bar
 
-Always shows the selected sensor, reference HV and LV values, the mapping between scope channels and readout pads, and the strip pitch.
+Always shows the selected sensor, reference HV and LV values (the values in `config.py`; for the actual HV, see [Safety](../introduction/safety.md#bias)), the mapping between scope channels and readout pads, and the strip pitch.
 Example: `Sensor: Standard strip (500 µm pitch, 10 mm) | HV -185 V / LV 6 V | Readout C1=J8 C2=J7 C3=J6 C4=J5 | Pitch 500 µm`
 
 ## Task exclusivity

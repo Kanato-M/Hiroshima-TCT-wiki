@@ -9,7 +9,7 @@ The time reference is the laser **TRIG OUT**, fed into the external trigger (EXT
 
 ```mermaid
 flowchart LR
-    subgraph DARK["Dark room"]
+    subgraph DARK["Dark room (whole room)"]
         OBJ["Objective<br/>PAL-50-NIR-L (50×)"]
         DUT["AC-LGAD strip<br/>on FNAL 16ch board"]
         STG["3-axis stage<br/>SHRC-203"]
@@ -20,8 +20,8 @@ flowchart LR
     STG -.- DUT
     DUT -->|"C1–C4 (GALI-S66 ×2 stages)"| OSC["LeCroy WavePro 804HD<br/>DC 50 Ω"]
     LAS -->|TRIG OUT → EXT| OSC
-    HV["HV −185 V"] --> DUT
-    LV["LV 6.0 V"] --> DUT
+    HV["HV 190–195 V<br/>Matsusada P4L650-0.1"] --> DUT
+    LV["LV 6.0 V<br/>R&S NGP800"] --> DUT
     PC["Control PC (Windows)<br/>laser_gui"]
     PC ---|"LAN 192.168.0.2"| OSC
     PC ---|"LAN 192.168.0.3:9004"| STG
@@ -29,11 +29,17 @@ flowchart LR
     PC ---|USB| CAM
 ```
 
-!!! note "Photos"
-    Photos of the whole dark room and of the objective and readout board are in Fig. 2 of the analysis note matome.
+## Photos
 
-    !!! question "To be confirmed"
-        Whether the photos may be published on the public site.
+<div class="grid" markdown>
+
+![Overview of the dark room](../images/setup/darkroom-overview.jpg)
+
+![50× objective and readout board](../images/setup/objective-and-board.jpg)
+
+</div>
+
+*Left: overview of the dark room (from left: oscilloscope, fiber and optics, stage). Right: 50× objective and readout board.*
 
 ## Equipment
 
@@ -41,18 +47,20 @@ flowchart LR
 | --- | --- | --- |
 | Laser | NKT Photonics PiLAS DX (head NPIL1-106-40FC, controller EGI-D2-40). Wavelength 1064 nm (1063.4 nm in the test report), pulse width 50 ps, repetition rate adjustable up to 40 MHz, trigger jitter < 3 ps rms | Intensity set with TUNE [%] (0 % strongest, 100 % weakest) |
 | Fiber | Polarization-maintaining single mode (PANDA type), FC/APC | — |
-| Objective | OptoSigma PAL-50-NIR-L: 50×, NA 0.45, working distance 15.1 mm, focal length 4 mm. PAL-10-NIR-A (10×, NA 0.30) for coarse positioning | Spot σ ≲ 1.2 µm (in focus) |
+| Objective | OptoSigma PAL-50-NIR-L: 50×, NA 0.45, working distance 15.1 mm, focal length 4 mm (a 10× PAL-10-NIR-A also exists, but it is not swapped in for use) | Spot σ ≲ 1.2 µm (in focus) |
 | Stage | OptoSigma SHRC-203 (3 axes, 5-phase stepper motors), joystick JS-301 | 2 µm/pulse (X and Y confirmed on the hardware, Z unconfirmed) |
 | Oscilloscope | Teledyne LeCroy WavePro 804HD (8 GHz, 12 bit) | 10 GS/s, sequence mode 2000 segments/point, 50 mV/div, DC 50 Ω |
-| Sensor | HPK strip AC-LGAD: pitch 500 µm, metal electrode width 50 µm, exposed length 9318 µm, thickness 50 µm, n+ sheet resistance 1600 Ω/□, coupling capacitance 600 pF/mm². C1–C4 of the 6 strips (C0–C5) are read out | HV −185 V. Measured at dark-room temperature |
-| Readout board | FNAL 16-channel board. Two stages of Mini-Circuits GALI-S66 per strip | LV 6.0 V |
+| Sensor | HPK strip AC-LGAD: pitch 500 µm, metal electrode width 50 µm, exposed length 9318 µm, thickness 50 µm, n+ sheet resistance 1600 Ω/□, coupling capacitance 600 pF/mm². C1–C4 of the 6 strips (C0–C5) are read out | HV 190–195 V (at a sensor temperature of 33 °C). No cooling |
+| Readout board | FNAL 16-channel board. Two stages of Mini-Circuits GALI-S66 per strip. Mounted by inserting it into a fixing jig | LV 6.0 V |
+| Signal cables | MCX–BNC, 75 cm long | Change the connection on the board side to the channels you want to see |
+| LV supply | Rohde & Schwarz NGP800 series | 6.0 V (manual operation) |
+| HV supply | Matsusada P4L650-0.1 | 190–195 V (manual operation, changed with temperature) |
 | Focus camera | USB camera (manual-focus lens, no autofocus) | Read with OpenCV, device index 0 |
 | Control PC | Windows, Python 3.10 or later. GUI laid out for a 16:9 wide monitor (EX-LDHU431DB) | IP 192.168.0.1 |
 
-!!! question "To be confirmed"
-    - Length of the signal cables (readout board → scope) (the documents say "1 m, to be confirmed")
-    - Models of the HV and LV supplies
-    - Whether the 10× objective is used in practice, and if so, how to switch
+!!! note "Differences from the analysis note"
+    The analysis note matome gives the cable length as "1 m (to be confirmed)" and the sensor temperature as "about 35 °C (not finalized)",
+    but the actual values are a cable length of 75 cm and a sensor temperature of 33 °C.
 
 ## Connections and addresses
 
@@ -80,6 +88,7 @@ per-PC differences are overridden in `config_local.json` ([Control PC and softwa
 | C4 | J5 | C4 | −1500 µm |
 
 C0 (+500 µm) and C5 (−2000 µm) are outer strips that are not read out.
+The signals go to the scope through MCX–BNC cables (75 cm); change the connection on the board side to the channels you want to see.
 This map can be set per sensor profile and is shown in the GUI status bar and in the CH labels of the oscilloscope panel.
 
 ## Time reference { #time-reference }

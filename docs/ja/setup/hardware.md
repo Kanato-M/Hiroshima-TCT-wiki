@@ -9,7 +9,7 @@
 
 ```mermaid
 flowchart LR
-    subgraph DARK["暗室"]
+    subgraph DARK["暗室（部屋全体）"]
         OBJ["対物レンズ<br/>PAL-50-NIR-L (50×)"]
         DUT["AC-LGAD ストリップ<br/>on FNAL 16ch ボード"]
         STG["3 軸ステージ<br/>SHRC-203"]
@@ -20,8 +20,8 @@ flowchart LR
     STG -.- DUT
     DUT -->|"C1–C4 (GALI-S66 ×2 段)"| OSC["LeCroy WavePro 804HD<br/>DC 50 Ω"]
     LAS -->|TRIG OUT → EXT| OSC
-    HV["HV −185 V"] --> DUT
-    LV["LV 6.0 V"] --> DUT
+    HV["HV 190–195 V<br/>Matsusada P4L650-0.1"] --> DUT
+    LV["LV 6.0 V<br/>R&S NGP800"] --> DUT
     PC["制御 PC (Windows)<br/>laser_gui"]
     PC ---|"LAN 192.168.0.2"| OSC
     PC ---|"LAN 192.168.0.3:9004"| STG
@@ -29,11 +29,17 @@ flowchart LR
     PC ---|USB| CAM
 ```
 
-!!! note "写真"
-    暗室の全景と、対物レンズ・読み出しボードの写真は解析ノート matome の図 2 にあります。
+## 写真
 
-    !!! question "要確認"
-        写真を公開サイトに載せてよいか。
+<div class="grid" markdown>
+
+![暗室内の全景](../images/setup/darkroom-overview.jpg)
+
+![50 倍対物レンズと読み出しボード](../images/setup/objective-and-board.jpg)
+
+</div>
+
+*左：暗室内の全景（左からオシロ、ファイバー・光学系、ステージ）。右：50 倍対物レンズと読み出しボード。*
 
 ## 構成機器
 
@@ -41,18 +47,20 @@ flowchart LR
 | --- | --- | --- |
 | レーザー | NKT Photonics PiLAS DX（ヘッド NPIL1-106-40FC、コントローラ EGI-D2-40）。波長 1064 nm（試験成績 1063.4 nm）、パルス幅 50 ps、繰り返し 40 MHz まで可変、トリガージッター < 3 ps rms | 強度は TUNE [%] で調整（0 % が最強、100 % が最弱） |
 | ファイバー | 偏波保持シングルモード（PANDA 型）、FC/APC | — |
-| 対物レンズ | OptoSigma PAL-50-NIR-L：50 倍、NA 0.45、作動距離 15.1 mm、焦点距離 4 mm。粗い位置合わせ用に PAL-10-NIR-A（10 倍、NA 0.30） | スポット σ ≲ 1.2 µm（焦点上） |
+| 対物レンズ | OptoSigma PAL-50-NIR-L：50 倍、NA 0.45、作動距離 15.1 mm、焦点距離 4 mm（10 倍の PAL-10-NIR-A もあるが、切り替えて使うことはない） | スポット σ ≲ 1.2 µm（焦点上） |
 | ステージ | OptoSigma SHRC-203（3 軸、5 相ステッピングモーター）、ジョイスティック JS-301 | 2 µm/pulse（X・Y は実機確認済み、Z は未確認） |
 | オシロスコープ | Teledyne LeCroy WavePro 804HD（8 GHz、12 bit） | 10 GS/s、シーケンスモード 2000 セグメント/点、50 mV/div、DC 50 Ω |
-| センサー | HPK 製ストリップ型 AC-LGAD：ピッチ 500 µm、金属電極幅 50 µm、露出長 9318 µm、厚さ 50 µm、n+ シート抵抗 1600 Ω/□、結合容量 600 pF/mm²。6 本（C0–C5）のうち C1–C4 を読み出し | HV −185 V。暗室の室温で測定 |
-| 読み出しボード | FNAL 16 チャンネルボード。ストリップごとに Mini-Circuits GALI-S66 を 2 段 | LV 6.0 V |
+| センサー | HPK 製ストリップ型 AC-LGAD：ピッチ 500 µm、金属電極幅 50 µm、露出長 9318 µm、厚さ 50 µm、n+ シート抵抗 1600 Ω/□、結合容量 600 pF/mm²。6 本（C0–C5）のうち C1–C4 を読み出し | HV 190–195 V（センサー温度 33 °C のとき）。冷却はしない |
+| 読み出しボード | FNAL 16 チャンネルボード。ストリップごとに Mini-Circuits GALI-S66 を 2 段。固定ジグに差し込んで載せる | LV 6.0 V |
+| 信号ケーブル | MCX–BNC、長さ 75 cm | 見たいチャンネルに合わせて、ボード側の接続先を変える |
+| LV 電源 | Rohde & Schwarz NGP800 シリーズ | 6.0 V（手動操作） |
+| HV 電源 | Matsusada P4L650-0.1 | 190–195 V（手動操作、温度によって変える） |
 | フォーカスカメラ | USB カメラ（手動フォーカスレンズ、オートフォーカス非対応） | OpenCV で取得、デバイス番号 0 |
 | 制御 PC | Windows、Python 3.10 以上。16:9 横長モニター（EX-LDHU431DB）向けに GUI を配置 | IP 192.168.0.1 |
 
-!!! question "要確認"
-    - 信号ケーブル（読み出しボード → オシロ）の長さ（資料では「1 m、要確認」）
-    - HV・LV 電源の型番
-    - 10 倍対物レンズを実際の作業で使うか、使うなら切り替え手順
+!!! note "解析ノートとの違い"
+    解析ノート matome ではケーブル長を「1 m（要確認）」、センサー温度を「約 35 °C（未確定）」としていますが、
+    実際はケーブル長 75 cm、センサー温度 33 °C です。
 
 ## 接続とアドレス
 
@@ -80,6 +88,7 @@ PC ごとの違いは `config_local.json` で上書きします（[制御 PC と
 | C4 | J5 | C4 | −1500 µm |
 
 C0（+500 µm）と C5（−2000 µm）は読み出していない外側のストリップです。
+信号は MCX–BNC ケーブル（75 cm）でオシロにつなぎ、見たいチャンネルに合わせてボード側の接続先を変えます。
 この対応はセンサープロファイルごとに設定でき、GUI のステータスバーとオシロパネルの CH ラベルに表示されます。
 
 ## 時間の基準 { #time-reference }

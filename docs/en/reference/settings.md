@@ -6,8 +6,9 @@ Standard measurement conditions and GUI defaults. The values come from `config.p
 
 | Item | Value | Notes |
 | --- | --- | --- |
-| HV (sensor bias) | −185 V | Not controlled by the GUI (reference value shown in the status bar) |
-| LV (readout board) | 6.0 V | Same as above |
+| HV (sensor bias) | 190–195 V (at a sensor temperature of 33 °C). Changed with temperature | Matsusada P4L650-0.1, manual. The reference value in the GUI status bar is −185 V |
+| LV (readout board) | 6.0 V | Rohde & Schwarz NGP800 series, manual |
+| Power-on order | After the other equipment, LV → HV | The other equipment can be powered on in any order |
 | Readout | C1=J8, C2=J7, C3=J6, C4=J5 | Standard sensor |
 
 ## Oscilloscope (contents of [★ Apply Standard Settings ★])
@@ -27,8 +28,9 @@ Standard measurement conditions and GUI defaults. The values come from `config.p
 | Item | Value | Notes |
 | --- | --- | --- |
 | Trigger source | internal (ts=0) | The laser is the reference clock |
-| Rep. rate | To be confirmed | Most scans in matome use 40 MHz (some 1 MHz); the GUI initial value is 1.25 MHz (TCT recommended) |
-| TUNE | Set by TUNE optimization | 0 % strongest, 100 % weakest |
+| Rep. rate | **1 MHz** | Can be changed. Note that the GUI initial value is 1.25 MHz |
+| TUNE | manual **50 %** | Adjusted to MIP-equivalent at 1 MHz (2026-10). 0 % strongest, 100 % weakest |
+| Camera light | OFF during measurement | Operated by hand inside the dark room |
 | TUNE optimization: single-CH target | 200 mV (PKPK) | |
 | TUNE optimization: adjacent 2-ch sum target | 64 mV | MIP-equivalent value at the strip midpoint from the DESY beam test (2026) |
 | TUNE optimization: tolerance / coarse sweep step | ±1 mV / 2 % | Fine sweep in 0.5 % steps |
@@ -85,3 +87,4 @@ Standard measurement conditions and GUI defaults. The values come from `config.p
 | Stage SHRC-203 | 192.168.0.3:9004 |
 | Laser PiLAS DX | COM5 (19200 baud, 8N1, CR terminated) |
 | Camera | Device index 0 |
+| NAS (backup destination) | `quark-lab@10.28.57.235:/share/laser_data/<year>/` |

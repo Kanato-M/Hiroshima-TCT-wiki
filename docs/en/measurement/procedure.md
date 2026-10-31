@@ -22,17 +22,16 @@ flowchart TD
 ## 0. Preparation and power-on { #power-on }
 
 - [ ] Write the date, purpose, operator and sensor ID in the measurement log (e.g. electronic logbook)
-- [ ] Check that the readout board is fixed on the stage, the C1–C4 signal cables go to scope inputs C1–C4, and TRIG OUT goes to the scope EXT input
-- [ ] Turn on the devices (for the order, see "To be confirmed" below)
+- [ ] Check that the readout board is inserted in the fixing jig, the MCX–BNC cables of the channels you want to see go to scope inputs C1–C4, and TRIG OUT goes to the scope EXT input
+- [ ] Turn on the devices (PiLAS controller EGI-D2-40, SHRC-203, oscilloscope, control PC; **the order does not matter**)
 - [ ] Set the current limit (compliance) of the HV and LV supplies (values: see "To be confirmed" below; until documented, do this with an experienced person)
-- [ ] Turn on LV 6.0 V (readout board)
-- [ ] Ramp HV in steps to −185 V (sensor bias) ([Safety](../introduction/safety.md#bias))
+- [ ] Bias the sensor **last**: in the order **LV 6.0 V → HV**. Ramp HV in steps to a value matching the sensor temperature (190–195 V at 33 °C; [Safety](../introduction/safety.md#bias))
+- [ ] Before leaving the dark room, turn **the camera light OFF** (always OFF during measurement; the light is operated by hand inside the dark room)
 
 !!! question "To be confirmed"
-    - The order in which to turn on the devices, and where each power switch is (PiLAS controller EGI-D2-40, SHRC-203, oscilloscope, control PC, LV supply, HV supply)
-    - How to operate the HV and LV supplies (current limit setting, ramp-up procedure)
-    - How to check the dark room door, lighting and interlock
-    - The procedure for remounting the readout board (sensor), and whether beginners may do it
+    - Where each power switch is
+    - The current limit values of the HV and LV supplies, and the ramp-up step and speed
+    - ESD precautions when remounting the readout board, and whether beginners may do it
 
 ## 1. Startup and device connection → [Details](connect.md)
 
@@ -53,8 +52,8 @@ flowchart TD
 
 ## 3. Laser intensity adjustment → [Details](tune.md)
 
-- [ ] Match the target amplitude with **TUNE optimization** in the laser panel
-- [ ] Always redo it after changing the repetition rate
+- [ ] Under the standard conditions (1 MHz, TUNE 50 %) the intensity is already adjusted to MIP-equivalent, so **normally leave it unchanged**
+- [ ] If you change the repetition rate or the amplitude is not as expected, adjust it with **TUNE optimization** in the laser panel
 
 ## 4. Auto scan → [Details](scans.md)
 
@@ -72,8 +71,9 @@ flowchart TD
 - [ ] Press **[Emission OFF (ld=0)]** in the laser panel (closing the GUI does not stop the laser)
 - [ ] Finish data retrieval if needed
 - [ ] [Disconnect] each panel and close the GUI
-- [ ] Ramp HV down to 0 V and turn its output OFF, then turn LV OFF
+- [ ] Ramp HV down to 0 V in steps and turn its output OFF, then turn LV OFF
 - [ ] Turn off the devices (order to be confirmed)
+- [ ] Back up the retrieved data to the NAS ([Details](data.md#backup))
 - [ ] Complete the measurement log
 
 !!! question "To be confirmed"
@@ -84,7 +84,7 @@ flowchart TD
 | Item | Example |
 | --- | --- |
 | Sensor | Sensor name in the GUI, sensor ID |
-| Bias | HV, LV, leakage current |
+| Bias | HV, LV, leakage current, sensor temperature |
 | Laser | Repetition rate, TUNE (method, target amplitude, result), camera light ON/OFF |
 | Alignment | Find Origin / Full Calibration results (residuals, tilt coefficients) |
 | Scan | Scan name (`scan_<datetime>_<tag>`), mode, range, step, number of sequence segments, Z tracking method |

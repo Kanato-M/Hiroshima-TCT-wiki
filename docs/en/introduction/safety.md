@@ -6,21 +6,21 @@
 
 ## Laser
 
-- The light source is an NKT Photonics PiLAS DX (wavelength 1064 nm, pulse width 50 ps). **1064 nm is invisible.**
+- The light source is an NKT Photonics PiLAS DX (wavelength 1064 nm, pulse width 50 ps) and is **Class 1**. **1064 nm is invisible.**
   The beam may be on even if you cannot see it.
+- The dark room is the **whole room**, and it has an interlock.
+- **Wearing the green safety goggles is mandatory when you enter the dark room while the laser is emitting.**
 - The light is guided through a polarization-maintaining fiber to the objective in the dark room. Never fire the laser with the fiber or objective removed.
 - Pressing [Emission ON (ld=1)] in the GUI opens a confirmation dialog asking whether the interlock and optics setup have been checked.
   Check them, then press [Yes].
-- **Before entering the dark room or opening the dark room (or dark box), always press [Emission OFF (ld=0)] and check that the status display shows emission OFF.**
-  Fire the laser only while the dark room is closed and no light can escape. Until the interlock has been confirmed, follow this rule without relying on an interlock.
+- If your work in the dark room does not need the laser, press [Emission OFF (ld=0)] before entering and check that the status display shows "Emission: OFF".
+  If you enter with the laser emitting, wear the green goggles as stated above.
 - **Closing the GUI does not stop the laser.** Always press [Emission OFF (ld=0)] before quitting the GUI.
 - If anything seems wrong, press **[■ STOP ALL]** at the right end of the toolbar (aborts the task → laser OFF → stops the stage → scope STOP).
 
 !!! question "To be confirmed"
-    - Laser safety class (a comment in the GUI code says "Class 1", but this is unconfirmed)
-    - Whether safety goggles are required, where they are stored, and their rated wavelengths
-    - Whether there is an interlock and how it works (the laser panel shows `Interlock: OK`)
-    - Laser safety officer
+    - Name of the laser safety officer
+    - Where the green safety goggles are stored
 
 ## Stage (collision with the objective)
 
@@ -36,15 +36,23 @@
 
 ## Sensor bias voltage { #bias }
 
-- The AC-LGAD gets HV −185 V (sensor bias), and the readout board gets LV 6.0 V (amplifier supply).
-  **These are not controlled from the GUI.** The GUI status bar always shows reference values (`HV -185 V / LV 6 V`).
+- The AC-LGAD gets HV (sensor bias), and the readout board gets LV 6.0 V (amplifier supply).
+  **These are not controlled from the GUI; operate the power supplies by hand.**
+
+    | Supply | Model | Setting |
+    | --- | --- | --- |
+    | LV (readout board) | Rohde & Schwarz NGP800 series | 6.0 V |
+    | HV (sensor bias) | Matsusada P4L650-0.1 (Regulated DC Power Supply) | Depends on temperature. 190–195 V is optimal at a sensor temperature of 33 °C |
+
+- **Bias the sensor last, after all other equipment is powered on.** The order is **LV 6.0 V → HV**.
+- The GUI status bar shows reference values (`HV -185 V / LV 6 V`, the values in `config.py`), but set the actual HV according to the table above.
 - Set the supply's **current limit (compliance)** before applying voltage.
 - **Ramp the voltage in steps**; never change it in one jump.
-- Until the supply-specific procedure (current limit value, step, speed) is documented in this wiki, **apply HV and LV only together with an experienced person**.
+- Until the current limit value, step and speed are documented in this wiki, **apply HV and LV only together with an experienced person**.
 - Before changing cables or swapping the sensor (readout board), **ramp the voltage down to 0 V and turn the output OFF**.
 
 !!! question "To be confirmed"
-    - Models and operation of the HV and LV supplies, and the current limit (compliance) setting
+    - Current limit (compliance) settings of the HV and LV supplies
     - Ramp-up and ramp-down step and speed
 
 ## Electrostatic discharge (ESD)
@@ -57,7 +65,7 @@
 
 ## General notes for other TCT setups
 
-The Hiroshima setup measures unirradiated sensors at room temperature (in a dark room). Setups that use cooling or irradiated samples need the following additional precautions.
+The Hiroshima setup measures unirradiated sensors without cooling (sensor temperature about 33 °C). Setups that use cooling or irradiated samples need the following additional precautions.
 
 ??? note "Cooling and condensation"
     - While cooling, flush with dry air or nitrogen and make sure the **dew point is well below the measurement temperature**.

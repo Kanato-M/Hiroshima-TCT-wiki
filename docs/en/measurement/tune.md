@@ -1,10 +1,15 @@
 # 3. Laser Intensity Adjustment (TUNE Optimization)
 
+!!! tip "Under standard conditions you do not need to change TUNE"
+    As of 2026-10, at the standard repetition rate of 1 MHz, **TUNE 50 % is already adjusted to MIP-equivalent**. Normally measure with this value.
+    Run the TUNE optimization on this page when you change the repetition rate or the optical conditions, or when the amplitude is not as expected.
+
 ## What TUNE is
 
 TUNE is the setting that determines the PiLAS pulse intensity. Note the direction: **0 % gives the strongest pulse and 100 % the weakest.**
 
 - The relation between TUNE and signal amplitude changes with the **repetition rate**, the **camera light ON/OFF** and the optical conditions (alignment).
+  Always turn the camera light **OFF** before adjusting.
   There is no fixed conversion, so match the amplitude by measurement every time.
 - The optimal TUNE depends on the repetition rate. If you change the rate while keeping a manual TUNE tuned for another rate, the laser can drop below the lasing threshold and emit no light
   (TRIG OUT keeps coming, so the scope waveform keeps updating but stays flat). **Redo TUNE optimization after changing the rate.**
@@ -40,8 +45,7 @@ The adjacent 2-ch sum uses the property of AC-LGADs that \(A_\text{lead} + A_\te
 (the charge is only shared). Matching the sum at the strip midpoint **sets a MIP-equivalent signal level that is insensitive to position offsets**.
 The 64 mV target comes from the DESY beam test (2026): 64 ± 1 mV at the strip midpoint (for reference, 77 mV for a single CH near a strip).
 
-!!! question "To be confirmed"
-    The standard method and target for normal measurements (whether "Adjacent 2-ch sum, 64 mV" may be the standard).
+To re-match to MIP-equivalent, use "Adjacent 2-ch sum (MIP-equivalent)" with a target of 64 mV (this method exists only in the Japanese UI version).
 
 ### Procedure
 
