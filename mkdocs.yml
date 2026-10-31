@@ -1,0 +1,135 @@
+site_name: Hiroshima TCT Wiki
+site_description: TCT (Transient Current Technique) scan の測定・解析 Wiki
+site_url: https://kanato-m.github.io/Hiroshima-TCT-wiki/
+repo_url: https://github.com/Kanato-M/Hiroshima-TCT-wiki
+repo_name: Kanato-M/Hiroshima-TCT-wiki
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: ja
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: deep orange
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: deep orange
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - i18n:
+      docs_structure: folder
+      fallback_to_default: true
+      reconfigure_material: true
+      reconfigure_search: true
+      languages:
+        - locale: ja
+          name: 日本語
+          default: true
+          build: true
+        - locale: en
+          name: English
+          build: true
+          site_description: Wiki for TCT (Transient Current Technique) scan measurements and analysis
+          nav_translations:
+            ホーム: Home
+            はじめに: Introduction
+            TCT とは: What is TCT?
+            安全上の注意: Safety
+            原理: Principles
+            信号形成: Signal formation
+            レーザーと照射方式: Lasers and illumination
+            セットアップ: Setup
+            ハードウェア: Hardware
+            ソフトウェア: Software
+            測定: Measurement
+            測定手順: Procedure
+            スキャンの種類: Scan types
+            解析: Analysis
+            波形解析: Waveform analysis
+            リファレンス: Reference
+            トラブルシューティング: Troubleshooting
+            用語集: Glossary
+            参考文献: Bibliography
+            Wiki の編集方法: Contributing
+
+nav:
+  - ホーム: index.md
+  - はじめに:
+      - TCT とは: introduction/what-is-tct.md
+      - 安全上の注意: introduction/safety.md
+  - 原理:
+      - 信号形成: principle/signal-formation.md
+      - レーザーと照射方式: principle/lasers.md
+  - セットアップ:
+      - ハードウェア: setup/hardware.md
+      - ソフトウェア: setup/software.md
+  - 測定:
+      - 測定手順: measurement/procedure.md
+      - スキャンの種類: measurement/scans.md
+  - 解析:
+      - 波形解析: analysis/waveform.md
+  - リファレンス:
+      - トラブルシューティング: reference/troubleshooting.md
+      - 用語集: reference/glossary.md
+      - 参考文献: reference/bibliography.md
+      - Wiki の編集方法: reference/contributing.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Kanato-M/Hiroshima-TCT-wiki
