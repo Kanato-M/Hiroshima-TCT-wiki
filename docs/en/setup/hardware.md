@@ -76,7 +76,7 @@ flowchart LR
 
 <figure markdown="span">
   ![Joystick](../images/setup/joystick.jpg){ loading=lazy }
-  <figcaption>Joystick JS-301. M-ORG can return it to the origin, but use [Mechanical Home (H:W)] in the GUI instead (<a href="../sensor/#machine">why</a>)</figcaption>
+  <figcaption markdown="span">Joystick JS-301. M-ORG can return it to the origin, but use [Mechanical Home (H:W)] in the GUI instead ([why](sensor.md#machine))</figcaption>
 </figure>
 
 <figure markdown="span">

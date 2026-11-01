@@ -76,7 +76,7 @@ flowchart LR
 
 <figure markdown="span">
   ![ジョイスティック](../images/setup/joystick.jpg){ loading=lazy }
-  <figcaption>ジョイスティック JS-301。M-ORG で原点復帰できるが、GUI の [機械原点復帰 (H:W)] を使う（<a href="../sensor/#machine">理由</a>）</figcaption>
+  <figcaption markdown="span">ジョイスティック JS-301。M-ORG で原点復帰できるが、GUI の [機械原点復帰 (H:W)] を使う（[理由](sensor.md#machine)）</figcaption>
 </figure>
 
 <figure markdown="span">
