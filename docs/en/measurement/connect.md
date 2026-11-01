@@ -13,11 +13,11 @@ Start it in the GUI folder ([Control PC and software](../setup/software.md)).
 Open a terminal on the control PC and run:
 
 ```bash
-cd workspace/laser_gui_v4_en
+cd workspace/laser_gui_en
 python ./main.py
 ```
 
-Use the English UI version (`laser_gui_v4_en`) if you do not read Japanese.
+Use the English UI version (`laser_gui_en`) if you do not read Japanese.
 
 ## 1-2. Connect the devices
 

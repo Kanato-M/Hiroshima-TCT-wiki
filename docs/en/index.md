@@ -85,6 +85,6 @@ The contact person and the laser safety officers are listed on the lab-internal 
 Ask a lab member for the password.
 
 !!! note "Sources"
-    The setup-specific content of this wiki is based on the README and source code of the control GUI `laser_gui_v4`,
+    The setup-specific content of this wiki is based on the README and source code of the control GUI `laser_gui`,
     §3–4 of the analysis note "Laser TCT scan of a 500 µm pitch strip AC-LGAD" (matome),
     and answers from the people in charge of the setup (2026-11). Items not yet confirmed are marked with "To be confirmed" boxes.

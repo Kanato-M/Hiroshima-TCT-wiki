@@ -76,7 +76,7 @@ flowchart LR
 
 <figure markdown="span">
   ![ジョイスティック](../images/setup/joystick.jpg){ loading=lazy }
-  <figcaption>ジョイスティック JS-301。M-ORG で原点復帰できるが、GUI の [機械原点復帰 (H:W)] を使う（<a href="../sensor/#machine">理由</a>）</figcaption>
+  <figcaption markdown="span">ジョイスティック JS-301。M-ORG で原点復帰できるが、GUI の [機械原点復帰 (H:W)] を使う（[理由](sensor.md#machine)）</figcaption>
 </figure>
 
 <figure markdown="span">
@@ -107,10 +107,6 @@ flowchart LR
 | HV 電源 | Matsusada P4L650-0.1 | −190〜−195 V（手動操作、温度によって変える。上限 −220 V） |
 | フォーカスカメラ | USB カメラ（手動フォーカスレンズ、オートフォーカス非対応） | OpenCV で取得、デバイス番号 0 |
 | 制御 PC | Windows、Python 3.10 以上。16:9 横長モニター（EX-LDHU431DB）向けに GUI を配置 | 機器との LAN は固定 IP |
-
-!!! note "解析ノートとの違い"
-    解析ノート matome ではケーブル長を「1 m（要確認）」、センサー温度を「約 35 °C（未確定）」としていますが、
-    実際はケーブル長 75 cm、センサー温度 33 °C です。
 
 ## 電源とスイッチ { #power }
 

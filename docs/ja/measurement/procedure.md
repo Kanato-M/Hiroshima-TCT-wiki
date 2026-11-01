@@ -36,7 +36,7 @@ flowchart TD
 
 ## 1. 起動と機器の接続 → [詳細](connect.md)
 
-- [ ] 制御 PC のターミナルで GUI を起動する（`cd workspace/laser_gui_v4` → `python ./main.py`）
+- [ ] 制御 PC のターミナルで GUI を起動する（`cd workspace/laser_gui` → `python ./main.py`）
 - [ ] オシロ・ステージ・レーザーの [接続]、カメラの [開始] を押し、すべて「接続中」になることを確認する
 - [ ] ステージパネル [操作] タブで **[機械原点復帰 (H:W)]**（全軸が大きく動くので干渉に注意）
 - [ ] ツールバーの [センサー] で測定する DUT を選ぶ

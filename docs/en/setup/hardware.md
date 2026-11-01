@@ -76,7 +76,7 @@ flowchart LR
 
 <figure markdown="span">
   ![Joystick](../images/setup/joystick.jpg){ loading=lazy }
-  <figcaption>Joystick JS-301. M-ORG can return it to the origin, but use [Mechanical Home (H:W)] in the GUI instead (<a href="../sensor/#machine">why</a>)</figcaption>
+  <figcaption markdown="span">Joystick JS-301. M-ORG can return it to the origin, but use [Mechanical Home (H:W)] in the GUI instead ([why](sensor.md#machine))</figcaption>
 </figure>
 
 <figure markdown="span">
@@ -107,10 +107,6 @@ flowchart LR
 | HV supply | Matsusada P4L650-0.1 | −190 to −195 V (manual operation, changed with temperature; limit −220 V) |
 | Focus camera | USB camera (manual-focus lens, no autofocus) | Read with OpenCV, device index 0 |
 | Control PC | Windows, Python 3.10 or later. GUI laid out for a 16:9 wide monitor (EX-LDHU431DB) | Fixed IP on the instrument LAN |
-
-!!! note "Differences from the analysis note"
-    The analysis note matome gives the cable length as "1 m (to be confirmed)" and the sensor temperature as "about 35 °C (not finalized)",
-    but the actual values are a cable length of 75 cm and a sensor temperature of 33 °C.
 
 ## Power and switches { #power }
 

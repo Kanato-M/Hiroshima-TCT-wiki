@@ -22,7 +22,7 @@
 
 ## Internal documents
 
-- README of the control GUI `laser_gui_v4` (`README.md`) and `analysis/README.md`
+- README of the control GUI `laser_gui` (`README.md`) and `analysis/README.md`
 - Analysis note "Laser TCT scan of a 500 µm pitch strip AC-LGAD" (matome, Japanese and English versions). §3 Setup and performance, §4 GUI manual
 - Clean room facilities and semiconductor detector assembly/evaluation system specification, AC_LGAD_TCT_ScanGuide (references of the GUI README)
 

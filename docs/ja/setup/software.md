@@ -8,18 +8,19 @@
 | 項目 | 内容 |
 | --- | --- |
 | ユーザー名・パスワード | [内部情報](../internal.md#accounts) を見る（パスワードは問い合わせ先に聞く） |
-| GUI フォルダ | `~/workspace/laser_gui_v4/`（日本語 UI 版）、`~/workspace/laser_gui_v4_en/`（英語 UI 版） |
+| GUI フォルダ | `~/workspace/laser_gui/`（日本語 UI 版）、`~/workspace/laser_gui_en/`（英語 UI 版） |
 | コードの入手先 | 最新版は GitHub で公開する予定（未公開） |
 | Python | 最新版 |
 
 ## GUI の版 { #versions }
 
-この Wiki は **2026-11-01 版**（`laser_gui_v4`）に合わせて書いています。
+この Wiki は **2026-11-01 版** に合わせて書いています。
+2026-11-01 に、制御 PC の GUI フォルダ名を `laser_gui_v4` / `laser_gui_v4_en` から **`laser_gui` / `laser_gui_en`** に変えました。古いメモの `laser_gui_v4` は読み替えてください。
 
 | フォルダ | 内容 |
 | --- | --- |
-| `laser_gui_v4` | 日本語 UI 版 |
-| `laser_gui_v4_en` | 英語 UI 版。**2026-11-01 版で日本語版と同じ仕様にそろえた**（機能・既定値は同一で、画面の文言だけが英語）。日本語が読めない人はこちらを使う |
+| `laser_gui` | 日本語 UI 版 |
+| `laser_gui_en` | 英語 UI 版。**2026-11-01 版で日本語版と同じ仕様にそろえた**（機能・既定値は同一で、画面の文言だけが英語）。日本語が読めない人はこちらを使う |
 
 主な改修の履歴：
 
@@ -114,10 +115,10 @@ COM ポート番号やオシロ側の保存先など PC ごとに違う設定は
 
 ログと状態ファイルの保存先 `logs/` は **起動したディレクトリからの相対パス** なので、必ず GUI のフォルダで起動します。
 
-制御 PC ではターミナルを開いて、次のように起動します（英語 UI 版は `laser_gui_v4_en`）。
+制御 PC ではターミナルを開いて、次のように起動します（英語 UI 版は `laser_gui_en`）。
 
 ```bash
-cd workspace/laser_gui_v4
+cd workspace/laser_gui
 python ./main.py              # 実機モード
 python ./main.py --simulate   # 全機器をシミュレーション
 ```
@@ -145,8 +146,21 @@ python ./main.py --simulate   # 全機器をシミュレーション
 
 ## フォルダ構成
 
+制御 PC の `~/workspace/` は次のようになっています。
+
 ```text
-laser_gui_v4/
+workspace/
+├── laser_gui/           # GUI（日本語 UI 版）
+├── laser_gui_en/        # GUI（英語 UI 版）
+├── data/                # オシロから回収した波形 (<年>/<YYYYMMDD>/scan_...)
+├── macro/               # テンプレートフィット解析・ピクセル解析 (template_timing/)
+└── results/             # 解析結果 (<スキャン名>/)
+```
+
+GUI フォルダの中身は次のとおりです（英語 UI 版も同じ構成）。
+
+```text
+laser_gui/
 ├── main.py              # エントリポイント
 ├── config.py            # 設定 (config_local.json で上書き)
 ├── sensors.py           # センサー / DUT プロファイルの登録辞書
@@ -164,7 +178,7 @@ laser_gui_v4/
 └── analysis/            # 取得データの簡易解析 (run_analysis.py)
 ```
 
-PC 側の回収データ（`..\data`）と解析結果（`..\results`）は GUI フォルダの **外**（隣）に置かれます。
+PC 側の回収データ（`..\data`）、解析結果（`..\results`）、テンプレートフィット解析のコード（`..\macro`）は GUI フォルダの **外**（隣）に置かれます。
 日本語版と英語版の GUI でデータを共有するためです。詳しくは [出力ファイル一覧](../reference/files.md)。
 
 回収したデータは NAS にバックアップします（[データ回収と簡易解析](../measurement/data.md#backup)）。
