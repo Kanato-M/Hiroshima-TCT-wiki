@@ -108,10 +108,6 @@ flowchart LR
 | Focus camera | USB camera (manual-focus lens, no autofocus) | Read with OpenCV, device index 0 |
 | Control PC | Windows, Python 3.10 or later. GUI laid out for a 16:9 wide monitor (EX-LDHU431DB) | Fixed IP on the instrument LAN |
 
-!!! note "Differences from the analysis note"
-    The analysis note matome gives the cable length as "1 m (to be confirmed)" and the sensor temperature as "about 35 °C (not finalized)",
-    but the actual values are a cable length of 75 cm and a sensor temperature of 33 °C.
-
 ## Power and switches { #power }
 
 The devices can be powered on in any order. However, **bias the sensor last, in the order LV → HV**.

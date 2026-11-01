@@ -36,7 +36,7 @@ flowchart TD
 
 ## 1. Startup and device connection → [Details](connect.md)
 
-- [ ] Start the GUI in a terminal on the control PC (`cd workspace/laser_gui_v4_en` → `python ./main.py`)
+- [ ] Start the GUI in a terminal on the control PC (`cd workspace/laser_gui_en` → `python ./main.py`)
 - [ ] Press [Connect] on the oscilloscope, stage and laser, and [Start] on the camera; check that all show "Connected"
 - [ ] In the stage panel [Move] tab, press **[Mechanical Home (H:W)]** (all axes move a lot — watch for collisions)
 - [ ] Select the DUT to measure with [Sensor] in the toolbar

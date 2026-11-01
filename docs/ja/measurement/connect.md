@@ -13,11 +13,11 @@ GUI のフォルダで起動します（[制御 PC とソフトウェア](../set
 制御 PC でターミナルを開いて、次を実行します。
 
 ```bash
-cd workspace/laser_gui_v4
+cd workspace/laser_gui
 python ./main.py
 ```
 
-日本語が読めない人は英語 UI 版（`laser_gui_v4_en`）を使います。
+日本語が読めない人は英語 UI 版（`laser_gui_en`）を使います。
 
 ## 1-2. 機器を接続する
 

@@ -22,7 +22,7 @@
 
 ## 内部資料
 
-- 制御 GUI `laser_gui_v4` の README（`README.md`）と `analysis/README.md`
+- 制御 GUI `laser_gui` の README（`README.md`）と `analysis/README.md`
 - 解析ノート「500 µm ピッチ Strip AC-LGAD のレーザー TCT スキャン」（matome、日本語版・英語版）。§3 セットアップと性能、§4 GUI 取扱説明書
 - クリーンルーム設備および半導体検出器 実装・評価システム仕様書、AC_LGAD_TCT_ScanGuide（GUI README の参考資料）
 

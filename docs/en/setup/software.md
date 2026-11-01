@@ -8,18 +8,19 @@ This page explains how to install the GUI, the initial settings on the device si
 | Item | Details |
 | --- | --- |
 | User name and password | See [Internal information](../internal.md#accounts) (ask the contact person for the password) |
-| GUI folders | `~/workspace/laser_gui_v4/` (Japanese UI version), `~/workspace/laser_gui_v4_en/` (English UI version) |
+| GUI folders | `~/workspace/laser_gui/` (Japanese UI version), `~/workspace/laser_gui_en/` (English UI version) |
 | Where to get the code | The latest version will be published on GitHub (not yet public) |
 | Python | Latest version |
 
 ## GUI versions { #versions }
 
-This wiki is written for the **2026-11-01 version** (`laser_gui_v4`).
+This wiki is written for the **2026-11-01 version**.
+On 2026-11-01 the GUI folders on the control PC were renamed from `laser_gui_v4` / `laser_gui_v4_en` to **`laser_gui` / `laser_gui_en`**. Read `laser_gui_v4` in older notes accordingly.
 
 | Folder | Content |
 | --- | --- |
-| `laser_gui_v4` | Japanese UI version |
-| `laser_gui_v4_en` | English UI version. **In the 2026-11-01 version it was brought to the same specification as the Japanese version** (same functions and defaults; only the on-screen text is in English). Use this version if you do not read Japanese |
+| `laser_gui` | Japanese UI version |
+| `laser_gui_en` | English UI version. **In the 2026-11-01 version it was brought to the same specification as the Japanese version** (same functions and defaults; only the on-screen text is in English). Use this version if you do not read Japanese |
 
 Main revision history:
 
@@ -114,10 +115,10 @@ Settings that differ per PC, such as the COM port number or the save folder on t
 
 The folder `logs/` for logs and state files is **relative to the directory you start from**, so always start in the GUI folder.
 
-On the control PC, open a terminal and start it as follows (the Japanese UI version is `laser_gui_v4`).
+On the control PC, open a terminal and start it as follows (the Japanese UI version is `laser_gui`).
 
 ```bash
-cd workspace/laser_gui_v4_en
+cd workspace/laser_gui_en
 python ./main.py              # real hardware mode
 python ./main.py --simulate   # simulate all devices
 ```
@@ -145,8 +146,21 @@ We recommend going through the following [Measurement overview](../measurement/p
 
 ## Folder structure
 
+The `~/workspace/` folder on the control PC looks like this:
+
 ```text
-laser_gui_v4/
+workspace/
+├── laser_gui/           # GUI (Japanese UI version)
+├── laser_gui_en/        # GUI (English UI version)
+├── data/                # waveforms retrieved from the scope (<year>/<YYYYMMDD>/scan_...)
+├── macro/               # template-fit and pixel analysis (template_timing/)
+└── results/             # analysis results (<scan name>/)
+```
+
+Inside a GUI folder (the English UI version has the same layout):
+
+```text
+laser_gui/
 ├── main.py              # entry point
 ├── config.py            # settings (overridden by config_local.json)
 ├── sensors.py           # registry of sensor / DUT profiles
@@ -164,7 +178,7 @@ laser_gui_v4/
 └── analysis/            # quick analysis of acquired data (run_analysis.py)
 ```
 
-The retrieved data (`..\data`) and analysis results (`..\results`) on the PC are placed **outside** (next to) the GUI folder,
+The retrieved data (`..\data`), analysis results (`..\results`) and the template-fit analysis code (`..\macro`) on the PC are placed **outside** (next to) the GUI folder,
 so that the Japanese and English GUIs can share the data. For details, see [Output files](../reference/files.md).
 
 Retrieved data are backed up to the NAS ([Data retrieval and quick analysis](../measurement/data.md#backup)).
