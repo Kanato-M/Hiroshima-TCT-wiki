@@ -3,16 +3,27 @@
 Set the conditions in the [Scan] tab of the **auto scan panel** in the right column and run the scan.
 All coordinates are entered in **µm relative to the logical origin** ([Sensor and coordinate system](../setup/sensor.md#logical)).
 
-![Auto scan panel (1D position scan)](../images/gui/scan-conditions.png){ width="520" }
+<figure markdown="span">
+  ![[Scan] tab of the auto scan panel](../images/gui/scan-conditions.png){ width="560" }
+  <figcaption>[Scan] tab of the auto scan panel (1D position scan, default range of the standard sensor)</figcaption>
+</figure>
+
+| Area | Contents | Details |
+| --- | --- | --- |
+| [Mode] and [Sensor defaults] | Scan type; reset the range to the defaults | [Modes](#mode), [Range](#range) |
+| Rows for Fast, Slow and TUNE [%] | Start, stop and step. Rows that are not used are grayed out | [Range](#range) |
+| "Tilt correction" group | Z tracking method, rotation tracking, current coefficients | [Tilt correction](#tilt) |
+| Settle through Save dir / prefix | Acquisition settings for each point | [Acquisition settings](#acquisition) |
+| Bottom | Estimated number of points, [Start Scan], [Abort] | [Running, progress and aborting](#run) |
 
 ## Before the scan
 
 - [ ] [Find Origin](alignment.md#origin) is done ([Full Calibration](alignment.md#full-calibration) after remounting)
-- [ ] The amplitude is matched with [TUNE optimization](tune.md)
+- [ ] The laser is at the standard conditions (1 MHz, TUNE manual 50 % via [★ Apply Standard Settings ★](connect.md#laser-on)) or at conditions matched with [TUNE optimization](tune.md)
 - [ ] [★ Apply Standard Settings ★] has been applied to the scope (set channels, EXT trigger and timebase in the oscilloscope panel before the scan)
 - [ ] The laser is ON (or [Laser ON at start] is checked)
 
-## Modes
+## Modes { #mode }
 
 | Mode | Use | Log tag |
 | --- | --- | --- |
@@ -23,9 +34,9 @@ All coordinates are entered in **µm relative to the logical origin** ([Sensor a
 
 Axes that are not scanned stay at the current position at the start (Z follows the [Z tracking](#z-follow) method).
 
-## Range
+## Range { #range }
 
-Specify [Start], [End] and [Step] for the fast and slow axes. The initial values are the per-sensor defaults; [Sensor defaults] restores them.
+Specify [Start], [Stop] and [Step] for the fast and slow axes. The initial values are the per-sensor defaults; [Sensor defaults] restores them.
 
 Default range for the standard sensor:
 
@@ -34,9 +45,16 @@ Default range for the standard sensor:
 | Fast Y | +750 → −2250 µm | 10 µm | Half a pitch outside C0 → half a pitch outside C5 |
 | Slow X | −632 → −9999 µm | 500 µm | Readout-side end of the exposed area → beyond the far end (end gap) |
 
+In the 2D raster scan, the default slow-axis X step of 500 µm is a coarse setting that spaces rows along the strip length.
+For a fine area scan, change the step and check the estimated number of points and the duration.
+
+The default range for pixel sensors is **600 × 600 µm from the pad corner (logical origin) in the −X and −Y directions, in 10 µm steps**
+(fast axis Y: 0 → −600 µm, slow axis X: 0 → −600 µm; [Pixel sensors](../setup/sensor.md#pixel)).
+With the standard 2×2 layout, the 4-pixel corner (−300, −300) is at the center of the range.
+
 In modes that sweep TUNE, also specify the start, end and step of [TUNE [%]] (initial values 50 → 90 %, 5 %).
 
-## Acquisition settings
+## Acquisition settings { #acquisition }
 
 | Item | Default | Description |
 | --- | --- | --- |
@@ -56,7 +74,11 @@ The estimate line below shows the number of points and total events (e.g. `Point
 ## Tilt correction { #tilt }
 
 Settings to follow the sensor tilt. The coefficients are the Full Calibration values of the current sensor (or manually entered values; for an uncalibrated standard sensor,
-the values measured on 2026-08-24 in `scan_geometry.py`) and are shown below the fields.
+the values measured on 2026-08-24 in `scan_geometry.py`) and are shown below the fields ([Source of the coefficients](alignment.md#coefficients)).
+
+![Tilt correction group](../images/gui/scan-tilt.png){ width="560" }
+
+The `[...]` after the coefficients is their source. Right after a Full Calibration, the date and time of that calibration should appear here. If the source is not what you expect, check [Sensor] in the toolbar.
 
 ### Rot. tracking (Y)
 
@@ -76,7 +98,10 @@ Choose one of four ways to move Z to keep the focus (x, y are logical coordinate
 
 #### Measured Z method procedure
 
-![2D raster scan with Z tracking set to the Measured Z method](../images/gui/scan-2d-zpoints.png){ width="520" }
+<figure markdown="span">
+  ![2D raster scan with Z tracking set to the Measured Z method](../images/gui/scan-2d-zpoints.png){ width="520" }
+  <figcaption>Measured Z method selected for a 2D raster scan (screen of an older version; the rows for the four corners appear in the current version as well)</figcaption>
+</figure>
 
 1. Select the Measured Z method in [Z tracking]; rows for the start and end points (the four corners in 2D) appear.
 2. Press [Go] on each row to move to that XY position.
@@ -85,7 +110,7 @@ Choose one of four ways to move Z to keep the focus (x, y are logical coordinate
 
 The values are absolute Z in logical coordinates, so they do not depend on the stage position at scan start.
 
-## Running, progress and aborting
+## Running, progress and aborting { #run }
 
 1. Press **[Start Scan]** to open the confirmation dialog. It shows **the number of points, the range of each axis, the Z travel, the Y shift and the save directory**; check that they are as intended before proceeding.
    If the Z of the first point is **30 µm or more** away from the current Z, a warning appears here.

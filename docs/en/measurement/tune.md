@@ -1,7 +1,9 @@
 # 3. Laser Intensity Adjustment (TUNE Optimization)
 
 !!! tip "Under standard conditions you do not need to change TUNE"
-    As of 2026-10, at the standard repetition rate of 1 MHz, **TUNE 50 % is already adjusted to MIP-equivalent**. Normally measure with this value.
+    As of 2026-11, at the standard repetition rate of 1 MHz, **TUNE manual 50 % is already adjusted to MIP-equivalent**.
+    Pressing **[★ Apply Standard Settings (1 MHz / TUNE manual 50% = MIP equiv.) ★]** on the laser panel
+    sends trigger internal, 1 MHz and TUNE manual 50 % in one go ([Start emission](connect.md#laser-on)). Normally measure with these settings.
     Run the TUNE optimization on this page when you change the repetition rate or the optical conditions, or when the amplitude is not as expected.
 
 ## What TUNE is
@@ -13,20 +15,22 @@ TUNE is the setting that determines the PiLAS pulse intensity. Note the directio
   There is no fixed conversion, so match the amplitude by measurement every time.
 - The optimal TUNE depends on the repetition rate. If you change the rate while keeping a manual TUNE tuned for another rate, the laser can drop below the lasing threshold and emit no light
   (TRIG OUT keeps coming, so the scope waveform keeps updating but stays flat). **Redo TUNE optimization after changing the rate.**
-- For a quick check you can also set TUNE to **auto** (the controller uses calibration values for each rate). For measurements where the pulse height must be matched, TUNE optimization is more reliable.
+- For a quick check you can also set TUNE to **auto** (the controller uses calibration values for each rate).
+  However, the standard condition is **manual 50 %**. For measurements where the pulse height must be matched, do not use auto; use the standard settings or TUNE optimization.
+- The status line at the top of the laser panel (e.g. `Tune: man 50.0%`) shows the current TUNE mode and value.
 
 ## Using TUNE optimization
 
 Use the "TUNE optimization (match target amplitude)" group in the laser panel.
 
-![Laser panel](../images/gui/laser-panel.png){ width="480" }
+<figure markdown="span">
+  ![TUNE optimization group](../images/gui/laser-tune.png){ width="560" }
+  <figcaption>The "TUNE optimization" group in the middle of the laser panel (with [Method] set to Single CH)</figcaption>
+</figure>
 
-*The screenshot shows the old version of the screen. The current version also has the "Method" field, the tolerance "±" field and the "Move to the middle Y between the 2 strips" checkbox.*
-
-!!! note "Differences from the English UI version"
-    The following describes the Japanese UI version (`laser_gui_v4`). As of 2026-10, the English UI version (`laser_gui_v4_en`) has the old behavior:
-    it has no "Method" field, tolerance, fine sweep or automatic move to the middle Y. It lowers TUNE from 100 % by [step] while measuring the amplitude of a single CH,
-    sets TUNE to the value where the target was reached, and stops. The English UI version will also be fixed on the GUI side.
+When [Method] is set to "Adjacent 2ch sum (MIP equivalent)", [CH] changes to a CH pair (e.g. C1+C2) and
+the checkbox **[Move to the Y midway between the 2 strips]** (at the current X; returns afterwards) appears.
+For the layout of the whole panel, see [GUI Layout](gui-overview.md#laser).
 
 ### Prerequisites
 
@@ -38,22 +42,26 @@ Use the "TUNE optimization (match target amplitude)" group in the laser panel.
 
 | Method | What is measured | Beam position | Default target |
 | --- | --- | --- | --- |
-| "Single CH" | Amplitude (PKPK) of the selected CH | On the silicon next to a strip (where the signal is clearly visible) | 200 mV |
-| "Adjacent 2-ch sum (MIP-equivalent)" | Sum of the amplitudes of the CHs reading two adjacent strips \(A_\text{lead} + A_\text{sub}\) | **Midway between the 2 strips** (250 µm from the electrode for a 500 µm pitch) | **64 mV** |
+| Single CH | Amplitude (PKPK) of the selected CH | On the silicon next to a strip (where the signal is clearly visible) | 200 mV |
+| Adjacent 2ch sum (MIP equivalent) | Sum of the amplitudes of the CHs reading two adjacent strips \(A_\text{lead} + A_\text{sub}\) | **Midway between the 2 strips** (250 µm from the electrode for a 500 µm pitch) | **64 mV** |
 
-The adjacent 2-ch sum uses the property of AC-LGADs that \(A_\text{lead} + A_\text{sub}\) changes little when the beam moves between two strips
+The adjacent 2ch sum uses the property of AC-LGADs that \(A_\text{lead} + A_\text{sub}\) changes little when the beam moves between two strips
 (the charge is only shared). Matching the sum at the strip midpoint **sets a MIP-equivalent signal level that is insensitive to position offsets**.
 The 64 mV target comes from the DESY beam test (2026): 64 ± 1 mV at the strip midpoint (for reference, 77 mV for a single CH near a strip).
 
-To re-match to MIP-equivalent, use "Adjacent 2-ch sum (MIP-equivalent)" with a target of 64 mV (this method exists only in the Japanese UI version).
+To re-match to MIP-equivalent, use "Adjacent 2ch sum (MIP equivalent)" with a target of 64 mV.
+The standard TUNE manual 50 % (1 MHz) is also the value obtained by matching the sum at the strip midpoint to 64 mV with this method.
+
+For pixel sensors, the pairs of adjacent pixel CHs and their midpoint positions are determined from the geometry in the sensor profile
+([Registering sensors](../setup/sensor.md)).
 
 ### Procedure
 
-1. Select the "Method".
-    - "Single CH": select the [CH].
-    - "Adjacent 2-ch sum": select the CH pair (e.g. C1+C2). Only adjacent pairs, determined from the electrode Y values in the sensor profile, are listed.
-2. Check the [Target] amplitude, the tolerance "±" (default ±1 mV) and the coarse-sweep [step] (default 2 %). When you switch methods, the target resets to the value for that method.
-3. For the adjacent 2-ch sum, with **"Move to the middle Y between the 2 strips (current X; returns afterwards)"** (default ON),
+1. Select the [Method].
+    - Single CH: select the [CH].
+    - Adjacent 2ch sum: select the CH pair (e.g. C1+C2). Only adjacent pairs, determined from the geometry in the sensor profile, are listed.
+2. Check the [Target] amplitude, the tolerance [±] (default ±1 mV) and the coarse-sweep [step] (default 2 %). When you switch methods, the target resets to the value for that method.
+3. For the adjacent 2ch sum, with **[Move to the Y midway between the 2 strips]** (default ON),
    the stage moves automatically, at the current X, to the Y midway between the electrode centers of the selected CH pair (Y and Z corrected for in-plane rotation and tilt), and returns to the original position after finishing or aborting.
    This requires the stage to be connected and the beam to be in focus at the current position. If OFF, it measures at the current position.
 4. Press **[Optimize]** and press [Yes] in the confirmation dialog.
@@ -68,10 +76,11 @@ It takes from a few tens of seconds to 1 min. With the coarse sweep alone, the t
 
 ### Result
 
-- On success, "TUNE optimization done" is shown and TUNE is set.
+- On success, "TUNE optimization done" is shown and TUNE is set. The progress and the [Abort] button are shown in the toolbar.
 - If the target is never reached, **TUNE is set to the value with the maximum amplitude and a warning is shown** (decide whether the maximum output at that rate meets your requirements).
 - If even TUNE 100 % (weakest) exceeds the target, a warning says that attenuation is needed.
-- On abort or failure, **the original TUNE is restored**.
+- On abort or failure, **the original TUNE is restored** (the 2026-11-01 version fixed a bug where TUNE ended up at 100 % after an abort).
+- After connecting, the input fields are synced to the laser's current values, so a TUNE changed by the optimization does not automatically return to 50 % even if you restart the GUI. To go back to the standard, press [★ Apply Standard Settings ★].
 - The sweep curve is saved in `logs/tuneopt_<datetime>.csv` (phase = coarse / fine / verify, amplitude per CH, sum, spread).
   The lasing threshold at that rate can also be read from it.
 

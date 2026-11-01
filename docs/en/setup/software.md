@@ -12,19 +12,25 @@ This page explains how to install the GUI, the initial settings on the device si
 | Where to get the code | The latest version will be published on GitHub (not yet public) |
 | Python | Latest version |
 
-## GUI versions
+## GUI versions { #versions }
+
+This wiki is written for the **2026-11-01 version** (`laser_gui_v4`).
 
 | Folder | Content |
 | --- | --- |
 | `laser_gui_v4` | Japanese UI version |
-| `laser_gui_v4_en` | English UI version. Same basic functions and numbers; the on-screen text is in English. **Use this version if you do not read Japanese** |
+| `laser_gui_v4_en` | English UI version. **In the 2026-11-01 version it was brought to the same specification as the Japanese version** (same functions and defaults; only the on-screen text is in English). Use this version if you do not read Japanese |
 
-!!! warning "TUNE optimization in the English UI version is the older spec"
-    In the code at hand as of 2026-10, TUNE optimization in the English UI version lacks the "method" selector ("Single CH" / "Adjacent 2-ch sum"), the tolerance and the fine sweep;
-    it only does a coarse sweep on a single CH ([TUNE optimization](../measurement/tune.md)). This will be fixed on the GUI side. Until then, to match the adjacent 2-ch sum (MIP-equivalent), use the Japanese UI version.
+Main revision history:
 
-The screenshots in this wiki were taken in simulation mode when the analysis note matome was written (2026-10 revision).
-Some parts of the display (such as the "method" field of TUNE optimization) differ from the current version. Screenshots of the current version will be added later.
+| Version | Main changes |
+| --- | --- |
+| 2026-11-01 | Made the laser standard conditions (1 MHz, TUNE manual 50 % = MIP-equivalent) the defaults and added the [★ Apply Standard Settings ★] button to the laser panel. Brought the English version to the same specification as the Japanese version |
+| 2026-10-16 (v4) | Support for pixel sensors (sensor type; pixel Find Origin, Full Calibration, scan range and analysis). The 2dYX template-fit analysis (paper figures) can be run from the [Analysis] tab |
+| 2026-10 (v2) | Sensor dictionary, automatic origin registration, fine finishing + verification for Find Origin, 3 Z-tracking methods, method selection for TUNE optimization, etc. |
+
+The screenshots in this wiki were generated automatically in simulation mode by `docs/make_screenshots.py`, which comes with the GUI (2026-11-01 version).
+Waveforms and camera images are dummy data, and internal information such as addresses is blacked out.
 
 ## Required software
 
@@ -50,7 +56,7 @@ Contents of `requirements.txt`:
     The LeCroy VICP protocol is implemented in pure Python in `devices/lecroy_scope.py`,
     so neither NI-VISA nor the LeCroy VICP passport is needed.
 
-## Initial device settings (first time only)
+## Initial device settings (first time only) { #device-setup }
 
 These settings are needed only when the setup is newly assembled or a device is replaced. For normal measurements they are already done.
 
@@ -65,7 +71,9 @@ These settings are needed only when the setup is newly assembled or a device is 
    Already set up as of 2026-09.
 4. **SHRC-203**: enable Ethernet in the controller menu and set the IP ([Internal information](../internal.md#network)). Use the SHOT-compatible command mode,
    and match the port number to the controller setting.
-5. **Control PC**: set the IP address on the instrument LAN ([Internal information](../internal.md#network)).
+5. **Control PC**: set the IP address and gateway on the instrument LAN ([Internal information](../internal.md#network)).
+   **Set the subnet mask to 255.255.255.0.** With 255.255.255.255, even devices on the same segment are not reached directly but via the router,
+   and the stage (SHRC-203) does not respond. When you change the IP, mask or gateway on the SHRC-203 itself, they take effect after power-cycling it.
 
 ## Per-PC settings `config_local.json` { #config }
 
@@ -95,6 +103,8 @@ Settings that differ per PC, such as the COM port number or the save folder on t
 | `laser_port` | `COM5` | Laser COM port |
 | `camera_index` | `0` | Camera device index |
 | `scope_trig_delay` | `-53NS` | Standard horizontal offset |
+| `laser_freq_hz` | `1000000` | Standard laser repetition rate (the value sent by [★ Apply Standard Settings ★]) |
+| `laser_tune_auto` / `laser_tune_percent` | `false` / `50.0` | Standard TUNE (manual 50 % = MIP-equivalent) |
 | `stage_screen_dir` | `[1, -1]` | Jog direction: signs of the stage axes that move toward (right, up) in the camera image. Fix this if you change the camera or stage orientation |
 
 !!! warning "Do not write the password in a file"

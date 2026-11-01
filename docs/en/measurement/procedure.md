@@ -41,7 +41,7 @@ flowchart TD
 - [ ] In the stage panel [Move] tab, press **[Mechanical Home (H:W)]** (all axes move a lot — watch for collisions)
 - [ ] Select the DUT to measure with [Sensor] in the toolbar
 - [ ] Do the coarse positioning with **[Go to Start]** in the [Positions] tab (the first time and after remounting, jog while watching the camera)
-- [ ] In the laser panel, set the trigger source, repetition rate and TUNE, then press **[Emission ON (ld=1)]**
+- [ ] In the laser panel, press **[★ Apply Standard Settings (1 MHz / TUNE manual 50% = MIP equiv.) ★]**, then **[Emission ON (ld=1)]** ([details](connect.md#laser-on))
 - [ ] In the oscilloscope panel, press [Start Mirror], then **[★ Apply Standard Settings ★]** in the [Trigger/Sweep] tab
 - [ ] Check that a signal is visible on the scope screen
 
@@ -53,7 +53,7 @@ flowchart TD
 
 ## 3. Laser intensity adjustment → [Details](tune.md)
 
-- [ ] Under the standard conditions (1 MHz, TUNE 50 %) the intensity is already adjusted to MIP-equivalent, so **normally leave it unchanged**
+- [ ] Under the standard conditions (1 MHz, TUNE manual 50 %) the intensity is already adjusted to MIP-equivalent, so **normally leave it unchanged**
 - [ ] If you change the repetition rate or the amplitude is not as expected, adjust it with **TUNE optimization** in the laser panel
 
 ## 4. Auto scan → [Details](scans.md)

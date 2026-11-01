@@ -19,6 +19,20 @@
 - 異常を感じたらツールバー右端の **[■ 全停止]** を押します（タスク中断 → レーザー OFF → ステージ停止 → オシロ STOP）。
 
 - 緑色の保護ゴーグルは、中央作業台の暗室付近に置いてあります。
+
+<div class="grid" markdown>
+
+<figure markdown="span">
+  ![保護ゴーグル](../images/setup/goggles.jpg){ loading=lazy }
+  <figcaption>緑色のレーザー保護めがね（理研オプテック YG-EP）とケース。発振中に暗室へ入るときは必ず着用する</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![レーザーヘッドのラベル](../images/setup/laser-head-class1.jpg){ loading=lazy }
+  <figcaption>レーザーヘッドの「CLASS 1 LASER PRODUCT」ラベル</figcaption>
+</figure>
+
+</div>
 - レーザー管理責任者：[内部情報](../internal.md#contacts)（パスワード付き）を参照
 
 ## ステージ（対物レンズとの衝突）

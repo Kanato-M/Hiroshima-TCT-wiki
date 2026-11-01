@@ -29,17 +29,67 @@ flowchart LR
     PC ---|USB| CAM
 ```
 
-## Photos
+## Photos { #photos }
 
 <div class="grid" markdown>
 
-![Overview of the dark room](../images/setup/darkroom-overview.jpg)
+<figure markdown="span">
+  ![Overview of the dark room](../images/setup/darkroom-wide.jpg){ loading=lazy }
+  <figcaption>The measurement table inside the dark room (the whole room). Oscilloscope on the left, fiber and optics at the back center, stage on the right</figcaption>
+</figure>
 
-![50× objective and readout board](../images/setup/objective-and-board.jpg)
+<figure markdown="span">
+  ![Close-up of the measurement table](../images/setup/darkroom-overview.jpg){ loading=lazy }
+  <figcaption>Close-up of the measurement table. From left: oscilloscope, fiber and optics, objective and stage. The joystick JS-301 is in front</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![Objective and readout board](../images/setup/objective-and-board.jpg){ loading=lazy }
+  <figcaption>50× objective (PAL-50-NIR-L) and the readout board on the stage</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![Readout board on the stage](../images/setup/board-on-stage.jpg){ loading=lazy }
+  <figcaption>Readout board inserted in the fixing jig on the stage. The MCX–BNC cables in front carry CH labels (ch5, ch8, etc.)</figcaption>
+</figure>
 
 </div>
 
-*Left: overview of the dark room (from left: oscilloscope, fiber and optics, stage). Right: 50× objective and readout board.*
+### Individual devices { #equipment-photos }
+
+<div class="grid" markdown>
+
+<figure markdown="span">
+  ![Laser head](../images/setup/laser-head-class1.jpg){ loading=lazy }
+  <figcaption>PiLAS laser head with the "CLASS 1 LASER PRODUCT" label</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![Laser controller](../images/setup/laser-controller.jpg){ loading=lazy }
+  <figcaption>PiLAS controller (back left of the dark room). Switch the power ON with the key at the bottom right</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![Stage controller](../images/setup/stage-controller.jpg){ loading=lazy }
+  <figcaption>Stage controller SHRC-203 (under the workbench). The power switch is at the bottom right</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![Joystick](../images/setup/joystick.jpg){ loading=lazy }
+  <figcaption>Joystick JS-301. M-ORG can return it to the origin, but use [Mechanical Home (H:W)] in the GUI instead (<a href="../sensor/#machine">why</a>)</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![Oscilloscope](../images/setup/oscilloscope.jpg){ loading=lazy }
+  <figcaption>Oscilloscope LeCroy WavePro 804HD (left side of the dark room). The power button is at the bottom left</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![Camera light](../images/setup/camera-light.jpg){ loading=lazy }
+  <figcaption>Visible light source for the camera. ON/OFF with the red switch at the bottom right. <strong>Always OFF during measurement</strong></figcaption>
+</figure>
+
+</div>
 
 ## Equipment
 
@@ -75,6 +125,30 @@ The devices can be powered on in any order. However, **bias the sensor last, in 
 | LV supply (R&S NGP800) | Left side of the shelf below the oscilloscope | Button at the bottom left to switch ON → select CH1 → **OUTPUT button to turn the output ON (lights blue)**. Fixed at 6 V, current limit 1.0 A |
 | HV supply (Matsusada P4L650-0.1) | Right side of the shelf below the oscilloscope | Switch for power ON/OFF → black button at the top to SET the HV → **red button to turn the bias ON**. The supply ramps up automatically. Limit −220 V, current limit 1.0 mA |
 
+<div class="grid" markdown>
+
+<figure markdown="span">
+  ![LV supply (output OFF)](../images/setup/lv-off.jpg){ loading=lazy }
+  <figcaption>LV supply (R&S NGP800) with the output OFF</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![LV supply (output ON)](../images/setup/lv-on.jpg){ loading=lazy }
+  <figcaption>LV output ON (CH1: 6.000 V, about 0.47 A). The OUTPUT button lights blue</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![HV supply (output OFF)](../images/setup/hv-off.jpg){ loading=lazy }
+  <figcaption>HV supply (Matsusada P4L650-0.1) with the bias OFF</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![HV supply (bias ON)](../images/setup/hv-on.jpg){ loading=lazy }
+  <figcaption>Bias ON (display 189.8 V; a current display of 0.0 mA is normal). Turn the bias ON with the red button at the bottom left</figcaption>
+</figure>
+
+</div>
+
 **Typical currents**: the current limits are set to 1.0 mA (HV) and 1.0 A (LV). In normal operation the HV current is about 0.4–5 µA (depends on the bias voltage; the supply displays 0.0 mA)
 and the LV current is about 0.450 A. If the readings are far from these, turn the bias OFF and find the cause.
 
@@ -86,10 +160,29 @@ The readout board is mounted by inserting it into a fixing jig. For the first ti
 
 1. Set the laser to [Emission OFF (ld=0)] and turn the HV bias OFF. The supply ramps down automatically, so **wait until the HV display reads 0 V** before turning the LV OUTPUT OFF.
 2. Disconnect the MCX–BNC cables.
-3. The red fixing rod is hard to remove by hand, so **pull it out with thin pliers**. **Take care not to damage the sensor or the objective.**
+3. The red fixing rods (the red pins at both ends of the board in the photo below) are hard to remove by hand, so **pull it out with thin pliers**. **Take care not to damage the sensor or the objective.**
 4. Pull the board out of the fixing jig and insert the new board. Tape or the like stuck on the board makes it hard to insert, so peel it off.
 5. Connect the MCX–BNC cables to the channels you want to see.
 6. Select that sensor in the GUI ([register](sensor.md#new-sensor) it if it is new). The position changes after a swap, so run a [Full Calibration](../measurement/alignment.md#full-calibration).
+
+<div class="grid" markdown>
+
+<figure markdown="span">
+  ![Fixing jig and red fixing rods](../images/setup/board-fixing-rods.jpg){ loading=lazy }
+  <figcaption>Board inserted in the fixing jig. The red pins at both ends are the fixing rods. The objective is directly above, so do not hit it when pulling them out</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![Board and signal cables](../images/setup/board-cables.jpg){ loading=lazy }
+  <figcaption>MCX connectors on the board and the MCX–BNC cables. Check the CH by the cable labels</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![Readout board alone](../images/setup/readout-board.jpg){ loading=lazy }
+  <figcaption>The readout board on its own (with a ruler for scale; graduations in cm)</figcaption>
+</figure>
+
+</div>
 
 ## Connections and addresses
 
@@ -104,6 +197,8 @@ per-PC differences are overridden in `config_local.json` ([Control PC and softwa
 | Camera | Focus camera | USB. OpenCV (DirectShow preferred on Windows) | Device index `0` |
 
 - The IP addresses, ports and user names of the devices are in [Internal information](../internal.md#network) (password protected).
+- The control PC and the devices are on the same LAN segment. Set the control PC's **subnet mask to 255.255.255.0**
+  (with 255.255.255.255, even devices on the same segment are not reached directly and the stage stops responding; see [Troubleshooting](../reference/troubleshooting.md#connection)).
 - The oscilloscope is synchronized by feeding the laser TRIG OUT into its external trigger (EXT).
 - Scope data are retrieved to the PC over SSH/SFTP (user name: [Internal information](../internal.md#accounts); ask the contact person for the password).
 
