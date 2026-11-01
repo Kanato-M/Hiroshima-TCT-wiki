@@ -29,8 +29,9 @@ Standard measurement conditions and GUI defaults. The values come from `config.p
 | Item | Value | Notes |
 | --- | --- | --- |
 | Trigger source | internal (ts=0) | The laser is the reference clock |
-| Rep. rate | **1 MHz** | Can be changed. Note that the GUI initial value is 1.25 MHz |
-| TUNE | manual **50 %** | Adjusted to MIP-equivalent at 1 MHz (2026-10). 0 % strongest, 100 % weakest |
+| Rep. rate | **1 MHz** | The GUI standard since the 2026-11-01 version (the preset reads "1 MHz (standard)"). In older versions the initial value was 1.25 MHz |
+| TUNE | manual **50 %** | Adjusted to MIP-equivalent at 1 MHz. 0 % strongest, 100 % weakest |
+| One-click setting | [★ Apply Standard Settings (1 MHz / TUNE manual 50% = MIP equiv.) ★] | Sends the three items above (internal, 1 MHz, manual 50 %) in one go. The values come from `laser_freq_hz`, `laser_tune_auto` and `laser_tune_percent` in `config.py` |
 | Camera light | OFF during measurement | Operated by hand inside the dark room |
 | TUNE optimization: single-CH target | 200 mV (PKPK) | |
 | TUNE optimization: adjacent 2-ch sum target | 64 mV | MIP-equivalent value at the strip midpoint from the DESY beam test (2026) |

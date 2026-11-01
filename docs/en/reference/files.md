@@ -22,6 +22,8 @@ The files created by the GUI. Waveforms are saved on the scope; records and stat
 | PC | `captures/snap_<datetime>.png` | Camera snapshots |
 | PC | `<transfer_dest_dir>\<year>\<YYYYMMDD>\scan_<datetime>_<tag>\` | Retrieved waveforms |
 | PC | `<workspace>\results\<scan name>\` | Quick-analysis figures, `summary.csv`, `summary.txt`, `numbers.json`, `mean_waveforms.root` |
+| PC | `<workspace>\results\<scan name>\paper_plots\` | Paper figures 01–09 of the 2dYX template-fit analysis, `numbers.json`, `key_numbers.csv` ([Template-fit analysis](../measurement/data.md#template)) |
+| PC | `<workspace>\results\<scan name>\pix01–06_*.png`, `pixel\` | Figures of the pixel analysis, plus `cells.csv`, `numbers.json`, etc. |
 | PC | `<scan folder>.root` | ROOT file combining the `.trc` files (with [Convert to ROOT]) |
 
 In simulation mode, `logs_sim/` is used instead of `logs/`.
@@ -42,7 +44,7 @@ The first 4 lines are comments starting with `#`, line 5 has the column names, a
 | --- | --- | --- |
 | 1 | `# AC-LGAD 自動スキャン記録 <start datetime>` (English UI: `# AC-LGAD auto scan log <start datetime>`) | Title |
 | 2 | `# mode= total_points= segments= settle_s= prefix= save_dir=` | Mode (1d, 2d, tune, 1d_tune), total points, segments, settle time, prefix, save folder on the scope |
-| 3 | `# sensor= z_follow= z_points_um=[..]` | Sensor ID, Z tracking mode (`coef_origin`, `coef_current`, `points`, `off`), measured Z |
+| 3 | `# sensor= z_follow= z_points_um=[..]` | Sensor ID, Z tracking mode (`coef_origin`, `coef_current`, `points`, `off`), measured Z. For pixel sensors `sensor_type=pixel` is also written, and the [Analysis] tab uses it to select the pixel analysis |
 | 4 | `# tilt_correct= rot_correct= dzdx= dzdy= dydx= base_pos_um=(x,y,z)` | Whether Z tracking and rotation tracking are on, tilt coefficients [µm/µm], stage position at start |
 | 5 | `index,x_um,y_um,z_um,tune_pct,status,timestamp` | Column names. `tune_pct` is filled only in modes that sweep TUNE |
 

@@ -4,7 +4,17 @@ Scan coordinates are relative to the [logical origin](../setup/sensor.md#logical
 This page explains **Find Origin**, which determines the logical origin; **Full Calibration**, which measures the sensor tilt; and **Z Focus**, which only adjusts the focus.
 All operations are done in the **[Alignment] tab** of the stage panel.
 
-![[Alignment] tab of the stage panel](../images/gui/stage-align-tab.png){ width="480" }
+<figure markdown="span">
+  ![[Alignment] tab of the stage panel](../images/gui/stage-align.png){ width="560" }
+  <figcaption>[Alignment] tab of the stage panel</figcaption>
+</figure>
+
+| Area | Contents | Details |
+| --- | --- | --- |
+| Top rows (CH, Z range, step, method, [Z Focus]) | Adjust the focus only | [Z Focus](#z-focus) |
+| "Auto Alignment (signal-based)" group | [Find Origin] and [Full Calibration] with their options | [Find Origin](#origin), [Full Calibration](#full-calibration) |
+| Gray text below the group | Measurement points of Full Calibration (can be changed in the sensor editor) | [Full Calibration](#full-calibration) |
+| "Tilt coefficients" at the bottom | The currently active dZ/dX, dZ/dY, dY/dX and their source | [Source of the coefficients](#coefficients) |
 
 ## The laser signal itself is the ruler
 
@@ -31,9 +41,11 @@ so the dip and edges of the amplitude profile give the position with µm precisi
 
 Press **[Find Origin (Z→Y→X→R:W)]**.
 
+![Auto Alignment group](../images/gui/stage-align-box.png){ width="560" }
+
 | Option | Default | Description |
 | --- | --- | --- |
-| [Laser ON at start] | — | Turns the laser ON automatically if it is OFF |
+| [Laser ON at start] | OFF | Turns the laser ON automatically if it is OFF |
 | [Pre-move to start] | OFF | Turn ON when redoing it from an already-aligned state (logical origin = on the outer frame edge, no signal). Moves to the start position (on the reference strip, 100 µm inside the end) based on the current logical origin before starting |
 | [Fine finishing + verification (recommended, 2–3× longer)] | ON | Fine sweeps in single-pulse steps with fits, and verification after R:W |
 
@@ -90,7 +102,40 @@ The result dialog shows the measured spacing of adjacent electrodes and the resi
     Z is only determined in 2 µm steps and the valley is shallow. **If the Z residuals exceed a few µm** or **the coefficients changed a lot since last time**,
     re-run it or set the scan Z tracking to the "Measured Z" method ([Auto scan](scans.md#z-follow)).
 
-The measurement points and offsets come from the current sensor profile. For non-standard sensors, check the measurement points in the sensor editor.
+The measurement points and offsets come from the current sensor profile. The measurement points of the current sensor are shown in gray text below the [Full Calibration] button.
+For non-standard sensors, check the measurement points in the sensor editor.
+
+## Find Origin and Full Calibration for pixel sensors { #pixel }
+
+When you select a **pixel-type** profile with [Sensor] in the toolbar, the same [Find Origin] and [Full Calibration] buttons automatically switch to the pixel procedure.
+
+- **Start position**: put the beam **on the bonding pad of the reference CH, or within ±50 µm of the pad** (unlike "50–200 µm inside the end" for strip sensors).
+- **Logical origin**: the **+X/+Y corner** of the reference CH's pad. For the coordinate definition, see [Pixel sensors](../setup/sensor.md#pixel).
+
+| | Strip type | Pixel type |
+| --- | --- | --- |
+| Ruler | Electrode (line with zero signal) and the end of the exposed area | Bonding pad (square with zero signal) |
+| Find Origin | Y sweep → Z → fine Y → X edge → R:W | **Y dip** of the pad → **Z (minimum amplitude)** on silicon beside the pad → **X dip** of the pad → R:W at the pad corner |
+| Fine finishing + verification | Yes | Yes |
+| Full Calibration | Measures electrode center and Z at 2 X points and on neighboring electrodes | Same measurement on the **pad centers of the other readout pixels**, then plane fit (dZ/dX, dZ/dY), dY/dX along the row, and a pitch check |
+
+!!! warning "Pixel Full Calibration has not been run on the real setup"
+    As of 2026-11-01, Find Origin and Full Calibration for pixel sensors have been confirmed to agree within one pulse on a simulated sensor, but **they have not yet been run on the real setup**.
+    Compare the results with previous values and with the camera view, and do not use them if they look wrong.
+    The lever arm of the Full Calibration is only one pitch (about 500 µm), so the coefficients are only a rough guide.
+    Note that the pixel analysis detects the pad positions automatically from the amplitude, so a small offset of the origin does not change the analysis results.
+
+## Source of the coefficients { #coefficients }
+
+The coefficients used for the tilt correction of scans are determined in the following order.
+
+1. Coefficients saved in the sensor profile (Full Calibration or [Edit coefficients...])
+2. For the standard sensor only, the defaults in `scan_geometry.py` (camera measurement on 2026-08-24)
+3. For any other uncalibrated sensor, 0 (no correction)
+
+The currently active coefficients and their source are shown both at the bottom of the [Alignment] tab and in the "Tilt correction" group of the auto scan panel.
+They are updated after every calibration, manual entry and sensor switch. The `[scan_geometry default (camera, 2026-08-24)]` in the screenshot above means that
+the standard sensor has not yet been fully calibrated.
 
 ## Entering coefficients manually
 
@@ -105,6 +150,9 @@ to set the end points for the scan [Measured Z method](scans.md#z-follow) or to 
 1. Laser ON; put the beam **on the silicon next to a strip** (where the signal is clearly visible; not directly above an electrode).
 2. Select [CH], [Z range ±] (default ±20 µm), [step] (default 2 µm = Z resolution) and the method (default "Min amplitude (focus)").
 3. Press **[Z Focus]**. It sweeps in one direction from below (against backlash) and moves automatically to the Z at the center of the valley. Takes about 20–30 s.
+4. If you start a scan right away, set Z tracking to "Coefficients (focus at current pos.)" to use this Z as the reference plane over the whole area ([Z tracking](scans.md#z-follow)).
+
+While it runs, the scope is switched to sequence OFF and trigger NORM (they are set again when a scan starts, so you do not need to restore them).
 
 - The sweep curve is saved in `logs/autofocus_<datetime>.csv`.
 - If it reports that the valley cannot be identified, widen the range to ±30–50 µm or reposition the beam and run it again.

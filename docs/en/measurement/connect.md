@@ -58,7 +58,7 @@ and scope-channel-to-readout-pad mapping with those of the selected sensor.
 
 Bring the beam roughly to the position where Find Origin starts. The target is **on the reference strip (C1 for the standard sensor), 50–200 µm inside the readout-side end of the exposed area** (about ±100 µm accuracy is enough).
 
-![[Positions] tab of the stage panel](../images/gui/stage-position-tab.png){ width="480" }
+![[Positions] tab of the stage panel](../images/gui/stage-positions.png){ width="480" }
 
 ### If an origin is saved (normal case)
 
@@ -89,19 +89,28 @@ Using the camera **crosshair** as a guide, jog to the same position in the [Move
 | Function | Description |
 | --- | --- |
 | [Go to strip] | Select a CH and a place (Readout-side end / Middle / Far end); the coordinates are calculated from the sensor geometry and tilt coefficients and the stage moves there. **The destination is on the electrode center line, where there is no signal**, so before TUNE optimization or Z focus, shift Y by a few tens of µm to put the beam on silicon |
+| [Go to pixel] (pixel sensors) | Select a CH and a place (Beside pad (signal) / Pad center (no signal) / 4-pixel corner) and the stage moves there |
 | [Add Current Position] | Save the current position with a name. A position saved with [Save as logical] points to the same place on the sensor even after redoing Find Origin. A position saved with [Save as machine] is used for coarse positioning before the origin is found |
 | [Go to Selected] / double-click | Move to a saved position |
 | [Save Origin] | Save the machine coordinates of the current logical origin to the sensor (Find Origin does this automatically) |
 
-## 1-6. Start laser emission
+## 1-6. Start laser emission { #laser-on }
 
-Set the following in the laser panel and press the corresponding **[Apply]** to send each one.
+![Laser panel](../images/gui/laser-panel.png){ width="480" }
 
-| Item | Setting |
+Press **[★ Apply Standard Settings (1 MHz / TUNE manual 50% = MIP equiv.) ★]** in the laser panel. The following standard conditions are sent in one go.
+
+| Item | Standard |
 | --- | --- |
 | Trigger source | internal (ts=0) (the laser is the reference clock) |
-| Rep. rate | **1 MHz** (standard; can be changed) |
-| TUNE | manual, **50 %** (already adjusted to MIP-equivalent at 1 MHz; normally left unchanged) |
+| Rep. rate | **1 MHz** |
+| TUNE | manual, **50 %** (already adjusted to MIP-equivalent at 1 MHz) |
+
+After sending, check that the status line shows `Trig: internal`, `Freq: 1 MHz` and `Tune: man 50.0%`.
+To use other conditions, change the Trigger source, Rep. rate and TUNE fields and press the corresponding [Apply] for each.
+
+!!! note "Do not set TUNE to auto"
+    With TUNE on auto, the controller uses its calibration value for each rate, and the output is no longer MIP-equivalent.
 
 !!! danger "Before firing the laser"
     Make sure the dark room (dark box) is closed and nobody is inside. The 1064 nm light is invisible ([Safety](../introduction/safety.md)).
@@ -109,16 +118,18 @@ Set the following in the laser panel and press the corresponding **[Apply]** to 
 Then press **[Emission ON (ld=1)]**, check the interlock and optics in the confirmation dialog, and press [Yes].
 The status display shows "Emission: ON" with a red band.
 
-!!! note "Difference from the GUI default"
-    The GUI default repetition rate is 1.25 MHz (TCT rec.), and the main scans in the analysis note (matome) use 40 MHz, but the current standard is 1 MHz.
-    On connecting, the input fields are synchronized to the current values of the device, so check that it is set to 1 MHz.
+!!! note "Difference from the conditions in the analysis note"
+    The main scans in the analysis note (matome) were taken at 40 MHz, but the current standard is 1 MHz. The rate preset
+    "1.25 MHz (TCT rec.)" is a general recommendation, not the standard for this setup.
 
 !!! warning "Re-adjust TUNE after changing the rate"
     The optimal TUNE depends on the repetition rate. If you change the rate while keeping a manual TUNE tuned for another rate, the laser can drop below
     the lasing threshold and emit no light. TRIG OUT keeps coming in this case, so the scope waveform keeps updating but stays flat.
     Redo [TUNE optimization](tune.md) after changing the rate.
 
-## 1-7. Apply standard oscilloscope settings
+## 1-7. Apply standard oscilloscope settings { #scope-standard }
+
+![[Trigger/Sweep] tab of the oscilloscope panel](../images/gui/scope-trigger.png){ width="480" }
 
 1. Press **[Start Mirror]** in the oscilloscope panel to show the scope screen in the GUI.
 2. Press **[★ Apply Standard Settings ★]** in the [Trigger/Sweep] tab.

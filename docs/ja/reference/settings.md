@@ -29,8 +29,9 @@
 | 項目 | 値 | 備考 |
 | --- | --- | --- |
 | トリガーソース | internal (ts=0) | レーザーが基準クロック |
-| 繰り返し周波数 | **1 MHz** | 変更可能。GUI の初期値は 1.25 MHz なので注意 |
-| TUNE | manual **50 %** | 1 MHz で MIP 相当に調整済み（2026-10）。0 % が最強、100 % が最弱 |
+| 繰り返し周波数 | **1 MHz** | 2026-11-01 版から GUI の標準（プリセットの表示は「1 MHz (標準)」）。旧版の初期値は 1.25 MHz だった |
+| TUNE | manual **50 %** | 1 MHz で MIP 相当に調整済み。0 % が最強、100 % が最弱 |
+| 一括設定 | [★ 標準設定を適用 (1 MHz / TUNE manual 50% = MIP 相当) ★] | 上の 3 つ（internal・1 MHz・manual 50 %）をまとめて送る。`config.py` の `laser_freq_hz`、`laser_tune_auto`、`laser_tune_percent` が元の値 |
 | カメラ用照明 | 測定中は OFF | 暗室内で手動操作 |
 | TUNE 最適化：単一 CH の目標 | 200 mV（PKPK） | |
 | TUNE 最適化：隣接 2ch 合計の目標 | 64 mV | DESY ビームテスト (2026) のストリップ中間の MIP 相当値 |

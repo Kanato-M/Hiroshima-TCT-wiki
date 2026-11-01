@@ -3,6 +3,10 @@
 Coordinates, scan ranges and origin finding in the GUI all work in the "logical coordinates of the sensor".
 To use the GUI correctly, first understand how the coordinates are defined on this page.
 
+There are two kinds of sensors, **strip type** and **pixel type**, selected with [Type] in the sensor editor (since the 2026-10-16 version).
+The type changes the definition of the logical origin, the Find Origin and Full Calibration procedures, the default scan range, the stage's [Go to strip] / [Go to pixel], and the analysis type.
+Unless otherwise noted, the following describes the standard sensor (strip type). For the pixel type, see [Pixel sensors](#pixel).
+
 ## Geometry of the standard sensor
 
 The standard sensor is an HPK strip AC-LGAD with 500 µm pitch and about 10 mm length.
@@ -73,37 +77,83 @@ saved positions and the scope CH to readout pad map with those of that sensor.
 
 | Item | Content |
 | --- | --- |
-| Geometry | Strip pitch, electrode (metal) width, offset from the frame edge to the start of the exposed strip, exposed strip length, end gap |
-| Readout | Pad name for each scope CH, electrode center Y (reference CH = 0), used or not, reference CH |
+| Name, note | Name shown in the list, and a free-text note |
+| Type | Strip / Pixel |
+| Geometry (strip) | Strip pitch, electrode (metal) width, offset from the frame edge to the start of the exposed strip, exposed strip length, end gap |
+| Geometry (pixel) | Pixel pitch, bonding-pad size (the signal-free square; the ruler for Find Origin) |
+| Readout | For each scope CH, used or not and the pad name; reference CH. Strip: electrode center Y (reference CH = 0). Pixel: pixel (column, row) |
 | Default scan range | Start, stop and step of the fast axis Y and the slow axis X |
-| Full calibration points | X points, Y points (in the form "Y:CH"), Y offset from the electrode center for Z measurement and X-edge detection, half-width of the Y sweep |
+| Full calibration points | Strip: X points, Y points (in the form "Y:CH"), Y offsets for Z measurement and X-edge detection, half-width of the Y sweep. Pixel: pad centers of the readout pixels other than the reference (automatic), Y offset for Z measurement, half-width of the Y sweep |
 | Tilt coefficients | dZ/dX, dZ/dY, dY/dX |
 | Saved origin | Machine coordinates of the logical origin. Updated automatically on each origin finding |
 | Saved positions | Name and coordinates (logical or machine coordinates) |
 
-Three profiles are registered from the start:
+As of 2026-11-01, `sensors.json` on the control PC contains the following 7 profiles.
 
-| Sensor | Status |
+| Sensor (ID) | Type | Status / use |
+| --- | --- | --- |
+| Standard strip (500 µm pitch, 10 mm) (`strip500_std`) | Strip | Contains measured values (`scan_geometry.py`). Normally use this one |
+| 4col (1000 µm pitch) (`4col_1000`) | Strip | **Template with unconfirmed dimensions except the pitch.** Correct them to measured values before use |
+| Variable pitch (500 µm section) (`varpitch_500`) | Strip | Same as above |
+| Standard strip 2x2 measurement (500 µm pitch, 10 mm) (`2x2_500_m_10_mm`) | Strip | Profile for the scan across 2 columns (the segment boundary) in the central region of the 2×2 segmented sensor (SEG scan `scan_20261008_151544_2dYX` in the analysis note matome, 5 µm rows) |
+| pixel#3 2x2 measurement (`pixel_3_2x2`) | Pixel | Measurement of the HPK S16694 pixel sensor read out as 2×2 (2026-10-15). Created with an older version and migrated to the pixel type automatically when the 2026-10-16 version started |
+| pixel#4 2x2 measurement (`pixel_4_2x2`) | Pixel | Measurement of pixel#4 of the same type read out as 2×2 |
+| pixel#4 1x4 measurement (`pixel_4_1x4`) | Pixel | Measurement of 4 pixels of pixel#4 read out in one row (C1→C4 one pitch apart in the +X direction) |
+
+The GUI's initial profiles (when it is first started on a new PC) are the first three above and the pixel-type template
+"Pixel 2x2 (500 µm pitch, 100 µm pad)" (`pixel_2x2_500`, the layout of pixel#3 on 2026-10-15).
+
+## Pixel sensors { #pixel }
+
+For the pixel type, the **bonding pad** (a metal-covered square that gives no signal) is used as the ruler instead of the "frame edge and electrode center" of the strip type.
+
+| Quantity | Definition |
 | --- | --- |
-| Standard strip (500 µm pitch, 10 mm) | Contains measured values (`scan_geometry.py`) |
-| 4col (1000 µm pitch) | **Template with unconfirmed dimensions except the pitch.** Correct them to measured values before use |
-| Variable pitch (500 µm section) | Same as above |
+| Logical origin | **The +X/+Y corner of the reference CH's pad.** The pad spans x, y ∈ [−pad size, 0] |
+| Pixel center | Same as the pad center. Center of the pixel at (column, row) = (−pad/2 − column × pitch, −pad/2 − row × pitch) |
+| Column, row | The reference CH is (0, 0). Columns increase by 1 toward −X, rows toward −Y |
+| 4-pixel corner | (−pad/2 − pitch/2, −pad/2 − pitch/2) |
+| Default scan range | 600 × 600 µm from the pad corner, in 10 µm steps |
 
-`sensors.json` on the control PC also has a 4th profile, "標準ストリップ 2x2 測定 (500 µm ピッチ, 10 mm)" (standard strip 2x2 measurement, ID `2x2_500_m_10_mm`).
-This is the profile used for the scan across 2 columns (the segment boundary) in the central region of the 2×2 segmented sensor
-(SEG scan `scan_20261008_151544_2dYX` in the analysis note matome, 5 µm rows).
+In the standard 2×2 layout (pitch 500 µm, pad 100 µm), the C1 pad center is (−50, −50), C2 is the −X neighbor, C3 the −Y neighbor, C4 the diagonal neighbor,
+and the 4-pixel corner is at (−300, −300) µm.
+
+- The Find Origin and Full Calibration procedures also switch to the pixel versions ([Find Origin for pixel sensors](../measurement/alignment.md#pixel)).
+- The move button in the [Positions] tab of the stage panel becomes [Go to pixel], which can move to "Beside pad (signal)", "Pad center (no signal)" and "4-pixel corner".
+- The adjacent 2ch pairs and midpoint positions for TUNE optimization are also determined from this geometry.
+- `sensor_type=pixel` is written in the scan log header, and the [Analysis] tab automatically selects the `pixel` analysis ([Analysis](../measurement/data.md#analysis)).
+- The analysis (`tt_pixel.py`) detects the pad positions automatically from the amplitude, so a small offset of the origin does not change the analysis results.
 
 ### Registering a new DUT { #new-sensor }
 
-![Sensor edit dialog](../images/gui/sensor-dialog.png){ width="420" align=right }
+=== "Strip type"
+
+    <figure markdown="span">
+      ![Sensor edit dialog (strip type)](../images/gui/sensor-dialog-strip.png){ width="460" }
+      <figcaption>The standard strip opened in the editor</figcaption>
+    </figure>
+
+=== "Pixel type"
+
+    <figure markdown="span">
+      ![Sensor edit dialog (pixel type)](../images/gui/sensor-dialog-pixel.png){ width="460" }
+      <figcaption>[Type] switched to Pixel (switched on the standard strip profile for illustration; columns and rows are still 0)</figcaption>
+    </figure>
+
+The bottom of the dialog shows the sensor's tilt coefficients and their source, the saved origin (machine coordinates), and the number of saved positions.
+The screenshots were taken in simulation, so the numbers differ from the real setup.
 
 1. Select a similar sensor with [Sensor] in the toolbar.
-2. Press [Edit...] (figure on the right).
-3. Update the geometry (pitch, electrode width, frame edge → strip start offset, exposed length, end gap).
-4. Update the readout (pad name, electrode center Y and use flag for each CH, reference CH).
-   For equal spacing, use [Fill Y from pitch].
-5. Press [Derive from geometry] to regenerate the scan range and calibration points.
-6. Press [Save As New Sensor].
+2. Press [Edit...].
+3. Update [Name] and [Note], and select the [Type].
+4. Update the geometry.
+    - Strip: pitch, electrode width, frame edge → strip start offset, exposed length, end gap
+    - Pixel: pixel pitch, pad size
+5. Update the readout (use flag and pad name for each CH, reference CH).
+    - Strip: electrode center Y. For equal spacing, use [Fill Y from pitch].
+    - Pixel: (column, row) of each CH. For 2×2, [Standard 2x2 layout] fills in C1 (0,0), C2 (1,0), C3 (0,1), C4 (1,1).
+6. Press [Derive from geometry] to regenerate the scan range and calibration points.
+7. Press [Save As New Sensor]. To just fix an existing sensor, press [Save].
 
 !!! note
     A sensor saved under a new name does **not inherit** tilt coefficients, saved origin or saved positions.
@@ -111,6 +161,5 @@ This is the profile used for the scan across 2 columns (the segment boundary) in
 
 !!! tip "Matching the X origin to the real dimensions"
     Origin finding takes "the X edge where the signal disappears (boundary between pad region and exposed strip) + the design offset of 632 µm" as the frame edge.
-    If the real dimensions differ from the design, adjust "Frame edge → strip start" in the sensor editor.
+    If the real dimensions differ from the design, adjust "Frame edge → exposed start" in the sensor editor.
 
-<div style="clear: both;"></div>

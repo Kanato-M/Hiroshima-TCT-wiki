@@ -19,6 +19,20 @@
 - If anything seems wrong, press **[■ STOP ALL]** at the right end of the toolbar (aborts the task → laser OFF → stops the stage → scope STOP).
 
 - The green safety goggles are kept near the dark room on the central workbench.
+
+<div class="grid" markdown>
+
+<figure markdown="span">
+  ![Safety goggles](../images/setup/goggles.jpg){ loading=lazy }
+  <figcaption>Green laser safety goggles (Riken Optech YG-EP) and case. Always wear them when entering the dark room while the laser is emitting</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![Label on the laser head](../images/setup/laser-head-class1.jpg){ loading=lazy }
+  <figcaption>"CLASS 1 LASER PRODUCT" label on the laser head</figcaption>
+</figure>
+
+</div>
 - Laser safety officers: see [Internal information](../internal.md#contacts) (password protected)
 
 ## Stage (collision with the objective)

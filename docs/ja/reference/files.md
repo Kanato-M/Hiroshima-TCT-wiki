@@ -22,6 +22,8 @@ GUI が作るファイルの一覧です。波形はオシロ本体に、記録�
 | PC | `captures/snap_<日時>.png` | カメラのスナップショット |
 | PC | `<transfer_dest_dir>\<年>\<YYYYMMDD>\scan_<日時>_<タグ>\` | 回収した波形 |
 | PC | `<workspace>\results\<スキャン名>\` | 簡易解析の図、`summary.csv`、`summary.txt`、`numbers.json`、`mean_waveforms.root` |
+| PC | `<workspace>\results\<スキャン名>\paper_plots\` | 2dYX のテンプレートフィット解析の論文図 01–09、`numbers.json`、`key_numbers.csv`（[テンプレートフィット解析](../measurement/data.md#template)） |
+| PC | `<workspace>\results\<スキャン名>\pix01–06_*.png`、`pixel\` | ピクセル解析の図と、`cells.csv`・`numbers.json` など |
 | PC | `<スキャンフォルダ>.root` | `.trc` をまとめた ROOT ファイル（[ROOT 変換も行う] のとき） |
 
 シミュレーションモードでは `logs/` の代わりに `logs_sim/` が使われます。
@@ -42,7 +44,7 @@ GUI が作るファイルの一覧です。波形はオシロ本体に、記録�
 | --- | --- | --- |
 | 1 | `# AC-LGAD 自動スキャン記録 <開始日時>` | 見出し |
 | 2 | `# mode= total_points= segments= settle_s= prefix= save_dir=` | モード（1d、2d、tune、1d_tune）、総点数、セグメント数、整定時間、prefix、オシロ側の保存先 |
-| 3 | `# sensor= z_follow= z_points_um=[..]` | センサー ID、Z 追従の方式（`coef_origin`、`coef_current`、`points`、`off`）、実測 Z |
+| 3 | `# sensor= z_follow= z_points_um=[..]` | センサー ID、Z 追従の方式（`coef_origin`、`coef_current`、`points`、`off`）、実測 Z。ピクセル型のセンサーでは `sensor_type=pixel` も書かれ、[解析] タブはこれで pixel 解析を選ぶ |
 | 4 | `# tilt_correct= rot_correct= dzdx= dzdy= dydx= base_pos_um=(x,y,z)` | Z 追従と回転追従の有無、傾き係数 [µm/µm]、開始時のステージ位置 |
 | 5 | `index,x_um,y_um,z_um,tune_pct,status,timestamp` | 列名。`tune_pct` は TUNE を掃引するモードでだけ値が入る |
 

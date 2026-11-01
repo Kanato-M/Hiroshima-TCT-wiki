@@ -29,17 +29,67 @@ flowchart LR
     PC ---|USB| CAM
 ```
 
-## 写真
+## 写真 { #photos }
 
 <div class="grid" markdown>
 
-![暗室内の全景](../images/setup/darkroom-overview.jpg)
+<figure markdown="span">
+  ![暗室の全景](../images/setup/darkroom-wide.jpg){ loading=lazy }
+  <figcaption>暗室（部屋全体）の中の測定台。左にオシロ、中央奥にファイバーと光学系、右にステージ</figcaption>
+</figure>
 
-![50 倍対物レンズと読み出しボード](../images/setup/objective-and-board.jpg)
+<figure markdown="span">
+  ![測定台の近景](../images/setup/darkroom-overview.jpg){ loading=lazy }
+  <figcaption>測定台の近景。左からオシロ、ファイバー・光学系、対物レンズとステージ。手前はジョイスティック JS-301</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![対物レンズと読み出しボード](../images/setup/objective-and-board.jpg){ loading=lazy }
+  <figcaption>50 倍対物レンズ（PAL-50-NIR-L）と、ステージ上の読み出しボード</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![ステージ上の読み出しボード](../images/setup/board-on-stage.jpg){ loading=lazy }
+  <figcaption>ステージ上の固定ジグに差し込んだ読み出しボード。手前の MCX–BNC ケーブルに CH のラベル（ch5, ch8 など）</figcaption>
+</figure>
 
 </div>
 
-*左：暗室内の全景（左からオシロ、ファイバー・光学系、ステージ）。右：50 倍対物レンズと読み出しボード。*
+### 各機器 { #equipment-photos }
+
+<div class="grid" markdown>
+
+<figure markdown="span">
+  ![レーザーヘッド](../images/setup/laser-head-class1.jpg){ loading=lazy }
+  <figcaption>PiLAS のレーザーヘッド。「CLASS 1 LASER PRODUCT」のラベル</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![レーザーコントローラ](../images/setup/laser-controller.jpg){ loading=lazy }
+  <figcaption>PiLAS コントローラ（暗室の左奥）。右下の鍵で電源 ON</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![ステージコントローラ](../images/setup/stage-controller.jpg){ loading=lazy }
+  <figcaption>ステージコントローラ SHRC-203（作業台の下）。電源スイッチは右下</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![ジョイスティック](../images/setup/joystick.jpg){ loading=lazy }
+  <figcaption>ジョイスティック JS-301。M-ORG で原点復帰できるが、GUI の [機械原点復帰 (H:W)] を使う（<a href="../sensor/#machine">理由</a>）</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![オシロスコープ](../images/setup/oscilloscope.jpg){ loading=lazy }
+  <figcaption>オシロスコープ LeCroy WavePro 804HD（暗室の左側）。電源ボタンは左下</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![カメラ用照明](../images/setup/camera-light.jpg){ loading=lazy }
+  <figcaption>カメラ用可視光の光源。右下の赤いスイッチで ON/OFF。<strong>測定中は必ず OFF</strong></figcaption>
+</figure>
+
+</div>
 
 ## 構成機器
 
@@ -75,6 +125,30 @@ flowchart LR
 | LV 電源（R&S NGP800） | オシロスコープの下の台の左側 | 左下のボタンで ON → CH1 に設定 → **OUTPUT ボタンで出力 ON（青色に点灯）**。6 V 固定、電流制限 1.0 A |
 | HV 電源（Matsusada P4L650-0.1） | オシロスコープの下の台の右側 | スイッチで電源 ON/OFF → 一番上の黒ボタンで HV を SET → **赤ボタンでバイアス ON**。昇圧は電源が自動で行う。上限 −220 V、電流制限 1.0 mA |
 
+<div class="grid" markdown>
+
+<figure markdown="span">
+  ![LV 電源（出力 OFF）](../images/setup/lv-off.jpg){ loading=lazy }
+  <figcaption>LV 電源（R&S NGP800）。出力 OFF の状態</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![LV 電源（出力 ON）](../images/setup/lv-on.jpg){ loading=lazy }
+  <figcaption>LV 出力 ON（CH1：6.000 V、約 0.47 A）。OUTPUT ボタンが青く点灯</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![HV 電源（出力 OFF）](../images/setup/hv-off.jpg){ loading=lazy }
+  <figcaption>HV 電源（Matsusada P4L650-0.1）。バイアス OFF の状態</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![HV 電源（バイアス ON）](../images/setup/hv-on.jpg){ loading=lazy }
+  <figcaption>バイアス ON（表示 189.8 V、電流表示 0.0 mA が正常）。左下の赤ボタンでバイアス ON</figcaption>
+</figure>
+
+</div>
+
 **電流の目安**：電流制限は HV 1.0 mA、LV 1.0 A に設定済みです。正常なときの電流は、HV が 0.4〜5 µA 程度（バイアス電圧に依存。電源の表示は 0.0 mA）、
 LV が約 0.450 A です。これから大きく外れていたら、バイアスを OFF にして原因を確認してください。
 
@@ -86,10 +160,29 @@ LV が約 0.450 A です。これから大きく外れていたら、バイア�
 
 1. レーザーを [発振 OFF (ld=0)] にし、HV のバイアスを OFF にする。降圧は電源が自動で行うので、**HV の表示が 0 V になったのを確認してから** LV の OUTPUT を OFF にする。
 2. MCX–BNC ケーブルを外す。
-3. 赤色の固定棒は手では取りにくいので、**細いペンチで引き抜く**。このとき **センサーと対物レンズを傷つけないよう注意** する。
+3. 赤色の固定棒（下の写真のボード両端の赤いピン）は手では取りにくいので、**細いペンチで引き抜く**。このとき **センサーと対物レンズを傷つけないよう注意** する。
 4. ボードを固定ジグから抜き、新しいボードを差し込む。ボードにテープなどが貼られていると差し込みにくいので、はがしておく。
 5. 見たいチャンネルに MCX–BNC ケーブルをつなぐ。
 6. GUI で、そのセンサーを選ぶ（新しいセンサーなら [登録](sensor.md#new-sensor)）。載せ替え後は位置が変わるので、[フル較正](../measurement/alignment.md#full-calibration) を行う。
+
+<div class="grid" markdown>
+
+<figure markdown="span">
+  ![固定ジグと赤い固定棒](../images/setup/board-fixing-rods.jpg){ loading=lazy }
+  <figcaption>固定ジグに差し込んだボード。両端の赤いピンが固定棒。真上に対物レンズがあるので、抜くときに当てない</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![ボードと信号ケーブル](../images/setup/board-cables.jpg){ loading=lazy }
+  <figcaption>ボードの MCX 端子と MCX–BNC ケーブル。ケーブルのラベルで CH を確認する</figcaption>
+</figure>
+
+<figure markdown="span">
+  ![読み出しボード単体](../images/setup/readout-board.jpg){ loading=lazy }
+  <figcaption>読み出しボード単体（定規で大きさの目安。目盛りは cm）</figcaption>
+</figure>
+
+</div>
 
 ## 接続とアドレス
 
@@ -104,6 +197,8 @@ PC ごとの違いは `config_local.json` で上書きします（[制御 PC と
 | カメラ | フォーカスカメラ | USB。OpenCV（Windows では DirectShow を優先） | デバイス番号 `0` |
 
 - 各機器の IP アドレス・ポート・ユーザー名は [内部情報](../internal.md#network)（パスワード付き）にあります。
+- 制御 PC と機器は同じセグメントの LAN にあります。制御 PC の **サブネットマスクは 255.255.255.0** にします
+  （255.255.255.255 にすると同じセグメントの機器にも直接届かず、ステージが応答しなくなります。[トラブルシューティング](../reference/troubleshooting.md#connection)）。
 - オシロスコープは、レーザーの TRIG OUT を外部トリガー (EXT) に入れて同期させます。
 - オシロのデータは SSH/SFTP で PC に回収します（ユーザー名は [内部情報](../internal.md#accounts)。パスワードは問い合わせ先に聞いてください）。
 
