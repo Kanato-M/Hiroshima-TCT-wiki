@@ -28,6 +28,7 @@ mkdocs serve
 | `docs/ja/` | 日本語ページ（デフォルト） / Japanese pages (default) |
 | `docs/en/` | 英語ページ / English pages |
 | `mkdocs.yml` | サイト設定・ナビゲーション / Site config and navigation |
+| `gui/laser_gui/`, `gui/laser_gui_en/` | 制御 GUI のコード（日本語 / 英語 UI 版。IP アドレスなどはプレースホルダ、実際の値は `config_local.json` に書く） / Control GUI code (Japanese / English UI; IP addresses etc. are placeholders, put the real values in `config_local.json`) |
 | `.github/workflows/deploy.yml` | GitHub Pages への自動デプロイ / Automatic deployment to GitHub Pages |
 
 ## 公開 / Deployment

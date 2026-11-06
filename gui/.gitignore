@@ -1,0 +1,10 @@
+# 実機の IP・ユーザー名などを書くファイル（公開しない） / holds the real device addresses — never commit
+config_local.json
+# 実行時に作られるもの / generated at run time
+logs/
+logs_sim/
+captures/
+debug/
+docs/screenshots/
+__pycache__/
+*.pyc

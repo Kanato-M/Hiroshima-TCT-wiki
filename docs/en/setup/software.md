@@ -9,7 +9,7 @@ This page explains how to install the GUI, the initial settings on the device si
 | --- | --- |
 | User name and password | See [Internal information](../internal.md#accounts) (ask the contact person for the password) |
 | GUI folders | `~/workspace/laser_gui/` (Japanese UI version), `~/workspace/laser_gui_en/` (English UI version) |
-| Where to get the code | The latest version will be published on GitHub (not yet public) |
+| Where to get the code | [`gui/laser_gui/`](https://github.com/Kanato-M/Hiroshima-TCT-wiki/tree/main/gui/laser_gui) (Japanese UI) and [`gui/laser_gui_en/`](https://github.com/Kanato-M/Hiroshima-TCT-wiki/tree/main/gui/laser_gui_en) (English UI) in this wiki's repository. See [Installing the GUI from GitHub](#install) |
 | Python | Latest version |
 
 ## GUI versions { #versions }
@@ -32,6 +32,25 @@ Main revision history:
 
 The screenshots in this wiki were generated automatically in simulation mode by `docs/make_screenshots.py`, which comes with the GUI (2026-11-01 version).
 Waveforms and camera images are dummy data, and internal information such as addresses is blacked out.
+
+## Installing the GUI from GitHub { #install }
+
+The GUI code is in `gui/` of the same repository as this wiki. To install it on a PC other than the control PC, or to reinstall it on the control PC:
+
+1. Get the repository and copy `gui/laser_gui_en` (Japanese UI: `gui/laser_gui`) to `~/workspace/`.
+
+    ```bash
+    git clone https://github.com/Kanato-M/Hiroshima-TCT-wiki.git
+    cp -r Hiroshima-TCT-wiki/gui/laser_gui_en ~/workspace/
+    ```
+
+2. In the GUI folder, copy `config_local.example.json` to `config_local.json` and replace the placeholders such as `<SCOPE_IP>` with the real values.
+   The values are on the [Internal information](../internal.md#config) page (password protected).
+
+!!! warning "The public code does not contain the IP addresses etc."
+    In the public repository, the device IP addresses, user names, etc. are replaced by placeholders such as `<SCOPE_IP>`, `<STAGE_IP>` and `<SCOPE_USER>`.
+    If you start the GUI without `config_local.json`, the terminal shows a "real device values are not set" warning and the oscilloscope and stage cannot be connected (simulation mode still works).
+    `config_local.json` is not tracked by git, so the real values are never committed.
 
 ## Required software
 

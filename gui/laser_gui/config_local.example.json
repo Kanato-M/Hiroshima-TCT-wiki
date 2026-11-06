@@ -1,0 +1,7 @@
+{
+  "scope_resource": "VICP::<SCOPE_IP>::INSTR",
+  "scope_save_dir": "C:\\Users\\<SCOPE_WIN_USER>\\Desktop\\data",
+  "scope_smb_user": "<SCOPE_USER>",
+  "scope_smb_root": "\\\\<SCOPE_IP>\\data",
+  "stage_host": "<STAGE_IP>"
+}

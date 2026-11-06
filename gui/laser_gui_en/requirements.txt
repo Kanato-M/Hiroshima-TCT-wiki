@@ -1,0 +1,12 @@
+# Dependencies for the laser-scan front-end GUI
+# On the control PC (Windows / Python 3.10+): pip install -r requirements.txt
+PySide6>=6.6          # GUI framework
+pyvisa>=1.13          # LeCroy oscilloscope control (SCPI over LAN)
+pyvisa-py>=0.7        # pure-Python VISA backend for machines without NI-VISA
+pyserial>=3.5         # PiLAS DX laser (USB virtual COM port) / SHRC-203 (RS-232C)
+opencv-python>=4.8    # focus camera (USB camera) capture and display
+numpy>=1.24
+paramiko>=3.4         # data retrieval (scope → PC, SSH/SFTP)
+# --- for the quick analysis (analysis\) ---
+matplotlib>=3.8       # analysis figures
+uproot>=5.3           # .trc → ROOT file conversion

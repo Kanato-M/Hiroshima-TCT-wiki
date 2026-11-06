@@ -9,7 +9,7 @@
 | --- | --- |
 | ユーザー名・パスワード | [内部情報](../internal.md#accounts) を見る（パスワードは問い合わせ先に聞く） |
 | GUI フォルダ | `~/workspace/laser_gui/`（日本語 UI 版）、`~/workspace/laser_gui_en/`（英語 UI 版） |
-| コードの入手先 | 最新版は GitHub で公開する予定（未公開） |
+| コードの入手先 | この Wiki のリポジトリの [`gui/laser_gui/`](https://github.com/Kanato-M/Hiroshima-TCT-wiki/tree/main/gui/laser_gui)（日本語 UI 版）・[`gui/laser_gui_en/`](https://github.com/Kanato-M/Hiroshima-TCT-wiki/tree/main/gui/laser_gui_en)（英語 UI 版）。導入方法は [GitHub から GUI を入れる](#install) |
 | Python | 最新版 |
 
 ## GUI の版 { #versions }
@@ -32,6 +32,25 @@
 
 この Wiki の画面写真は、GUI 付属の `docs/make_screenshots.py` がシミュレーションモードで自動生成したものです（2026-11-01 版）。
 波形とカメラ画像は疑似データで、接続先などの内部情報は塗りつぶしています。
+
+## GitHub から GUI を入れる { #install }
+
+GUI のコードは、この Wiki と同じリポジトリの `gui/` にあります。制御 PC 以外の PC に入れるときや、制御 PC の GUI を入れ直すときは次の手順で入れます。
+
+1. リポジトリを取得し、`gui/laser_gui`（英語 UI 版は `gui/laser_gui_en`）を `~/workspace/` にコピーします。
+
+    ```bash
+    git clone https://github.com/Kanato-M/Hiroshima-TCT-wiki.git
+    cp -r Hiroshima-TCT-wiki/gui/laser_gui ~/workspace/
+    ```
+
+2. GUI のフォルダで `config_local.example.json` を `config_local.json` にコピーし、`<SCOPE_IP>` などのプレースホルダを実際の値に書き換えます。
+   値は [内部情報](../internal.md#config)（パスワード付き）にあります。
+
+!!! warning "公開版のコードには IP アドレスなどが入っていない"
+    公開リポジトリのコードでは、機器の IP アドレス・ユーザー名などを `<SCOPE_IP>`・`<STAGE_IP>`・`<SCOPE_USER>` などのプレースホルダにしています。
+    `config_local.json` を作らずに起動すると、ターミナルに「実機の値が設定されていません」と警告が出て、オシロ・ステージに接続できません（シミュレーションモードは使えます）。
+    `config_local.json` は git の管理外なので、実際の値をコミットしてしまうことはありません。
 
 ## 必要なソフトウェア
 
